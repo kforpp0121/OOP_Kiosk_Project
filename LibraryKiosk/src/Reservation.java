@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -140,5 +141,31 @@ public class Reservation extends JFrame {
     private void goBack() {
         previousFrame.setVisible(true); // 이전 화면을 보이도록 설정
         dispose(); // 현재 화면 닫기
+    }
+
+    class RoundedBorder extends AbstractBorder {
+        private int radius;
+        private int thickness;
+
+        RoundedBorder(int radius, int thickness) {
+            this.radius = radius;
+            this.thickness = thickness;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(thickness, thickness, thickness, thickness);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) {
+            insets.left = insets.top = insets.right = insets.bottom = thickness;
+            return insets;
+        }
     }
 }

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -135,8 +136,23 @@ public class Search extends JFrame {
 
     // 도서 검색
     private void searchBooks() {
-        String query = searchField.getText();  // 검색창에 입력한 문자열
+        String query = searchField.getText().trim();  // 검색창에 입력한 문자열. 공백 제거.
+
+        // 검색 입력이 없는 경우
+        if (query.isEmpty()) {
+            NeedInput needInput = new NeedInput(this);
+            needInput.setVisible(true);
+            return;
+        }
+
         List<Book> results = bookDatabase.searchBooks(query);  // 데이터베이스에서 문자열에 해당하는 내용을 results에 저장
+
+        // 검색 결과가 없는 경우
+        if (results == null || results.isEmpty()) {
+            NotfoundBook notFoundBook = new NotfoundBook(this);
+            notFoundBook.setVisible(true);
+            return;
+        }
 
         resultPanel.removeAll(); // 이전 결과를 제거
         result_num = 0;          // 결과 개수 변수
@@ -207,5 +223,83 @@ public class Search extends JFrame {
         resultPanel.setPreferredSize(new Dimension(300, result_num*height));
         resultPanel.revalidate(); // UI 업데이트
         resultPanel.repaint();    // UI 업데이트
+    }
+
+    // 검색 하고자 하는 도서가 없을 때
+    class NotfoundBook extends JDialog {
+        public NotfoundBook(JFrame parent) {
+            setTitle("Can Not Found Book");
+            setLayout(new BorderLayout());
+
+            JPanel nullPanel = new JPanel();
+
+            JPanel textPanel = new JPanel();
+            JLabel text = new JLabel("찾으시는 책이 목록에 없습니다.");
+            textPanel.add(text);
+
+            JPanel buttonPanel = new JPanel();
+            JButton button = new JButton("확인");
+            button.addActionListener(e->{setVisible(false);});
+            buttonPanel.add(button);
+
+            add(nullPanel, BorderLayout.NORTH);
+            add(textPanel, BorderLayout.CENTER);
+            add(buttonPanel, BorderLayout.SOUTH);
+
+            setSize(300,150);
+            setLocationRelativeTo(parent);
+        }
+    }
+
+    // 입력이 없을 때
+    class NeedInput extends JDialog {
+        public NeedInput(JFrame parent) {
+            setTitle("Please Enter Book Information");
+            setLayout(new BorderLayout());
+
+            JPanel nullPanel = new JPanel();
+
+            JPanel textPanel = new JPanel();
+            JLabel text = new JLabel("찾으려는 책 제목이나 작가명을 입력해주세요.");
+            textPanel.add(text);
+
+            JPanel buttonPanel = new JPanel();
+            JButton button = new JButton("확인");
+            button.addActionListener(e->{setVisible(false);});
+            buttonPanel.add(button);
+
+            add(nullPanel, BorderLayout.NORTH);
+            add(textPanel, BorderLayout.CENTER);
+            add(buttonPanel, BorderLayout.SOUTH);
+
+            setSize(300,150);
+            setLocationRelativeTo(parent);
+        }
+    }
+
+    class RoundedBorder extends AbstractBorder {
+        private int radius;
+        private int thickness;
+
+        RoundedBorder(int radius, int thickness) {
+            this.radius = radius;
+            this.thickness = thickness;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(thickness, thickness, thickness, thickness);
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) {
+            insets.left = insets.top = insets.right = insets.bottom = thickness;
+            return insets;
+        }
     }
 }

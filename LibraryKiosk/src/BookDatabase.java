@@ -1,7 +1,3 @@
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +12,11 @@ public class BookDatabase {
     }
 
     private void loadBooksFromCSV(String csvFilePath) {
-        try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
-            String[] line;
-            while ((line = reader.readNext()) != null) {  // csv 파일 한 줄씩 읽기. 파일의 끝이면 null 반환.
-                // 제목, 저자, ISBN, 예약 세 가지 정보 추출
-                if (line.length < 6) continue; // 잘못된 형식의 라인 건너뜀.(세 가지 보다 적으면 잘못된 형식)
+        try  {
+            List<String[]> records = CSVReaderAndWriter.readCSV(csvFilePath);
+            for (String[] line : records) {
+                // 제목, 저자, ISBN, 예약, 예약 상태, 이미지 경로 여섯 가지 정보 추출
+                if (line.length < 6) continue; // 잘못된 형식의 라인 건너뜀
                 String title = line[0];          // 제목
                 String author = line[1];         // 저자
                 String isbn = line[2];           // ISBN
@@ -32,8 +28,8 @@ public class BookDatabase {
             for (Book book : books) {
                 System.out.println(book);
             }
-        } catch (IOException | CsvValidationException e) {
-            // IOException 또는 CsvValidationException이 발생하면
+        } catch (IOException e) {
+            // IOException이 발생하면
             // 예외 처리
             e.printStackTrace();
         }
