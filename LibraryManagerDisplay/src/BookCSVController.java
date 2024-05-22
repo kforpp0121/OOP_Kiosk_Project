@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class CSVReaderAndWriter {
+public class BookCSVController {
     private String filePath;
 
-    public CSVReaderAndWriter(String filePath) {
-        this.filePath = filePath;
+    public BookCSVController() {
+        this.filePath = "./test_lib.csv";
     }
 
     public Vector<Vector<String>> readCSV() {
@@ -15,6 +15,7 @@ public class CSVReaderAndWriter {
 
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "utf-8"));
+            br.readLine(); // 첫 번째 줄 스킵 (column 정보)
             while ((line = br.readLine()) != null) {
                 Vector<String> aLine = new Vector<>();
                 String[] lineArr = csvSplit(line);
@@ -37,7 +38,7 @@ public class CSVReaderAndWriter {
         return csvList;
     }
 
-    public void writeCSV(String title, String author, String ISBN) {
+    public void writeCSV(BookInfo book) {
         File csv = new File(filePath);
         BufferedWriter bw = null; // 출력 스트림 생성
         try {
@@ -45,7 +46,7 @@ public class CSVReaderAndWriter {
             // csv파일의 기존 값에 이어쓰려면 위처럼 true를 지정하고, 기존 값을 덮어쓰려면 true를 삭제한다
 
             String aData = "";
-            aData = title + "," + author + "," + ISBN;
+            aData = book.getTitle() + "," + book.getAuthor() + "," + book.getISBN();
             // 한 줄에 넣을 각 데이터 사이에 ,를 넣는다
             bw.write(aData);
             // 작성한 데이터를 파일에 넣는다
@@ -60,6 +61,70 @@ public class CSVReaderAndWriter {
                 if (bw != null) {
                     bw.flush(); // 남아있는 데이터까지 보내 준다
                     bw.close(); // 사용한 BufferedWriter를 닫아 준다
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateCSV(Vector<Vector<String>> books, BookInfo selectedBook, BookInfo newBookInfo) {
+        for (Vector<String> book : books) {
+            if (book.get(0).equals(selectedBook.getTitle()) &&
+                    book.get(1).equals(selectedBook.getAuthor()) &&
+                    book.get(2).equals(selectedBook.getISBN())) {
+                book.set(0, newBookInfo.getTitle());
+                book.set(1, newBookInfo.getAuthor());
+                book.set(2, newBookInfo.getISBN());
+            }
+        }
+
+        // Write the updated list back to the CSV file
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filePath, false)); // Overwrite the existing file
+            for (Vector<String> book : books) {
+                String aData = String.join(",", book);
+                bw.write(aData);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.flush();
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteBook(Vector<Vector<String>> books, BookInfo selectedBook) {
+        books.removeIf(book -> book.get(0).equals(selectedBook.getTitle()) &&
+                book.get(1).equals(selectedBook.getAuthor()) &&
+                book.get(2).equals(selectedBook.getISBN()));
+        writeUpdatedCSV(books);
+    }
+
+    private void writeUpdatedCSV(Vector<Vector<String>> books) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filePath, false)); // Overwrite the existing file
+            for (Vector<String> book : books) {
+                String aData = String.join(",", book);
+                bw.write(aData);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.flush();
+                    bw.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
