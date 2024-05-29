@@ -3,7 +3,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class LibrarySystem {
-    // Ã¥ Á¤º¸ Å¬·¡½º
+    // Ã¥ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
     static class Book {
         String title;
         String author;
@@ -27,7 +27,7 @@ public class LibrarySystem {
         }
     }
 
-    // È¸¿ø Á¤º¸ Å¬·¡½º
+    // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
     static class Member {
         String name;
         String id;
@@ -58,7 +58,7 @@ public class LibrarySystem {
         loadBooks(BOOKS_FILE);
         loadMembers(MEMBERS_FILE);
 
-        // ¿¹½Ã ÀÔ·Â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
         long isbnLong = 9780134685991L;
         String isbnString = Long.toString(isbnLong);
 
@@ -71,7 +71,7 @@ public class LibrarySystem {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[0].equals("TITLE")) continue;  // Header °Ç³Ê¶Ü
+                if (values[0].equals("TITLE")) continue;  // Header ï¿½Ç³Ê¶ï¿½
                 String title = values[0];
                 String author = values[1];
                 String isbn = values[2];
@@ -90,7 +90,7 @@ public class LibrarySystem {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[0].equals("NM")) continue;  // Header °Ç³Ê¶Ü
+                if (values[0].equals("NM")) continue;  // Header ï¿½Ç³Ê¶ï¿½
                 String name = values[0];
                 String id = values[1];
                 String password = values[2];
@@ -103,39 +103,39 @@ public class LibrarySystem {
         }
     }
 
-	//Ã¥ ´ëÃâ
+	//Ã¥ ï¿½ï¿½ï¿½ï¿½
     private static void borrowBook(String isbn, String userId) {
         if (!books.containsKey(isbn)) {
-            System.out.println("Ã¥À» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            System.out.println("Ã¥ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
         Book book = books.get(isbn);
         if (!book.isAvailable) {
-            System.out.println("Ã¥ÀÌ ´ëÃâ ÁßÀÔ´Ï´Ù.");
+            System.out.println("Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
             return;
         }
         book.isAvailable = false;
         saveBooks();
-        System.out.println(userId + "´ÔÀÌ " + book.title + " Ã¥À» ´ëÃâÇß½À´Ï´Ù.");
+        System.out.println(userId + "ï¿½ï¿½ï¿½ï¿½ " + book.title + " Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
     }
 
-	//Ã¥ ¹Ý³³
+	//Ã¥ ï¿½Ý³ï¿½
     private static void returnBook(String isbn, String userId) {
         if (!books.containsKey(isbn)) {
-            System.out.println("Ã¥À» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            System.out.println("Ã¥ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
         Book book = books.get(isbn);
         if (book.isAvailable) {
-            System.out.println("ÀÌ Ã¥Àº ´ëÃâµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
         book.isAvailable = true;
         saveBooks();
-        System.out.println(userId + "´ÔÀÌ " + book.title + " Ã¥À» ¹Ý³³Çß½À´Ï´Ù.");
+        System.out.println(userId + "ï¿½ï¿½ï¿½ï¿½ " + book.title + " Ã¥ï¿½ï¿½ ï¿½Ý³ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
     }
 
-	//Ã¥ ¹× È¸¿øÁ¤º¸ ÀúÀå
+	//Ã¥ ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private static void saveBooks() {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(BOOKS_FILE))) {
             bw.write("TITLE,AUTHOR,ISBN,RV,BOOL,PICTURE\n");
