@@ -13,6 +13,9 @@ public class BookTable extends JPanel{
     JTable bookTable;
     Vector<Vector<String>> bookList;
     public BookTable(Vector<Vector<String>> bookList) {
+        Color green = new Color(0x00469C76);
+        this.setBackground(Color.WHITE);
+
         this.bookList = bookList; // bookList를 받아옴
         JPanel tablePanel = new JPanel(new BorderLayout());
 
@@ -42,7 +45,10 @@ public class BookTable extends JPanel{
         tablePanel.add(sp, BorderLayout.CENTER);
 
         JPanel addBookPanel = new JPanel();
+        addBookPanel.setBackground(Color.WHITE);
         JButton addBook = new JButton("도서 추가");
+        addBook.setPreferredSize(new Dimension(140, 30));
+        addBook.setBackground(green);
         addBook.addActionListener(e->{
             new AddBookDialog(bookList, model).setVisible(true);
         });

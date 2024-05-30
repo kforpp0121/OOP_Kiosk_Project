@@ -12,6 +12,9 @@ public class SelectTaskDialog extends JDialog {
     DefaultTableModel model;
     int row;
     public SelectTaskDialog(Vector<Vector<String>> bookList, BookInfo book, DefaultTableModel model, int row) {
+        Color green = new Color(0x00469C76);
+        Color orange = new Color(0x00EE7930);
+
         this.bookList = bookList;
         this.model = model;
         this.row = row;
@@ -25,7 +28,9 @@ public class SelectTaskDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton updateButton = new JButton("수정");
+        updateButton.setBackground(green);
         JButton deleteButton = new JButton("삭제");
+        deleteButton.setBackground(orange);
 
         // 수정 버튼 -> dialog 띄움
         updateButton.addActionListener(e -> {
@@ -91,7 +96,7 @@ public class SelectTaskDialog extends JDialog {
                     dispose();
 
                     // 완료 다이얼로그 띄우기
-                    JOptionPane.showMessageDialog(null, "도서 삭제가 완료되었습니다.", "도서 삭제 완료", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "도서 삭제가 완료되었습니다.", "도서 삭제 완료", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }

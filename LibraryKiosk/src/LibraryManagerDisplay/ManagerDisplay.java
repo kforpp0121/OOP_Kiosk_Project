@@ -14,11 +14,16 @@ public class ManagerDisplay {
 
         Vector<Vector<String>> bookList = bookCSVController.readCSV(); // csv파일로부터 bookList를 읽어옴
 
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+
         JPanel searchBarPanel = new SearchBar(bookList); // 검색창
         JPanel bookTablePanel = new BookTable(bookList); // 도서 목록 테이블
 
-        frame.add(searchBarPanel, BorderLayout.NORTH);
-        frame.add(bookTablePanel, BorderLayout.CENTER);
+        panel.add(searchBarPanel, BorderLayout.NORTH);
+        panel.add(bookTablePanel, BorderLayout.CENTER);
+
+        frame.add(panel);
 
         // 프레임을 보이도록 설정
         frame.setVisible(true);

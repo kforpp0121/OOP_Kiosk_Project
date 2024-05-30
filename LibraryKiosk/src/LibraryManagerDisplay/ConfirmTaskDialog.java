@@ -8,8 +8,11 @@ import java.awt.event.ActionListener;
 public class ConfirmTaskDialog extends JDialog {
     private boolean isConfirmed;
     public ConfirmTaskDialog(String task) {
-        setTitle("Confirm Task Book");
+        setTitle("작업 확인");
         setConfirmed(false);
+
+        Color green = new Color(0x00469C76);
+        Color orange = new Color(0x00EE7930);
 
         JPanel confirmPanel=new JPanel();
         JLabel confirmLabel = new JLabel("도서 "+task+"을(를) 완료하시겠습니까?");
@@ -18,7 +21,9 @@ public class ConfirmTaskDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("완료");
+        yesButton.setBackground(green);
         JButton noButton = new JButton("취소");
+        noButton.setBackground(orange);
 
         yesButton.addActionListener(e -> {
             setConfirmed(true);

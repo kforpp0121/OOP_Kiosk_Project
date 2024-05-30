@@ -11,27 +11,33 @@ public class UpdateBookDialog extends JDialog {
     JLabel titleLabel, authorLabel, ISBNLabel;
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
-    public UpdateBookDialog(Vector<Vector<String>> books, BookInfo book) {
-        setTitle("Update Book");
+    public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book) {
+        Color green = new Color(0x00469C76);
+        Color orange = new Color(0x00EE7930);
+
+        setTitle("도서 수정");
         JPanel panel = new JPanel();
 
         titlePanel=new JPanel();
         titleLabel = new JLabel("도서 제목");
-        title = new JTextField(30);
+        titleLabel.setPreferredSize(new Dimension(50, 20));
+        title = new JTextField(25);
         title.setText(book.getTitle());
         titlePanel.add(titleLabel);
         titlePanel.add(title);
 
         authorPanel=new JPanel();
         authorLabel = new JLabel("작가");
-        author = new JTextField(30);
+        authorLabel.setPreferredSize(new Dimension(50, 20));
+        author = new JTextField(25);
         author.setText(book.getAuthor());
         authorPanel.add(authorLabel);
         authorPanel.add(author);
 
         ISBNPanel=new JPanel();
         ISBNLabel = new JLabel("ISBN");
-        ISBN = new JTextField(30);
+        ISBNLabel.setPreferredSize(new Dimension(50, 20));
+        ISBN = new JTextField(25);
         ISBN.setText(book.getISBN());
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
@@ -39,8 +45,10 @@ public class UpdateBookDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("입력 완료");
+        yesButton.setBackground(green);
         JButton noButton = new JButton("취소");
-        yesButton.addActionListener(new UpdateBookListener(books, book));
+        noButton.setBackground(orange);
+        yesButton.addActionListener(new UpdateBookListener(bookList, book));
         noButton.addActionListener(e -> {dispose();});
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
@@ -111,7 +119,7 @@ public class UpdateBookDialog extends JDialog {
                     // dialog 닫기
                     dispose();
                     // 수정 완료
-                    JOptionPane.showMessageDialog(null, "도서 수정이 완료되었습니다.", "도서 수정 완료", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "도서 수정이 완료되었습니다.", "도서 수정 완료", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }

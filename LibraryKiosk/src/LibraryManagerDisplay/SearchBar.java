@@ -8,16 +8,22 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class SearchBar extends JPanel{
-    public SearchBar(Vector<Vector<String>> books) {
+    public SearchBar(Vector<Vector<String>> bookList) {
+
+        Color green = new Color(0x00469C76);
+
+        this.setBackground(Color.WHITE);
 
         // 검색 창 및 버튼 생성
         JPanel searchPanel = new JPanel(new BorderLayout());
         JTextField searchField = new JTextField(50);
         JButton searchButton = new JButton("검색");
+        searchButton.setPreferredSize(new Dimension(140, 30));
+        searchButton.setBackground(green);
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
 
-        searchButton.addActionListener(new MyListener(searchField, books));
+        searchButton.addActionListener(new MyListener(searchField, bookList));
 
         // 검색창을 탭에 추가
         add(searchPanel);
