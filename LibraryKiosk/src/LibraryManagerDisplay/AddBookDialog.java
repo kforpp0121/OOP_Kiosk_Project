@@ -13,37 +13,39 @@ public class AddBookDialog extends JDialog{
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
     public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model) {
-        setTitle("Add Book");
+        Color green = new Color(0x00469C76);
+        Color orange = new Color(0x00EE7930);
+
+        setTitle("도서 추가");
         JPanel panel = new JPanel();
 
         titlePanel=new JPanel();
-        titleLabel = new JLabel("도서 제목");
-        titleLabel.setPreferredSize(new Dimension(70, 20));
-        title = new JTextField(30);
-        //title.setPreferredSize(new Dimension(70, 20));
+        titleLabel = new JLabel("제목");
+        titleLabel.setPreferredSize(new Dimension(50, 20));
+        title = new JTextField(25);
         titlePanel.add(titleLabel);
         titlePanel.add(title);
 
         authorPanel=new JPanel();
         authorLabel = new JLabel("작가");
-        authorLabel.setPreferredSize(new Dimension(70, 20));
-        author = new JTextField(30);
-        //author.setPreferredSize(new Dimension(70, 20));
+        authorLabel.setPreferredSize(new Dimension(50, 20));
+        author = new JTextField(25);
         authorPanel.add(authorLabel);
         authorPanel.add(author);
 
         ISBNPanel=new JPanel();
         ISBNLabel = new JLabel("ISBN");
-        ISBNLabel.setPreferredSize(new Dimension(70, 20));
-        ISBN = new JTextField(30);
-        //ISBN.setPreferredSize(new Dimension(70, 20));
+        ISBNLabel.setPreferredSize(new Dimension(50, 20));
+        ISBN = new JTextField(25);
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("입력 완료");
+        yesButton.setBackground(green);
         JButton noButton = new JButton("취소");
+        noButton.setBackground(orange);
         yesButton.addActionListener(new addBookListener(bookList, model));
         noButton.addActionListener(e -> {
             title.setText("");
@@ -129,7 +131,7 @@ public class AddBookDialog extends JDialog{
                     ISBN.setText("");
                     dispose();
 
-                    JOptionPane.showMessageDialog(null, "도서 입력이 완료되었습니다.", "도서 입력 완료", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "도서 입력이 완료되었습니다.", "도서 입력 완료", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
