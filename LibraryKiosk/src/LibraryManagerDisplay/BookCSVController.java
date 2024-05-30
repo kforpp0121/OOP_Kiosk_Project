@@ -50,7 +50,10 @@ public class BookCSVController {
 
             // 한 줄에 넣을 각 데이터 사이에 ,를 넣는다
             String aData = "";
-            aData = aData.join(",", book.getTitle(), book.getAuthor(), book.getISBN());
+            String title = "\""+book.getTitle()+"\"";
+            String author = "\""+book.getAuthor()+"\"";
+            String ISBN = "\""+book.getISBN()+"\"";
+            aData = aData.join(",", title, author, ISBN);
             // 작성한 데이터를 파일에 넣는다
             bw.write(aData);
 
@@ -72,38 +75,19 @@ public class BookCSVController {
         }
     }
 
-    public void updateCSV(Vector<Vector<String>> books, BookInfo selectedBook, BookInfo newBookInfo) {
+    public void updateCSV(Vector<Vector<String>> books, BookInfo selectedBook, BookInfo newBook) {
         for (Vector<String> book : books) { // books 벡터를 순회하며 선택된 책 정보와 일치하는 책 정보를 찾아 수정
             if (book.get(0).equals(selectedBook.getTitle()) &&
                     book.get(1).equals(selectedBook.getAuthor()) &&
                     book.get(2).equals(selectedBook.getISBN())) {
-                book.set(0, newBookInfo.getTitle());
-                book.set(1, newBookInfo.getAuthor());
-                book.set(2, newBookInfo.getISBN());
+                book.set(0, newBook.getTitle());
+                book.set(1, newBook.getAuthor());
+                book.set(2, newBook.getISBN());
             }
         }
 
-
-        BufferedWriter bw = null;
-        try { // 수정된 정보를 파일에 다시 쓰기
-            bw = new BufferedWriter(new FileWriter(filePath, false));
-            for (Vector<String> book : books) {
-                String aData = String.join(",", book);
-                bw.write(aData);
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.flush();
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        // 수정된 정보를 파일에 다시 쓰기
+        writeUpdatedCSV(books);
     }
 
     public void deleteBook(Vector<Vector<String>> books, BookInfo selectedBook, DefaultTableModel model, int row) {
@@ -121,8 +105,18 @@ public class BookCSVController {
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(filePath, false));
+            /*
+            *  첫 번째 줄에 column 정보 쓰기
+            * 읽어올 때 스킵하기 때문에 써주지 않으면 수정했을 때 도서 데이터가 한줄씩 삭제됨
+            */
+            bw.write("\"TITLE_NM\",\"AUTHR_NM\",\"ISBN_THIRTEEN_NO\""); //
+            bw.newLine();
             for (Vector<String> book : books) {
-                String aData = String.join(",", book);
+                String aData = "";
+                String title = "\""+book.get(0)+"\"";
+                String author = "\""+book.get(1)+"\"";
+                String ISBN = "\""+book.get(2)+"\"";
+                aData = aData.join(",", title, author, ISBN);
                 bw.write(aData);
                 bw.newLine();
             }
