@@ -1,4 +1,6 @@
 package borret;// MemberManager.java
+import CSVController.MemberLoader;
+
 import java.util.HashMap;
 import java.util.Map;
 

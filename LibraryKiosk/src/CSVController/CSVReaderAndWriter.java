@@ -1,4 +1,4 @@
-package SearchAndReservation;
+package CSVController;
 
 import java.io.*;
 import java.util.ArrayList;
