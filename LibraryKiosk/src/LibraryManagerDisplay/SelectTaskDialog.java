@@ -17,6 +17,9 @@ public class SelectTaskDialog extends JDialog {
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
+        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
+        Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
+
         this.bookList = bookList;
         this.model = model;
         this.row = row;
@@ -25,14 +28,19 @@ public class SelectTaskDialog extends JDialog {
 
         JPanel confirmPanel = new JPanel();
         JLabel confirmLabel = new JLabel("원하시는 업무를 선택해주세요.");
+        confirmLabel.setFont(labelFont);
         confirmPanel.add(confirmLabel);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton updateButton = new JButton("수정");
         updateButton.setBackground(green);
+        updateButton.setForeground(Color.WHITE);
+        updateButton.setFont(btnFont);
         JButton deleteButton = new JButton("삭제");
         deleteButton.setBackground(orange);
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setFont(btnFont);
 
         // 수정 버튼 -> dialog 띄움
         updateButton.addActionListener(e -> {
@@ -47,10 +55,11 @@ public class SelectTaskDialog extends JDialog {
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
 
-        add(confirmPanel);
+        add(new JPanel(), BorderLayout.NORTH); // 빈 공간 추가 (위쪽 여백)
+        add(confirmPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        setLocation(650, 300);
+        setLocation(950, 300);
         setSize(300, 150);
     }
 
@@ -98,7 +107,10 @@ public class SelectTaskDialog extends JDialog {
                     dispose();
 
                     // 완료 다이얼로그 띄우기
-                    JOptionPane.showMessageDialog(null, "도서 삭제가 완료되었습니다.", "도서 삭제 완료", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane optionPane = new JOptionPane("도서 삭제가 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
+                    JDialog dialog = optionPane.createDialog("도서 삭제 완료");
+                    dialog.setLocation(950, 300);
+                    dialog.setVisible(true);
                 }
             }
         }

@@ -2,6 +2,7 @@ package LibraryManagerDisplay;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,6 +15,10 @@ public class BookTable extends JPanel{
     Vector<Vector<String>> bookList;
     public BookTable(Vector<Vector<String>> bookList) {
         Color green = new Color(0x00469C76);
+        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
+        Font tableFont = new Font("맑은 고딕", Font.PLAIN, 16);
+        Font tableHeaderFont = new Font("맑은 고딕", Font.BOLD, 18);
+
         this.setBackground(Color.WHITE);
 
         this.bookList = bookList; // bookList를 받아옴
@@ -28,6 +33,7 @@ public class BookTable extends JPanel{
         };
 
         bookTable = new JTable(model); // 테이블 생성
+        bookTable.setFont(tableFont);
 
         for(Vector<String> book : bookList){ // bookList의 내용을 테이블에 추가
             model.addRow(book);
@@ -35,12 +41,22 @@ public class BookTable extends JPanel{
 
         bookTable.addMouseListener(new DoubleClickedListener()); // 더블클릭 이벤트 추가
 
+        // JTable의 헤더 가져오기
+        JTableHeader header = bookTable.getTableHeader();
+
+        // 헤더의 높이 설정
+        header.setPreferredSize(new Dimension(header.getWidth(), 30)); // 높이를 40으로 설정
+
+        // 헤더의 폰트 크기 변경
+        header.setFont(tableHeaderFont);
+
         bookTable.getColumn("제목").setPreferredWidth(250); // 열 너비 설정
         bookTable.getColumn("작가").setPreferredWidth(250);
         bookTable.getColumn("ISBN").setPreferredWidth(150);
+        bookTable.setRowHeight(30); // 행 높이 설정
 
         JScrollPane sp = new JScrollPane(bookTable); // 스크롤바 추가
-        sp.setPreferredSize(new Dimension(650,450));
+        sp.setPreferredSize(new Dimension(650,550));
 
         tablePanel.add(sp, BorderLayout.CENTER);
 
@@ -49,6 +65,8 @@ public class BookTable extends JPanel{
         JButton addBook = new JButton("도서 추가");
         addBook.setPreferredSize(new Dimension(140, 30));
         addBook.setBackground(green);
+        addBook.setForeground(Color.WHITE);
+        addBook.setFont(btnFont);
         addBook.addActionListener(e->{
             new AddBookDialog(bookList, model).setVisible(true);
         });

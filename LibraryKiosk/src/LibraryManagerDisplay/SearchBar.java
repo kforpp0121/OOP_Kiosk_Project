@@ -11,6 +11,7 @@ public class SearchBar extends JPanel{
     public SearchBar(Vector<Vector<String>> bookList) {
 
         Color green = new Color(0x00469C76);
+        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
 
         this.setBackground(Color.WHITE);
 
@@ -20,6 +21,8 @@ public class SearchBar extends JPanel{
         JButton searchButton = new JButton("검색");
         searchButton.setPreferredSize(new Dimension(140, 30));
         searchButton.setBackground(green);
+        searchButton.setForeground(Color.WHITE);
+        searchButton.setFont(btnFont);
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
 
@@ -49,13 +52,19 @@ public class SearchBar extends JPanel{
                         .collect(Collectors.toCollection(Vector::new));
 
                 if (filteredBooks.isEmpty()) { // 검색 결과가 없을 때 -> 오류 메시지 출력
-                    JOptionPane.showMessageDialog(null, "찾으시는 책이 목록에 없습니다.", "검색 결과 오류", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane optionPane = new JOptionPane("찾으시는 책이 목록에 없습니다.", JOptionPane.ERROR_MESSAGE);
+                    JDialog dialog = optionPane.createDialog("검색 결과 오류");
+                    dialog.setLocation(950, 300);
+                    dialog.setVisible(true);
                 } else { // 검색 결과가 있을 때 -> 검색 결과 다이얼로그 띄움
                     SearchResultDialog searchResultDialog = new SearchResultDialog(filteredBooks);
                     searchResultDialog.setVisible(true);
                 }
             } else { // 검색어가 비어있을 때 -> 오류 메시지 출력
-                JOptionPane.showMessageDialog(null, "찾으려는 책 제목이나 작가명을 입력해주세요.", "도서 입력 오류", JOptionPane.ERROR_MESSAGE);
+                JOptionPane optionPane = new JOptionPane("찾으려는 책 제목이나 작가명을 입력해주세요.", JOptionPane.ERROR_MESSAGE);
+                JDialog dialog = optionPane.createDialog("도서 입력 오류");
+                dialog.setLocation(950, 300);
+                dialog.setVisible(true);
             }
         }
     }
