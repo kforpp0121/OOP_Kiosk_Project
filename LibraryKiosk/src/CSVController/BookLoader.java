@@ -1,4 +1,6 @@
-package borret;// BookLoader.java
+package CSVController;// BookLoader.java
+import borret.Book;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;

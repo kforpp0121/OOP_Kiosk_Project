@@ -1,5 +1,8 @@
 package borret;
 
+import CSVController.BookLoader;
+import CSVController.MemberLoader;
+
 public class LibrarySystem {
     private static BookManager bookManager;
     private static MemberManager memberManager;

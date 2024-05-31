@@ -1,5 +1,8 @@
 package borret;
 
+import CSVController.BookLoader;
+import CSVController.MemberLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

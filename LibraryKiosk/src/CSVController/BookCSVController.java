@@ -1,4 +1,6 @@
-package LibraryManagerDisplay;
+package CSVController;
+
+import LibraryManagerDisplay.BookInfo;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.*;

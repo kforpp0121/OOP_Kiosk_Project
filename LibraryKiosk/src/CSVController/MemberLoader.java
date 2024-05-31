@@ -1,4 +1,6 @@
-package borret;// MemberLoader.java
+package CSVController;// MemberLoader.java
+import borret.Member;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
