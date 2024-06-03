@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
@@ -12,26 +14,29 @@ public class SearchBar extends JPanel{
 
         Color green = new Color(0x00469C76);
         Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
+        Font formFont = new Font("맑은 고딕", Font.PLAIN, 16);
 
         this.setBackground(Color.WHITE);
 
         // 검색 창 및 버튼 생성
         JPanel searchPanel = new JPanel(new BorderLayout());
-        JTextField searchField = new JTextField(50);
+        JTextField searchField = new JTextField(35);
+        searchField.setFont(formFont);
+        searchField.addKeyListener(new MyListener(searchField, bookList));
         JButton searchButton = new JButton("검색");
-        searchButton.setPreferredSize(new Dimension(140, 30));
+        searchButton.addActionListener(new MyListener(searchField, bookList));
+        searchButton.setPreferredSize(new Dimension(130, 30));
         searchButton.setBackground(green);
         searchButton.setForeground(Color.WHITE);
         searchButton.setFont(btnFont);
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
 
-        searchButton.addActionListener(new MyListener(searchField, bookList));
 
         // 검색창을 탭에 추가
         add(searchPanel);
     }
-    private class MyListener implements ActionListener{
+    private class MyListener implements ActionListener, KeyListener{
         Vector<Vector<String>> filteredBooks;
         JTextField text;
         Vector<Vector<String>> books;
@@ -67,5 +72,18 @@ public class SearchBar extends JPanel{
                 dialog.setVisible(true);
             }
         }
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                actionPerformed(null);
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {}
     }
 }

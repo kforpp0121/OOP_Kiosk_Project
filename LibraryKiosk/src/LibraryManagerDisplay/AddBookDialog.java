@@ -19,6 +19,7 @@ public class AddBookDialog extends JDialog{
         Color orange = new Color(0x00EE7930);
         Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
         Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
+        Font formFont = new Font("맑은 고딕", Font.PLAIN, 16);
 
         setTitle("도서 추가");
         JPanel panel = new JPanel();
@@ -27,7 +28,8 @@ public class AddBookDialog extends JDialog{
         titleLabel = new JLabel("제목");
         titleLabel.setFont(labelFont);
         titleLabel.setPreferredSize(new Dimension(50, 20));
-        title = new JTextField(25);
+        title = new JTextField(20);
+        title.setFont(formFont);
         titlePanel.add(titleLabel);
         titlePanel.add(title);
 
@@ -35,7 +37,8 @@ public class AddBookDialog extends JDialog{
         authorLabel = new JLabel("작가");
         authorLabel.setFont(labelFont);
         authorLabel.setPreferredSize(new Dimension(50, 20));
-        author = new JTextField(25);
+        author = new JTextField(20);
+        author.setFont(formFont);
         authorPanel.add(authorLabel);
         authorPanel.add(author);
 
@@ -43,7 +46,8 @@ public class AddBookDialog extends JDialog{
         ISBNLabel = new JLabel("ISBN");
         ISBNLabel.setFont(labelFont);
         ISBNLabel.setPreferredSize(new Dimension(50, 20));
-        ISBN = new JTextField(25);
+        ISBN = new JTextField(20);
+        ISBN.setFont(formFont);
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
@@ -75,7 +79,7 @@ public class AddBookDialog extends JDialog{
         add(panel);
 
         setLocation(900, 300);
-        setSize(400, 200);
+        setSize(400, 225);
     }
 
     public class addBookListener implements ActionListener {
