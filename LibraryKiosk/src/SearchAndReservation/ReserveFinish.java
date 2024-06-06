@@ -1,4 +1,5 @@
-package SearchAndReservation;
+import SearchAndReservation.Book;
+import SearchAndReservation.Reservation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -118,7 +119,7 @@ public class ReserveFinish extends JPanel {
     // 폰트 적용
     private void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "font/NanumGothic.ttf";
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {

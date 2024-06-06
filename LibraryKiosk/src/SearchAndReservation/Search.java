@@ -1,4 +1,7 @@
-package SearchAndReservation;
+import SearchAndReservation.Book;
+import SearchAndReservation.BookDatabase;
+import SearchAndReservation.BookImage;
+import SearchAndReservation.Reservation;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -89,7 +92,7 @@ public class Search extends JPanel {
         searchPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         searchPanel.setBackground(Color.WHITE);
 
-        ImageIcon originalIcon = new ImageIcon(Search.class.getResource("search_symbol.png"));  // 돋보기 아이콘
+        ImageIcon originalIcon = new ImageIcon(Search.class.getResource("SearchAndReservation/search_symbol.png"));  // 돋보기 아이콘
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(45, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
@@ -241,7 +244,7 @@ public class Search extends JPanel {
     // 폰트 적용
     private void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "font/NanumGothic.ttf";
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {

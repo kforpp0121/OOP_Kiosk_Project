@@ -1,4 +1,6 @@
-package SearchAndReservation;
+import SearchAndReservation.Book;
+import SearchAndReservation.BookDatabase;
+import SearchAndReservation.BookImage;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -65,13 +67,13 @@ public class SearchOnly extends JPanel {
 
         // 검색창
         searchField = new JTextField(15);        // 검색창 길이
-        searchField.setBorder(new SearchOnly.RoundedBorder(10, 4)); // 검색창 디자인
+        searchField.setBorder(new RoundedBorder(10, 4)); // 검색창 디자인
         searchField.setPreferredSize(new Dimension(100, 40));
         Font searchFieldFont = new Font("Dialog", Font.PLAIN, 20); // 글꼴, 크기 20
         searchField.setFont(searchFieldFont); // 검색창의 글꼴 적용
 
         JButton searchButton = new JButton("검색");  // 검색 버튼
-        searchButton.setBorder(new SearchOnly.RoundedBorder(0, 2)); // 검색 버튼 디자인
+        searchButton.setBorder(new RoundedBorder(0, 2)); // 검색 버튼 디자인
         Font searchFont = font.deriveFont(Font.PLAIN, 20); // 나눔고딕, 크기 20
         searchButton.setFont(searchFont);                       // 글꼴 적용
         searchButton.setBackground(new Color(0xD9D9D9));   // 버튼의 배경색
@@ -89,7 +91,7 @@ public class SearchOnly extends JPanel {
         searchPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         searchPanel.setBackground(Color.WHITE);
 
-        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("search_symbol.png"));  // 돋보기 아이콘
+        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("SearchAndReservation/search_symbol.png"));  // 돋보기 아이콘
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(45, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
@@ -250,7 +252,7 @@ public class SearchOnly extends JPanel {
     // 폰트 적용
     private void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "font/NanumGothic.ttf";
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {
