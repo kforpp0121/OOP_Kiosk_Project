@@ -7,18 +7,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuFirst extends JFrame {
+public class MenuFirst extends JPanel {
 	private JPanel menupage1P;
 	private JPanel menupage2P;
 	private JPanel southpanel1;
 	private JPanel southpanel2;
 	
-	public MenuFirst() {
+	private void createUI() {
+        setLayout(new BorderLayout());   // 기본 panel 설정
+        }
+	
+	public MenuFirst(JFrame frame) {
 		
 		setSize(450, 700);
-		setTitle("메뉴");
-		setLocation(300, 10);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createUI();
 		
 		Font backFont = new Font("Dialog", Font.BOLD, 25);
 		
@@ -73,7 +75,7 @@ public class MenuFirst extends JFrame {
 		button5.setBackground(buttonC);
 		button6.setBackground(buttonC);
 		
-		//메뉴 button 글자 크기 설정
+		//메뉴 button 글자 크기 
 		Font buttonFont = new Font("Dialog", Font.BOLD, 30);
         button1.setFont(buttonFont);
         button2.setFont(buttonFont);
@@ -122,17 +124,25 @@ public class MenuFirst extends JFrame {
         
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        		BorrowState borrowstate = new BorrowState();
-        		borrowstate.setVisible(true);
+        		remove(menustateL);
+        		remove(menupage2P);
+        		remove(southpanel2);
+        		BorrowState br = new BorrowState(frame);
+        		add(br);
+        		revalidate();
+        		repaint();
         	}
         });
         
         button6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        		Profile profile = new Profile();
-        		profile.setVisible(true);
+        		remove(menustateL);
+        		remove(menupage2P);
+        		remove(southpanel2);
+        	    Profile pf = new Profile(frame);
+        		add(pf);
+        		revalidate();
+        		repaint();
         	}
         });
         
@@ -160,10 +170,10 @@ public class MenuFirst extends JFrame {
         
         nextpage.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		getContentPane().remove(menupage1P);
-        		getContentPane().remove(southpanel1);
-        		getContentPane().add(menupage2P, BorderLayout.CENTER);
-        		getContentPane().add(southpanel2, BorderLayout.SOUTH);
+        		remove(menupage1P);
+        		remove(southpanel1);
+        		add(menupage2P, BorderLayout.CENTER);
+        		add(southpanel2, BorderLayout.SOUTH);
         		revalidate();
         		repaint();
         	}
@@ -171,10 +181,10 @@ public class MenuFirst extends JFrame {
         
         previouspage.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		getContentPane().remove(menupage2P);
-        		getContentPane().remove(southpanel2);
-        		getContentPane().add(menupage1P, BorderLayout.CENTER);
-        		getContentPane().add(southpanel1, BorderLayout.SOUTH);
+        		remove(menupage2P);
+        		remove(southpanel2);
+        		add(menupage1P, BorderLayout.CENTER);
+        		add(southpanel1, BorderLayout.SOUTH);
         		revalidate();
         		repaint();
         	}
@@ -185,8 +195,4 @@ public class MenuFirst extends JFrame {
         add(southpanel1, BorderLayout.SOUTH);
 	}
 	
-	public static void main(String[] args) {
-		MenuFirst menu = new MenuFirst();
-		menu.setVisible(true);
-	}
 }

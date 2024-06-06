@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BorrowState extends JFrame {
+public class BorrowState extends JPanel {
 	
-	public BorrowState () {
+	private void createUI() {
+        setLayout(new BorderLayout());
+        }
+	
+	public BorrowState (JFrame frame) {
 		
 		setSize(450, 700);
-		setTitle("대출 현황");
-		setLocation(300, 10);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createUI();
 		
 		Font backFont = new Font("Dialog", Font.BOLD, 25);
 		
@@ -71,9 +73,13 @@ public class BorrowState extends JFrame {
 		
 		backward1B.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        		MenuFirst menu = new MenuFirst();
-        		menu.setVisible(true);
+        		remove(borrowstateL);
+        		remove(basicP);
+        		remove(backward1B);
+        		MenuFirst menu = new MenuFirst(frame);
+        		add(menu);
+        		revalidate();
+        		repaint();
         	}
         });
 		
@@ -86,10 +92,10 @@ public class BorrowState extends JFrame {
 		
         backward2B.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		getContentPane().remove(detailP);
-    			getContentPane().remove(backward2B);
-    			getContentPane().add(basicP, BorderLayout.CENTER);
-    			getContentPane().add(backward1B, BorderLayout.SOUTH);
+        		remove(detailP);
+    			remove(backward2B);
+    			add(basicP, BorderLayout.CENTER);
+    			add(backward1B, BorderLayout.SOUTH);
     			revalidate();
         		repaint();
         	}
@@ -131,10 +137,10 @@ public class BorrowState extends JFrame {
         		basicP.add(buttons[i]);
         		
         		buttons[i].addActionListener(e -> {
-        			getContentPane().remove(basicP);
-        			getContentPane().remove(backward1B);
-        			getContentPane().add(detailP, BorderLayout.CENTER);
-        			getContentPane().add(backward2B, BorderLayout.SOUTH);
+        			remove(basicP);
+        			remove(backward1B);
+        			add(detailP, BorderLayout.CENTER);
+        			add(backward2B, BorderLayout.SOUTH);
         			
         			titleB.setText(dtReader.getTitleByISBN(isbn));
         			titleB.setBackground(Color.decode("#469C76"));
