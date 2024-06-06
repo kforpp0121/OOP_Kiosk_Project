@@ -1,5 +1,4 @@
-import SearchAndReservation.Book;
-import SearchAndReservation.Reservation;
+package SearchAndReservation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

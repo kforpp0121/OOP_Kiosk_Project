@@ -6,7 +6,7 @@ import javax.swing.*;
 public class SearchMain {
     public static void main(String[] args) {
         // CSV 파일 경로 설정
-        String csvFilePath = "lib_test.csv";
+        String csvFilePath = "LibraryKiosk/lib_test.csv";
         // lib_test
         // subset_lib
 

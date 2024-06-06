@@ -1,5 +1,8 @@
 package menu;
 
+import SearchAndReservation.Reservation;
+import SearchAndReservation.Search;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -121,7 +124,7 @@ public class MenuFirst extends JPanel {
         menupage2P.add(button4);
         menupage2P.add(button5);
         menupage2P.add(button6);
-        
+
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		remove(menustateL);

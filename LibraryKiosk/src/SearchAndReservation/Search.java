@@ -1,7 +1,4 @@
-import SearchAndReservation.Book;
-import SearchAndReservation.BookDatabase;
-import SearchAndReservation.BookImage;
-import SearchAndReservation.Reservation;
+package SearchAndReservation;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
