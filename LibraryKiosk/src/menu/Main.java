@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+package menu;
+
 import javax.swing.JFrame;
 
 public class Main {

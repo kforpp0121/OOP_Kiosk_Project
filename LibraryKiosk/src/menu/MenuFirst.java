@@ -1,5 +1,7 @@
 package menu;
 
+import SearchAndReservation.SearchOnly;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -12,7 +14,8 @@ public class MenuFirst extends JPanel {
 	private JPanel menupage2P;
 	private JPanel southpanel1;
 	private JPanel southpanel2;
-	
+	private String csvFilePath = "LibraryKiosk/lib_test.csv";
+
 	private void createUI() {
         setLayout(new BorderLayout());   // 기본 panel 설정
         }
@@ -122,16 +125,15 @@ public class MenuFirst extends JPanel {
         menupage2P.add(button5);
         menupage2P.add(button6);
 
-	button3.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			remove(menustateL);
-			remove(menupage1P);
-			remove(southpanel1);
-
-			revalidate();
-			repaint():
-		}
-	});
+		// 검색
+		button3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				SearchOnly searchOnly = new SearchOnly(csvFilePath, frame);
+				searchOnly.setVisible(true);
+				frame.add(searchOnly);
+			}
+		});
         
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
