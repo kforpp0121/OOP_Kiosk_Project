@@ -1,14 +1,18 @@
-package Start;
+package StartLogin;
 
-import CSVController.CSVWriter;
-
+//   0606
 import javax.swing.*;
+import java.util.Vector;
+import java.io.FileWriter;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import menu.*;
+
 public class StartMain {
 	
 	private JPanel panel;
@@ -69,6 +73,7 @@ public class StartMain {
     	LoginButton.setBounds(20, 500, 200, 150);
     	LoginButton.setBackground(green);
     	LoginButton.setFont(new Font ("Dialog", Font.BOLD, 20));
+    	LoginButton.setForeground(Color.WHITE);
     	
     	LoginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -84,6 +89,7 @@ public class StartMain {
     	SignupButton.setBackground(orangeColor);
     	SignupButton.setBounds(230, 500, 200, 150);
     	SignupButton.setFont(new Font ("Dialog", Font.BOLD, 20));
+    	SignupButton.setForeground(Color.WHITE);
     	
         SignupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +115,7 @@ public class StartMain {
         panel2.add(formPanel, BorderLayout.CENTER); 
         
         JLabel title2 = new JLabel("로그인");
-        title2.setFont(new Font("Dialog", Font.BOLD, 30));
+        title2.setFont(new Font("Dialog", Font.BOLD, 20));
         title2.setHorizontalAlignment(JLabel.CENTER);
         formPanel.add(title2);
 
@@ -130,11 +136,13 @@ public class StartMain {
         passwordPanel.add(passwordField);
         passwordPanel.setBackground(Color.WHITE); 
         formPanel.add(passwordPanel);
+        
 
         JPanel loginButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 로그인 버튼 패널
         JButton loginButton = new JButton("로그인");
         loginButton.setPreferredSize(new Dimension(450, 100));
         loginButton.setBackground(green);
+        loginButton.setForeground(Color.WHITE);
         loginButton.setFont(new Font ("Dialog", Font.BOLD, 20));
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -145,6 +153,8 @@ public class StartMain {
 
                 if (validLogin(username, password)) {
                     JOptionPane.showMessageDialog(jf2, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
+                    MenuFirst menu = new MenuFirst();
+            		menu.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(jf2, "아이디 또는 비밀번호가 일치하지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
                 }
@@ -154,6 +164,7 @@ public class StartMain {
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 로그인 버튼 패널
         JButton backButton = new JButton("뒤로가기");
         backButton.setBackground(orangeColor);
+        backButton.setForeground(Color.WHITE);
         backButton.setPreferredSize(new Dimension(450, 70));
 
 
@@ -161,7 +172,7 @@ public class StartMain {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Start();
+            	showStartScreen(); // 이전의 시작 화면을 보여줌
                 jf2.dispose();
             }
         });
@@ -196,6 +207,8 @@ public class StartMain {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titlePanel.add(title3);
         signupPanel.add(titlePanel);
+        signupPanel.setBackground(Color.WHITE);
+        titlePanel.setBackground(Color.WHITE);
 
         // 아이디 입력 필드 추가
         JLabel usernameLabel = new JLabel("아이디:");
@@ -205,10 +218,12 @@ public class StartMain {
         
         JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         usernamePanel.add(usernameLabel);
+        usernamePanel.setBackground(Color.WHITE);
         signupPanel.add(usernamePanel);
         
         JPanel usernameFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         usernameFieldPanel.add(usernameField);
+        usernameFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(usernameFieldPanel);
 
         // 비밀번호 입력 필드 추가
@@ -219,10 +234,12 @@ public class StartMain {
         
         JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         passwordPanel.add(passwordLabel);
+        passwordPanel.setBackground(Color.WHITE);
         signupPanel.add(passwordPanel);
         
         JPanel passwordFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         passwordFieldPanel.add(passwordField);
+        passwordFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(passwordFieldPanel);
 
         // 비밀번호 확인 입력 필드 추가
@@ -233,10 +250,12 @@ public class StartMain {
         
         JPanel confirmPasswordPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         confirmPasswordPanel.add(confirmPasswordLabel);
+        confirmPasswordPanel.setBackground(Color.WHITE);
         signupPanel.add(confirmPasswordPanel);
         
         JPanel confirmPasswordFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         confirmPasswordFieldPanel.add(confirmPasswordField);
+        confirmPasswordFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(confirmPasswordFieldPanel);
 
         // 생년월일 입력 필드 추가 (JComboBox 사용)
@@ -262,12 +281,14 @@ public class StartMain {
         
         JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         dobPanel.add(dobLabel);
+        dobPanel.setBackground(Color.WHITE);
         signupPanel.add(dobPanel);
         
         JPanel dobFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         dobFieldPanel.add(yearCombo);
         dobFieldPanel.add(monthCombo);
         dobFieldPanel.add(dayCombo);
+        dobFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(dobFieldPanel);
 
         // 이름 입력 필드 추가
@@ -278,10 +299,12 @@ public class StartMain {
         
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         namePanel.add(nameLabel);
+        namePanel.setBackground(Color.WHITE);
         signupPanel.add(namePanel);
         
         JPanel nameFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         nameFieldPanel.add(nameField);
+        nameFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(nameFieldPanel);
 
         // 전화번호 입력 필드 추가
@@ -292,15 +315,18 @@ public class StartMain {
         
         JPanel phoneNumberPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         phoneNumberPanel.add(phoneNumberLabel);
+        phoneNumberPanel.setBackground(Color.WHITE);
         signupPanel.add(phoneNumberPanel);
         
         JPanel phoneNumberFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         phoneNumberFieldPanel.add(phoneNumberField);
+        phoneNumberFieldPanel.setBackground(Color.WHITE);
         signupPanel.add(phoneNumberFieldPanel);
 
         // 회원 가입 버튼 추가
         JButton signupButton = new JButton("회원 가입");
         signupButton.setFont(new Font("Dialog", Font.BOLD, 20));
+        signupButton.setForeground(Color.WHITE);
         signupButton.setPreferredSize(new Dimension(450, 50));
         signupButton.setBackground(orangeColor);
         
@@ -341,7 +367,14 @@ public class StartMain {
                 return;
             }
 
-            CSVWriter.writeUserData(username, password, dob, phoneNumber, name);
+            Vector<String> userData = new Vector<>();
+            userData.add(username);
+            userData.add(password);
+            userData.add(dob);
+            userData.add(phoneNumber);
+            userData.add(name);
+
+            CSVWriter.writeUserData(userData);
 
             JOptionPane.showMessageDialog(frame, "회원 가입이 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
@@ -387,7 +420,10 @@ public class StartMain {
         }
         return false;
     }
-
+    
+    public void showStartScreen() {
+        jf.setVisible(true); // 이전의 시작 화면을 다시 보여줌
+    }
 
     public static void main(String[] args) {
         new StartMain("시작 화면");

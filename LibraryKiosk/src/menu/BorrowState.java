@@ -14,7 +14,7 @@ public class BorrowState extends JFrame {
 	
 	public BorrowState () {
 		
-		setSize(450, 800);
+		setSize(450, 700);
 		setTitle("대출 현황");
 		setLocation(300, 10);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -7,7 +7,7 @@ public class BookDTReader {
 
     public String getTitleByISBN(String isbn) {
         String title = null;
-        List<Map<String, String>> allBooks = getUserBooks();
+        Vector<Map<String, String>> allBooks = getUserBooks();
         
         for (Map<String, String> bookInfo : allBooks) {
             if (bookInfo.get("ISBN").equals(isbn)) {
@@ -19,8 +19,8 @@ public class BookDTReader {
         return title;
     }
     
-    private List<Map<String, String>> getUserBooks() {
-        List<Map<String, String>> allBooks = new ArrayList<>();
+    private Vector<Map<String, String>> getUserBooks() {
+        Vector<Map<String, String>> allBooks = new Vector<>();
         File csv = new File("lib_test.csv");
         BufferedReader br = null;
 
