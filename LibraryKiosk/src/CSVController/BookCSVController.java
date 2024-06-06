@@ -10,7 +10,7 @@ public class BookCSVController {
     private String filePath;
 
     public BookCSVController() {
-        this.filePath = "LibraryKiosk/subset_lib.csv";
+        this.filePath = "LibraryKiosk/lib_test.csv";
     }
 
     public Vector<Vector<String>> readCSV() {
@@ -55,7 +55,9 @@ public class BookCSVController {
             String title = "\""+book.getTitle()+"\"";
             String author = "\""+book.getAuthor()+"\"";
             String ISBN = "\""+book.getISBN()+"\"";
-            aData = aData.join(",", title, author, ISBN);
+            String rv = "\""+book.getRv()+"\"";
+            String bool = "\""+book.getBool()+"\"";
+            aData = aData.join(",", title, author, ISBN, rv, bool);
             // 작성한 데이터를 파일에 넣는다
             bw.write(aData);
 
@@ -85,6 +87,8 @@ public class BookCSVController {
                 book.set(0, newBook.getTitle());
                 book.set(1, newBook.getAuthor());
                 book.set(2, newBook.getISBN());
+                book.set(3, newBook.getRv());
+                book.set(4, newBook.getBool());
             }
         }
 
@@ -111,14 +115,16 @@ public class BookCSVController {
             *  첫 번째 줄에 column 정보 쓰기
             * 읽어올 때 스킵하기 때문에 써주지 않으면 수정했을 때 도서 데이터가 한줄씩 삭제됨
             */
-            bw.write("\"TITLE_NM\",\"AUTHR_NM\",\"ISBN_THIRTEEN_NO\""); //
+            bw.write("\"TITLE\",\"AUTHOR\",\"ISBN\",\"RV\",\"BOOL\""); //
             bw.newLine();
             for (Vector<String> book : books) {
                 String aData = "";
                 String title = "\""+book.get(0)+"\"";
                 String author = "\""+book.get(1)+"\"";
                 String ISBN = "\""+book.get(2)+"\"";
-                aData = aData.join(",", title, author, ISBN);
+                String rv = "\""+book.get(3)+"\"";
+                String bool = "\""+book.get(4)+"\"";
+                aData = aData.join(",", title, author, ISBN, rv, bool);
                 bw.write(aData);
                 bw.newLine();
             }

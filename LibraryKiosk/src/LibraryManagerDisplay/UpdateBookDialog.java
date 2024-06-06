@@ -15,7 +15,10 @@ public class UpdateBookDialog extends JDialog {
     JLabel titleLabel, authorLabel, ISBNLabel;
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
+    BookInfo book;
     public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book) throws IOException, FontFormatException {
+        this.book = book;
+
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
@@ -147,7 +150,7 @@ public class UpdateBookDialog extends JDialog {
 
                 // dialog에서 완료 버튼 눌렀을 때만 수행
                 if (confirmTaskDialog.isConfirmed()) {
-                    BookInfo newBook = new BookInfo(title.getText(), author.getText(), ISBN.getText());
+                    BookInfo newBook = new BookInfo(title.getText(), author.getText(), ISBN.getText(), book.getRv(), book.getBool());
                     // CSV 파일 수정
                     BookCSVController csvCtrl = new BookCSVController();
                     csvCtrl.updateCSV(books, currentBook, newBook);

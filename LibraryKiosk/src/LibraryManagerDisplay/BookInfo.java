@@ -4,11 +4,15 @@ public class BookInfo {
     private String title;
     private String author;
     private String ISBN;
+    private String rv;
+    private String bool;
 
-    public BookInfo(String title, String author, String ISBN) {
+    public BookInfo(String title, String author, String ISBN, String rv, String bool) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
+        this.rv = rv;
+        this.bool = bool;
     }
 
     public String getTitle() {
@@ -33,5 +37,21 @@ public class BookInfo {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public String getRv() {
+        return rv;
+    }
+
+    public void setRv(String rv) {
+        this.rv = rv;
+    }
+
+    public String getBool() {
+        return bool;
+    }
+
+    public void setBool(String bool) {
+        this.bool = bool;
     }
 }

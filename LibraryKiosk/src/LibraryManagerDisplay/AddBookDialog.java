@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class AddBookDialog extends JDialog{
-    JPanel titlePanel, authorPanel, ISBNPanel;
-    JLabel titleLabel, authorLabel, ISBNLabel;
-    JTextField title, author, ISBN;
+    JPanel titlePanel, authorPanel, ISBNPanel, rvPanel;
+    JLabel titleLabel, authorLabel, ISBNLabel, rvLabel;
+    JTextField title, author, ISBN, rv;
     boolean isConfirmed = false;
     public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model) throws IOException, FontFormatException {
         Color green = new Color(0x00469C76);
@@ -61,6 +61,15 @@ public class AddBookDialog extends JDialog{
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
+        rvPanel=new JPanel();
+        rvLabel = new JLabel("대여 여부");
+        rvLabel.setFont(labelFont);
+        rvLabel.setPreferredSize(new Dimension(50, 20));
+        rv = new JTextField(20);
+        rv.setFont(formFont);
+        rvPanel.add(rvLabel);
+        rvPanel.add(rv);
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("입력 완료");
@@ -76,6 +85,7 @@ public class AddBookDialog extends JDialog{
             title.setText("");
             author.setText("");
             ISBN.setText("");
+            rv.setText("");
             setVisible(false);});
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
@@ -151,19 +161,22 @@ public class AddBookDialog extends JDialog{
                             add(title.getText());
                             add(author.getText());
                             add(ISBN.getText());
+                            add("가능");
+                            add("0");
                         }
                     };
                     bookList.add(newBook);
                     model.addRow(newBook);
 
                     BookCSVController bookCsvController = new BookCSVController();
-                    BookInfo book = new BookInfo(title.getText(), author.getText(), ISBN.getText());
+                    BookInfo book = new BookInfo(title.getText(), author.getText(), ISBN.getText(), "가능", "0");
                     // 파일 write
                     bookCsvController.writeCSV(book);
                     // 파일 write 후에는 textfield 비워줌
                     title.setText("");
                     author.setText("");
                     ISBN.setText("");
+                    rv.setText("");
                     dispose();
 
                     JOptionPane optionPane = new JOptionPane("도서 입력이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
