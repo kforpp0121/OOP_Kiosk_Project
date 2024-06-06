@@ -1,5 +1,7 @@
 package StartLogin;
 
+import SearchAndReservation.Reservation;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -68,14 +70,14 @@ public class Start extends JPanel {
         panelMain.add(Label2);
 
         // 화살표 이미지 추가
-        ImageIcon arrow = new ImageIcon("arrow.jpg");
+        ImageIcon arrow = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
         JLabel label = new JLabel();
         label.setIcon(arrow);
         label.setBounds(60, 250, 200, 150);
         panelMain.add(label);
 
         // 화살표 이미지 추가
-        ImageIcon arrow2 = new ImageIcon("arrow.jpg");
+        ImageIcon arrow2 = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
         JLabel label2 = new JLabel();
         label2.setIcon(arrow2);
         label2.setBounds(270, 250, 200, 150);
@@ -91,22 +93,10 @@ public class Start extends JPanel {
         LoginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // 로그인창 띄우기
-            	SwingUtilities.invokeLater(new Runnable() {
-            		public void run() {
-            			JFrame jf = new JFrame();
-                        jf.setTitle("시작화면");              // 창 제목
-                        jf.setSize(450, 700);  // 키오스크 화면 크기
-                        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을 때 실행 종료
-                        jf.setLocation(300, 10);      // (300, 10) 위치에 배치
-
-                        Login login = new Login(jf);
-                        jf.add(login);
-                        login.setVisible(true);
-
-                        // GUI를 보이도록 설정
-                        jf.setVisible(true);
-            		}
-            	});
+                setVisible(false);
+                Login login = new Login(frame);
+                login.setVisible(true);
+                frame.add(login);
             }
         });
         panelMain.add(LoginButton);

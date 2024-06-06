@@ -64,7 +64,7 @@ public class Login extends JPanel {
         JPanel idPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel idLabel = new JLabel("아이디:   ");
         idLabel.setFont(new Font("Dialog", Font.BOLD, 20));
-        JTextField usernameField = new JTextField(30);
+        JTextField usernameField = new JTextField(23);
         usernameField.setPreferredSize(new Dimension(300, 50));
         usernameField.setFont(new Font("Dialog", Font.PLAIN, 20));
         idPanel.add(idLabel);
@@ -120,7 +120,7 @@ public class Login extends JPanel {
     }
 
     private boolean validLogin(String username, String password) {
-        String csvFilePath = "userdata.csv";
+        String csvFilePath = "LibraryKiosk/src/StartLogin/userdata.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;

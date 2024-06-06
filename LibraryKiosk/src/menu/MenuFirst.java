@@ -1,6 +1,7 @@
 package menu;
 
 import SearchAndReservation.SearchOnly;
+import SearchAndReservation.Search;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -129,6 +130,15 @@ public class MenuFirst extends JPanel {
 				SearchOnly searchOnly = new SearchOnly(csvFilePath, frame);
 				searchOnly.setVisible(true);
 				frame.add(searchOnly);
+			}
+		});
+
+		button4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Search search = new Search(csvFilePath, frame);
+				search.setVisible(true);
+				frame.add(search);
 			}
 		});
         

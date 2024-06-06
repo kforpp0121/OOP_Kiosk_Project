@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import menu.MenuFirst;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
@@ -89,7 +91,7 @@ public class SearchOnly extends JPanel {
         searchPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         searchPanel.setBackground(Color.WHITE);
 
-        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("SearchAndReservation/search_symbol.png"));  // 돋보기 아이콘
+        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("search_symbol.png"));  // 돋보기 아이콘
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(45, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
@@ -136,7 +138,10 @@ public class SearchOnly extends JPanel {
         panel.add(back, BorderLayout.SOUTH);           // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-
+        setVisible(false);
+        MenuFirst menuFirst = new MenuFirst(frame);
+        menuFirst.setVisible(true);
+        frame.add(menuFirst);
     }
 
     // 도서 검색
