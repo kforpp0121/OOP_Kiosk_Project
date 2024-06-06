@@ -10,14 +10,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class Profile extends JFrame {
+public class Profile extends JPanel {
 	
-	public Profile() {
+	private void createUI() {
+        setLayout(new BorderLayout());   // 기본 panel 설정
+        }
+	
+	public Profile(JFrame frame) {
 		
 		setSize(450, 700);
-		setTitle("내 정보");
-		setLocation(300, 10);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createUI();
 		
 		Font backFont = new Font("Dialog", Font.BOLD, 25);
 		
@@ -39,9 +41,13 @@ public class Profile extends JFrame {
 		
         backwardB.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        		MenuFirst menu = new MenuFirst();
-        		menu.setVisible(true);
+        		remove(profilestateL);
+        		remove(basicP);
+        		remove(backwardB);
+        		MenuFirst menu = new MenuFirst(frame);
+        		add(menu);
+        		revalidate();
+        		repaint();
         	}
         });
         
@@ -127,4 +133,5 @@ public class Profile extends JFrame {
 		add(backwardB, BorderLayout.SOUTH);
         
 	}
+
 }
