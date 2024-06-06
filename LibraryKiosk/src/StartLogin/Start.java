@@ -1,5 +1,3 @@
-package StartLogin;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -8,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Start extends JPanel {
-    private JFrame frame;              // 전체 frame
+    private JFrame jf;              // 전체 frame
     private StartMain main;            // StartMain 인스턴스 참조
     private JPanel panel;              // 전체 panel
     private Font font;
@@ -16,8 +14,8 @@ public class Start extends JPanel {
     Color orangeColor = new Color(238, 121, 3);
     Color green = new Color(70, 156, 118);
 
-    public Start(JFrame frame, StartMain main) {
-        this.frame = frame;    // 전체 frame
+    public Start(JFrame jf, StartMain main) {
+        this.jf = jf;    // 전체 frame
         this.main = main;      // StartMain 인스턴스
         createUI();
     }
@@ -89,7 +87,7 @@ public class Start extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // 로그인창 띄우기
                 main.login();
-                frame.dispose();
+                jf.dispose();
             }
         });
         panelMain.add(LoginButton);
