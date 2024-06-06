@@ -1,8 +1,5 @@
 package SearchAndReservation;
 
-import SearchAndReservation.Book;
-import SearchAndReservation.Reservation;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
