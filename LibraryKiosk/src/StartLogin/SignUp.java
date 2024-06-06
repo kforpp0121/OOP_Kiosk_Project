@@ -218,7 +218,8 @@ public class SignUp extends JPanel {
             CSVWriter.writeUserData(userData);
 
             JOptionPane.showMessageDialog(frame, "회원 가입이 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-            frame.dispose();
+            
+            goBack();
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -239,6 +240,13 @@ public class SignUp extends JPanel {
             }
         }
         return false;
+    }
+    
+    private void goBack() {
+        setVisible(false);
+        Start start = new Start(frame);
+        start.setVisible(true);
+        frame.add(start);
     }
 
 }
