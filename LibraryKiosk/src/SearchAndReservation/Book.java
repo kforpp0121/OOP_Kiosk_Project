@@ -1,5 +1,3 @@
-package SearchAndReservation;
-
 public class Book {
     private String title;
     private String author;

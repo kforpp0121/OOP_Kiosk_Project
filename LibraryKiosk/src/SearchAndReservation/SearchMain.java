@@ -1,5 +1,3 @@
-package SearchAndReservation;
-
 import javax.swing.*;
 
 
