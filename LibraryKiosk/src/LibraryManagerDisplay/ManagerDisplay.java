@@ -11,8 +11,8 @@ public class ManagerDisplay {
     public ManagerDisplay() {
         JFrame frame = new JFrame("관리자 화면"); // 프레임 생성
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 닫히면 프로그램 종료
-        frame.setSize(800, 600); // 프레임 크기 설정
-        frame.setLocation(400, 100); // 프레임 위치 설정
+        frame.setSize(800, 700); // 프레임 크기 설정
+        frame.setLocation(700, 50); // 프레임 위치 설정
 
         Vector<Vector<String>> bookList = bookCSVController.readCSV(); // csv파일로부터 bookList를 읽어옴
 
