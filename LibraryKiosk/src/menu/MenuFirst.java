@@ -121,6 +121,17 @@ public class MenuFirst extends JPanel {
         menupage2P.add(button4);
         menupage2P.add(button5);
         menupage2P.add(button6);
+
+	button3.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			remove(menustateL);
+			remove(menupage1P);
+			remove(southpanel1);
+
+			revalidate();
+			repaint():
+		}
+	});
         
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
