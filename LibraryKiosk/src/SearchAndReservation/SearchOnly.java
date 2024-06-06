@@ -89,7 +89,7 @@ public class SearchOnly extends JPanel {
         searchPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         searchPanel.setBackground(Color.WHITE);
 
-        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("SearchAndReservation/search_symbol.png"));  // 돋보기 아이콘
+        ImageIcon originalIcon = new ImageIcon(SearchOnly.class.getResource("search_symbol.png"));  // 돋보기 아이콘
         Image originalImage = originalIcon.getImage();
         Image scaledImage = originalImage.getScaledInstance(45, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
         ImageIcon scaledIcon = new ImageIcon(scaledImage);

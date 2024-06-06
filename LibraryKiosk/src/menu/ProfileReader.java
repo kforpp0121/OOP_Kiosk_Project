@@ -6,22 +6,31 @@ import java.util.*;
 public class ProfileReader {
 	
     public String getNumById(String id) {
-        Map<String, String> userInfo = getUserInfoById(id);
-        return userInfo != null ? userInfo.get("PN") : null;
+    	String num = null;
+        Vector<Map<String, String>> userInfo = getUserInfoById(id);
+        Map<String, String> numMap = userInfo.get(4);
+        num = numMap.get("PN");
+        return num;
     }
 
     public String getBirthdateById(String id) {
-        Map<String, String> userInfo = getUserInfoById(id);
-        return userInfo != null ? userInfo.get("BIRTH") : null;
+    	String birth = null;
+        Vector<Map<String, String>> userInfo = getUserInfoById(id);
+        Map<String, String> birthMap = userInfo.get(3);
+        birth = birthMap.get("BIRTH");
+        return birth;
     }
     
     public String getNameById(String id) {
-        Map<String, String> userInfo = getUserInfoById(id);
-        return userInfo != null ? userInfo.get("NM") : null;
+    	String name = null;
+        Vector<Map<String, String>> userInfo = getUserInfoById(id);
+        Map<String, String> nameMap = userInfo.get(0);
+        name = nameMap.get("NM");
+        return name;
     }
 
-    private Map<String, String> getUserInfoById(String id) {
-        Map<String, String> userInfo = null;
+    private Vector<Map<String, String>> getUserInfoById(String id) {
+        Vector<Map<String, String>> userInfo = null;
         File csv = new File("mem_test.csv");
         BufferedReader br = null;
 
@@ -32,10 +41,12 @@ public class ProfileReader {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+                Map<String, String> profInfo = new HashMap<>();
                 if (values[1].equals(id)) {
-                    userInfo = new HashMap<>();
+                    userInfo = new Vector<>();
                     for (int i = 0; i < headers.length; i++) {
-                        userInfo.put(headers[i], values[i]);
+                    	profInfo.put(headers[i], values[i]);
+                        userInfo.add(profInfo);
                     }
                     break;
                 }

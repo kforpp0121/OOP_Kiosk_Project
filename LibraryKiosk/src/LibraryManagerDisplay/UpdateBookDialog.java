@@ -17,13 +17,19 @@ public class UpdateBookDialog extends JDialog {
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
+        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
+        Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
+        Font formFont = new Font("맑은 고딕", Font.PLAIN, 16);
+
         setTitle("도서 수정");
         JPanel panel = new JPanel();
 
         titlePanel=new JPanel();
-        titleLabel = new JLabel("도서 제목");
+        titleLabel = new JLabel("제목");
         titleLabel.setPreferredSize(new Dimension(50, 20));
-        title = new JTextField(25);
+        titleLabel.setFont(labelFont);
+        title = new JTextField(20);
+        title.setFont(formFont);
         title.setText(book.getTitle());
         titlePanel.add(titleLabel);
         titlePanel.add(title);
@@ -31,7 +37,9 @@ public class UpdateBookDialog extends JDialog {
         authorPanel=new JPanel();
         authorLabel = new JLabel("작가");
         authorLabel.setPreferredSize(new Dimension(50, 20));
-        author = new JTextField(25);
+        authorLabel.setFont(labelFont);
+        author = new JTextField(20);
+        author.setFont(formFont);
         author.setText(book.getAuthor());
         authorPanel.add(authorLabel);
         authorPanel.add(author);
@@ -39,7 +47,9 @@ public class UpdateBookDialog extends JDialog {
         ISBNPanel=new JPanel();
         ISBNLabel = new JLabel("ISBN");
         ISBNLabel.setPreferredSize(new Dimension(50, 20));
-        ISBN = new JTextField(25);
+        ISBNLabel.setFont(labelFont);
+        ISBN = new JTextField(20);
+        ISBN.setFont(formFont);
         ISBN.setText(book.getISBN());
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
@@ -48,8 +58,12 @@ public class UpdateBookDialog extends JDialog {
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("입력 완료");
         yesButton.setBackground(green);
+        yesButton.setForeground(Color.WHITE);
+        yesButton.setFont(btnFont);
         JButton noButton = new JButton("취소");
         noButton.setBackground(orange);
+        noButton.setForeground(Color.WHITE);
+        noButton.setFont(btnFont);
         yesButton.addActionListener(new UpdateBookListener(bookList, book));
         noButton.addActionListener(e -> {dispose();});
         buttonPanel.add(yesButton);
@@ -63,8 +77,8 @@ public class UpdateBookDialog extends JDialog {
 
         add(panel);
 
-        setLocation(600, 300);
-        setSize(400, 200);
+        setLocation(900, 300);
+        setSize(400, 225);
     }
 
     public class UpdateBookListener implements ActionListener {
@@ -121,8 +135,10 @@ public class UpdateBookDialog extends JDialog {
                     // dialog 닫기
                     dispose();
                     // 수정 완료
-                    JOptionPane.showMessageDialog(null, "도서 수정이 완료되었습니다.", "도서 수정 완료", JOptionPane.INFORMATION_MESSAGE);
-                }
+                    JOptionPane optionPane = new JOptionPane("도서 수정이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
+                    JDialog dialog = optionPane.createDialog("도서 수정 완료");
+                    dialog.setLocation(950, 300);
+                    dialog.setVisible(true);                }
             }
         }
     }

@@ -14,7 +14,7 @@ public class Profile extends JFrame {
 	
 	public Profile() {
 		
-		setSize(450, 800);
+		setSize(450, 700);
 		setTitle("내 정보");
 		setLocation(300, 10);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class Profile extends JFrame {
 		profilestateL.setFont(backFont);
 		
 		JPanel basicP = new JPanel();
-		basicP.setPreferredSize(new Dimension(540, 710));
+		basicP.setPreferredSize(new Dimension(450, 700));
 		basicP.setBackground(Color.WHITE);
 		
 		JButton backwardB = new JButton("뒤로 가기");
@@ -52,7 +52,7 @@ public class Profile extends JFrame {
         profL.setVerticalAlignment(SwingConstants.CENTER);
         profL.setFont(backFont);
         profL.setForeground(Color.WHITE);
-        profL.setPreferredSize(new Dimension(540, 200));
+        profL.setPreferredSize(new Dimension(450, 150));
         basicP.add(profL);
         
         JLabel borrow = new JLabel();

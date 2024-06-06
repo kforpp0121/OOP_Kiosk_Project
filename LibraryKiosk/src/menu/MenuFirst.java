@@ -15,7 +15,7 @@ public class MenuFirst extends JFrame {
 	
 	public MenuFirst() {
 		
-		setSize(450, 800);
+		setSize(450, 700);
 		setTitle("메뉴");
 		setLocation(300, 10);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +104,7 @@ public class MenuFirst extends JFrame {
         button6.setHorizontalAlignment(SwingConstants.CENTER);
         button6.setVerticalAlignment(SwingConstants.CENTER);
         
-        Dimension buttonSize = new Dimension(120, 500);
+        Dimension buttonSize = new Dimension(120, 400);
         button1.setPreferredSize(buttonSize);
         button2.setPreferredSize(buttonSize);
         button3.setPreferredSize(buttonSize);
