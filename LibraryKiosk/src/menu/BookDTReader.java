@@ -21,7 +21,7 @@ public class BookDTReader {
     
     private Vector<Map<String, String>> getUserBooks() {
         Vector<Map<String, String>> allBooks = new Vector<>();
-        File csv = new File("C:/Users/nutel/Documents/객체/project/Menu/lib_test.csv");
+        File csv = new File("lib_test.csv");
         BufferedReader br = null;
 
         try {
