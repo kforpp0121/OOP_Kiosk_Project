@@ -1,35 +1,33 @@
-package SearchAndReservation;
-
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-public class Search extends JFrame {
+public class Search extends JPanel {
+    private JFrame frame;              // 전체 frame
     private JPanel panel;              // 전체 panel
     private JTextField searchField;    // 검색창
     private JPanel resultPanel;        // 결과창
     private BookDatabase bookDatabase; // 도서 데이터
-    private JFrame previousFrame;      // 이전 화면을 저장
     private int result_num;            // 검색 결과 수
-    private int height = 200;          // 결과 유닛 높이
+    private int height = 180;          // 결과 유닛 높이
+    private int width = 100;           // 결과 유닛 너비
+    private Font font;                 // 나눔 고딕 폰트
 
-    public Search(String csvFilePath) {
-        //, JFrame previousFrame
-        //this.previousFrame = previousFrame;
+    public Search(String csvFilePath, JFrame frame) {
         bookDatabase = new BookDatabase(csvFilePath);  // 도서 csv 파일의 경로를 통해 데이터베이스를 받는다.
-        createUI();  // UI 생성
+        this.frame = frame;    // 전체 frame
+        setUIFont();           // 전체 font
+        createUI();            // UI 생성
     }
 
     private void createUI() {
-        setTitle("Search");              // 창 제목
-        setSize(400, 600);  // 키오스크 화면 크기
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을 때 실행 종료
-        setLocationRelativeTo(null);     // 화면 중앙에 컴포넌트 배치
-
+        setLayout(new BorderLayout());   // 기본 panel 설정
 
         // 전체 panel
         panel = new JPanel(new BorderLayout());
@@ -41,17 +39,17 @@ public class Search extends JFrame {
 
         BackPanel();   // 뒤로 가기
 
-        add(panel);    // frame에 전체 panel 추가
+        add(panel, BorderLayout.CENTER);  // 기본 panel에 전체 panel 추가
     }
 
     // 검색 label
     private void SearchLabel() {
         JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(Color.GRAY);
+        titlePanel.setBackground(new Color(0xD9D9D9));
 
         JLabel title = new JLabel("검색", SwingConstants.CENTER);
-        title.setBorder(new EmptyBorder(10, 0, 10, 0));
-        Font titleFont = new Font("Dialog", Font.BOLD, 25); // 글꼴, 굵은체, 크기 25
+        title.setBorder(new EmptyBorder(15, 0, 15, 0));
+        Font titleFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
         title.setFont(titleFont);
         titlePanel.add(title);
 
@@ -64,15 +62,19 @@ public class Search extends JFrame {
         panelMain.setBackground(Color.WHITE);
 
         // 검색창
-        searchField = new JTextField(20);        // 검색창 길이
+        searchField = new JTextField(15);        // 검색창 길이
         searchField.setBorder(new RoundedBorder(10, 4)); // 검색창 디자인
+        searchField.setPreferredSize(new Dimension(100, 40));
+        Font searchFieldFont = font.deriveFont(Font.PLAIN, 20); // 나눔고딕, 굵은체, 크기 25
+        searchField.setFont(searchFieldFont); // 검색창의 글꼴 적용
 
         JButton searchButton = new JButton("검색");  // 검색 버튼
         searchButton.setBorder(new RoundedBorder(0, 2)); // 검색 버튼 디자인
-        Font searchFont = new Font("Dialog", Font.PLAIN, 20); // 글꼴, 크기 20
-        searchButton.setFont(searchFont);          // 글꼴 적용
-        searchButton.setBackground(Color.WHITE);   // 버튼의 배경색
-        searchButton.setForeground(Color.BLACK);   // 버튼의 글자색
+        Font searchFont = font.deriveFont(Font.PLAIN, 20); // 나눔고딕, 크기 20
+        searchButton.setFont(searchFont);                       // 글꼴 적용
+        searchButton.setBackground(new Color(0xD9D9D9));   // 버튼의 배경색
+        searchButton.setForeground(Color.BLACK);               // 버튼의 글자색
+        searchButton.setPreferredSize(new Dimension(50, 40));
 
         searchButton.addActionListener(new ActionListener() {  // 버튼 event
             @Override
@@ -82,12 +84,12 @@ public class Search extends JFrame {
         });
 
         JPanel searchPanel = new JPanel(); // 검색창 panel
-        searchPanel.setBorder(new EmptyBorder(5, 0, 5, 0));
+        searchPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         searchPanel.setBackground(Color.WHITE);
 
-        ImageIcon originalIcon = new ImageIcon(Search.class.getResource("SearchAndReservation/search_symbol.png"));  // 돋보기 아이콘
+        ImageIcon originalIcon = new ImageIcon(Search.class.getResource("search_symbol.png"));  // 돋보기 아이콘
         Image originalImage = originalIcon.getImage();
-        Image scaledImage = originalImage.getScaledInstance(40, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
+        Image scaledImage = originalImage.getScaledInstance(45, 30, Image.SCALE_SMOOTH); // 원하는 크기로 조절
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JLabel searchLabel = new JLabel(scaledIcon);
 
@@ -115,12 +117,12 @@ public class Search extends JFrame {
 
     // 뒤로가기
     private void BackPanel() {
-        JButton back = new JButton("뒤로 가기");  // 뒤로가기 버튼
-        back.setBorder(new EmptyBorder(10, 0, 10, 0));
-        Font backFont = new Font("Dialog", Font.BOLD, 20); // 글꼴, 굵은체, 크기 20
+        JButton back = new JButton("뒤로 가기");    // 뒤로가기 버튼
+        back.setBorder(new EmptyBorder(20, 0, 20, 0));
+        Font backFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
         back.setFont(backFont);
-        back.setBackground(Color.ORANGE);  // 버튼의 배경색
-        back.setForeground(Color.BLACK);   // 버튼의 글자색
+        back.setBackground(new Color(0xEE7930));   // 버튼의 배경색
+        back.setForeground(Color.WHITE);               // 버튼의 글자색
 
         back.addActionListener(new ActionListener() {  // 뒤로가기 event
             @Override
@@ -129,11 +131,10 @@ public class Search extends JFrame {
             }
         });
 
-        panel.add(back, BorderLayout.SOUTH);         // 전체 panel의 하단에 뒤로가기 버튼 추가
+        panel.add(back, BorderLayout.SOUTH);           // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        previousFrame.setVisible(true); // 이전 화면을 보이도록 설정
-        dispose(); // 현재 화면 닫기
+
     }
 
     // 도서 검색
@@ -167,19 +168,25 @@ public class Search extends JFrame {
             JPanel bookPanel = new JPanel();
             bookPanel.setBackground(Color.WHITE);
             bookPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-            bookPanel.setPreferredSize(new Dimension(400, height));
+            bookPanel.setPreferredSize(new Dimension(width*4+30, height));
 
             // 도서 사진
             BookImage coverPanel = new BookImage(book.getCoverImagePath());
-            coverPanel.setPreferredSize(new Dimension(100, height-10));
+            coverPanel.setPreferredSize(new Dimension(width+10, height-10));
             coverPanel.setBackground(Color.WHITE);
 
             // 도서 정보
             JPanel infoPanel = new JPanel(new GridLayout(3, 1)); // 3개의 정보를 세로로 표시하기 위한 패널
-            infoPanel.setPreferredSize(new Dimension(200, height-10));
-            JLabel titleLabel = new JLabel("제목: " + book.getTitle());
-            JLabel authorLabel = new JLabel("저자: " + book.getAuthor());
-            JLabel reservationLabel = new JLabel("예약: " + (book.isAvailable() ? "가능" : "불가능"));
+            infoPanel.setPreferredSize(new Dimension(width*2, height-10));
+            infoPanel.setBackground(new Color(0xD9D9D9));  // 16진수 색상 코드 사용
+            JLabel titleLabel = new JLabel(" 제목 : " + book.getTitle());
+            JLabel authorLabel = new JLabel(" 저자 : " + book.getAuthor());
+            JLabel reservationLabel = new JLabel(" 예약 : " + (book.isAvailable() ? "가능" : "불가능"));
+
+            Font infoFont = font.deriveFont(Font.PLAIN, 15); // 나눔고딕, 크기 15
+            titleLabel.setFont(infoFont);
+            authorLabel.setFont(infoFont);
+            reservationLabel.setFont(infoFont);
 
             infoPanel.add(titleLabel);
             infoPanel.add(authorLabel);
@@ -188,22 +195,24 @@ public class Search extends JFrame {
             // 예약 panel과 예약 button
             JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new BorderLayout());
-            buttonPanel.setPreferredSize(new Dimension(100, height-10));
-            buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 30));
+            buttonPanel.setPreferredSize(new Dimension(width+20, height-10));
+            buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 
             JButton reserveButton = new JButton("예약");
-            Font reserveFont = new Font("Dialog", Font.BOLD, 17); // 글꼴, 굵은체, 크기 17
+            Font reserveFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
             reserveButton.setFont(reserveFont);
-            reserveButton.setBackground(Color.GREEN);   // 버튼의 배경색
-            reserveButton.setForeground(Color.BLACK);   // 버튼의 글자색
+            reserveButton.setBackground(new Color(0x469C76));   // 버튼의 배경색
+            reserveButton.setForeground(Color.WHITE);   // 버튼의 글자색
 
             reserveButton.setEnabled(book.isAvailable()); // 예약이 가능하면 활성화
             reserveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (book.isAvailable()) {
-                        dispose();
-                        new Reservation(book, Search.this);
+                        setVisible(false);
+                        Reservation reservation = new Reservation(book, frame);
+                        reservation.setVisible(true);
+                        frame.add(reservation);
                     } else {
                         JOptionPane.showMessageDialog(
                                 Search.this,
@@ -227,9 +236,24 @@ public class Search extends JFrame {
         resultPanel.repaint();    // UI 업데이트
     }
 
+    // 폰트 적용
+    private void setUIFont() {
+        // 나눔 고딕 폰트 파일 경로
+        String fontPath = "font/NanumGothic.ttf";
+
+        // 폰트 파일로부터 폰트 객체 생성
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
     // 검색 하고자 하는 도서가 없을 때
     class NotfoundBook extends JDialog {
-        public NotfoundBook(JFrame parent) {
+        public NotfoundBook(JPanel parent) {
             setTitle("Can Not Found Book");
             setLayout(new BorderLayout());
 
@@ -237,6 +261,8 @@ public class Search extends JFrame {
 
             JPanel textPanel = new JPanel();
             JLabel text = new JLabel("찾으시는 책이 목록에 없습니다.");
+            Font textFont = font.deriveFont(Font.PLAIN, 15); // 나눔고딕, 크기 15
+            text.setFont(textFont);
             textPanel.add(text);
 
             JPanel buttonPanel = new JPanel();
@@ -255,7 +281,7 @@ public class Search extends JFrame {
 
     // 입력이 없을 때
     class NeedInput extends JDialog {
-        public NeedInput(JFrame parent) {
+        public NeedInput(JPanel parent) {
             setTitle("Please Enter Book Information");
             setLayout(new BorderLayout());
 
@@ -263,6 +289,8 @@ public class Search extends JFrame {
 
             JPanel textPanel = new JPanel();
             JLabel text = new JLabel("찾으려는 책 제목이나 작가명을 입력해주세요.");
+            Font textFont = font.deriveFont(Font.PLAIN, 15); // 나눔고딕, 크기 15
+            text.setFont(textFont);
             textPanel.add(text);
 
             JPanel buttonPanel = new JPanel();

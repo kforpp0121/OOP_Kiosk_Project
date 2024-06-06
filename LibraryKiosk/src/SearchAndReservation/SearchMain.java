@@ -1,6 +1,5 @@
-package SearchAndReservation;
-
 import javax.swing.*;
+
 
 public class SearchMain {
     public static void main(String[] args) {
@@ -13,10 +12,19 @@ public class SearchMain {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                JFrame frame = new JFrame();
+                frame.setTitle("Search");              // 창 제목
+                frame.setSize(450, 800);  // 키오스크 화면 크기
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을 때 실행 종료
+                frame.setLocation(300, 10);      // (300, 10) 위치에 배치
+
                 // 도서 대출 키오스크 GUI 생성
-                Search kiosk = new Search(csvFilePath);
+                Search search = new Search(csvFilePath, frame);
+                frame.add(search);
+                search.setVisible(true);
+
                 // GUI를 보이도록 설정
-                kiosk.setVisible(true);
+                frame.setVisible(true);
             }
         });
     }
