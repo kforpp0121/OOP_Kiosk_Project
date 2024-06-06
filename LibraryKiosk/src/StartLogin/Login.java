@@ -1,7 +1,8 @@
 package StartLogin;
 
+import menu.MenuFirst;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -97,13 +98,15 @@ public class Login extends JPanel {
                 String password = new String(passwordField.getPassword());
 
                 if (validLogin(username, password)) {
-                    JOptionPane.showMessageDialog(frame, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
-                    // MenuFirst menu = new MenuFirst();
-                    // menu.setVisible(true);
-                    frame.dispose(); // 로그인 성공 후 창 닫기
+                    setVisible(false);
+                    MenuFirst menuFirst = new MenuFirst(frame);
+                    menuFirst.setVisible(true);
+                    frame.add(menuFirst);
                 } else {
                     JOptionPane.showMessageDialog(frame, "아이디 또는 비밀번호가 일치하지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
                 }
+
+
             }
         });
         loginButtonPanel.add(loginButton);

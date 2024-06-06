@@ -20,7 +20,7 @@ public class SignUp extends JPanel {
     private Color orangeColor = new Color(238, 121, 3);
     private Color green = new Color(70, 156, 118);
 
-    public SignUp(JFrame jf) {
+    public SignUp(JFrame frame) {
         this.frame = frame;    // 전체 frame
         createUI();
     }
@@ -244,9 +244,8 @@ public class SignUp extends JPanel {
     
     private void goBack() {
         setVisible(false);
-        Start start = new Start(frame);
-        start.setVisible(true);
-        frame.add(start);
+        Login login = new Login(frame);
+        login.setVisible(true);
+        frame.add(login);
     }
-
 }
