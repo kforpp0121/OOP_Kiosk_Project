@@ -4,11 +4,12 @@ import CSVController.BookCSVController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Vector;
 
 public class ManagerDisplay {
     BookCSVController bookCSVController = new BookCSVController(); // bookList를 읽어오기 위한 객체
-    public ManagerDisplay() {
+    public ManagerDisplay() throws IOException, FontFormatException {
         JFrame frame = new JFrame("관리자 화면"); // 프레임 생성
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 닫히면 프로그램 종료
         frame.setSize(800, 700); // 프레임 크기 설정

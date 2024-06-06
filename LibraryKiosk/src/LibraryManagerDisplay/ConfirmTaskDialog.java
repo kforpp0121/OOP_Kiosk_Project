@@ -4,18 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class ConfirmTaskDialog extends JDialog {
     private boolean isConfirmed;
-    public ConfirmTaskDialog(String task) {
+    public ConfirmTaskDialog(String task) throws IOException, FontFormatException {
         setTitle("작업 확인");
         setConfirmed(false);
 
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
-        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
-        Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
+        // 폰트 불러오기
+        File fontFile = new File("LibraryKiosk/font/NanumGothic.ttf");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(12);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+
+        // 폰트 설정
+        Font btnFont = customFont.deriveFont(Font.BOLD, 18);
+        Font labelFont = customFont.deriveFont(Font.BOLD, 16);
 
         JPanel confirmPanel=new JPanel();
         JLabel confirmLabel = new JLabel("도서 "+task+"을(를) 완료하시겠습니까?");

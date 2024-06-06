@@ -2,13 +2,22 @@ package LibraryManagerDisplay;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
 public class SearchResultDialog extends JDialog {
-    public SearchResultDialog(Vector<Vector<String>> bookList) {
+    public SearchResultDialog(Vector<Vector<String>> bookList) throws IOException, FontFormatException {
         setTitle("검색 결과");
 
-        Font labelFont = new Font("맑은 고딕", Font.BOLD, 30);
+        // 폰트 불러오기
+        File fontFile = new File("LibraryKiosk/font/NanumGothic.ttf");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(12);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+
+        // 폰트 설정
+        Font labelFont = customFont.deriveFont(Font.BOLD, 30);
 
         JPanel panel = new JPanel(new BorderLayout());
 

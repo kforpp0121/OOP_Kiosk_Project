@@ -6,6 +6,8 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -13,11 +15,19 @@ public class BookTable extends JPanel{
     DefaultTableModel model;
     JTable bookTable;
     Vector<Vector<String>> bookList;
-    public BookTable(Vector<Vector<String>> bookList) {
+    public BookTable(Vector<Vector<String>> bookList) throws IOException, FontFormatException {
         Color green = new Color(0x00469C76);
-        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
-        Font tableFont = new Font("맑은 고딕", Font.PLAIN, 16);
-        Font tableHeaderFont = new Font("맑은 고딕", Font.BOLD, 18);
+
+        // 폰트 불러오기
+        File fontFile = new File("LibraryKiosk/font/NanumGothic.ttf");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(12);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+
+        // 폰트 설정
+        Font btnFont = customFont.deriveFont(Font.BOLD, 18);
+        Font tableFont = customFont.deriveFont(Font.PLAIN, 16);
+        Font tableHeaderFont = customFont.deriveFont(Font.BOLD, 18);
 
         this.setBackground(Color.WHITE);
 
@@ -68,7 +78,13 @@ public class BookTable extends JPanel{
         addBook.setForeground(Color.WHITE);
         addBook.setFont(btnFont);
         addBook.addActionListener(e->{
-            new AddBookDialog(bookList, model).setVisible(true);
+            try {
+                new AddBookDialog(bookList, model).setVisible(true);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (FontFormatException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         addBookPanel.add(addBook);
 
@@ -92,7 +108,14 @@ public class BookTable extends JPanel{
 
                     BookInfo selectedBook = new BookInfo(title, author, ISBN); // 선택된 책 정보를 BookInfo 객체로 생성
 
-                    SelectTaskDialog selectTaskDialog = new SelectTaskDialog(bookList, selectedBook, model, row); // 선택된 책 정보를 가지고 SelectTaskDialog 생성
+                    SelectTaskDialog selectTaskDialog = null; // 선택된 책 정보를 가지고 SelectTaskDialog 생성
+                    try {
+                        selectTaskDialog = new SelectTaskDialog(bookList, selectedBook, model, row);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (FontFormatException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     selectTaskDialog.setVisible(true);
                 }
             }
