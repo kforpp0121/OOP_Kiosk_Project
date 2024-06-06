@@ -34,7 +34,7 @@ public class BookTable extends JPanel{
         this.bookList = bookList; // bookList를 받아옴
         JPanel tablePanel = new JPanel(new BorderLayout());
 
-        Vector<String> columnName =  new Vector<>(Arrays.asList("제목", "작가", "ISBN")); // 테이블의 열 이름
+        Vector<String> columnName =  new Vector<>(Arrays.asList("제목", "작가", "ISBN","예약 가능 여부", "예약 현황")); // 테이블의 열 이름
 
         model = new DefaultTableModel(columnName, 0) { // 테이블 내용 수정 불가하도록 설정
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -60,9 +60,12 @@ public class BookTable extends JPanel{
         // 헤더의 폰트 크기 변경
         header.setFont(tableHeaderFont);
 
-        bookTable.getColumn("제목").setPreferredWidth(250); // 열 너비 설정
-        bookTable.getColumn("작가").setPreferredWidth(250);
-        bookTable.getColumn("ISBN").setPreferredWidth(150);
+        bookTable.getColumn("제목").setPreferredWidth(150); // 열 너비 설정
+        bookTable.getColumn("작가").setPreferredWidth(50);
+        bookTable.getColumn("ISBN").setPreferredWidth(100);
+        bookTable.getColumn("예약 가능 여부").setPreferredWidth(100);
+        bookTable.getColumn("예약 현황").setPreferredWidth(50);
+
         bookTable.setRowHeight(30); // 행 높이 설정
 
         JScrollPane sp = new JScrollPane(bookTable); // 스크롤바 추가
@@ -105,8 +108,10 @@ public class BookTable extends JPanel{
                     String title = (String) model.getValueAt(row, 0);
                     String author = (String) model.getValueAt(row, 1);
                     String ISBN = (String) model.getValueAt(row, 2);
+                    String rv = (String) model.getValueAt(row, 3);
+                    String bool = (String) model.getValueAt(row, 4);
 
-                    BookInfo selectedBook = new BookInfo(title, author, ISBN); // 선택된 책 정보를 BookInfo 객체로 생성
+                    BookInfo selectedBook = new BookInfo(title, author, ISBN, rv, bool); // 선택된 책 정보를 BookInfo 객체로 생성
 
                     SelectTaskDialog selectTaskDialog = null; // 선택된 책 정보를 가지고 SelectTaskDialog 생성
                     try {
