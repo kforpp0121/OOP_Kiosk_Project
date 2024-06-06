@@ -8,36 +8,24 @@ public class ProfileReader {
     public String getNumById(String id) {
     	String num = null;
         Vector<Map<String, String>> userInfo = getUserInfoById(id);
-        
-        for (Map<String, String> profInfo : userInfo) {
-        	num = profInfo.get("PN");
-            break;
-        }
-        
+        Map<String, String> numMap = userInfo.get(4);
+        num = numMap.get("PN");
         return num;
     }
 
     public String getBirthdateById(String id) {
     	String birth = null;
         Vector<Map<String, String>> userInfo = getUserInfoById(id);
-        
-        for (Map<String, String> profInfo : userInfo) {
-        	birth = profInfo.get("BIRTH");
-        	break;
-             }
-        
+        Map<String, String> birthMap = userInfo.get(3);
+        birth = birthMap.get("BIRTH");
         return birth;
     }
     
     public String getNameById(String id) {
     	String name = null;
         Vector<Map<String, String>> userInfo = getUserInfoById(id);
-        
-        for (Map<String, String> profInfo : userInfo) {
-        	name = profInfo.get("NM");
-        	break;
-             }
-        
+        Map<String, String> nameMap = userInfo.get(0);
+        name = nameMap.get("NM");
         return name;
     }
 
