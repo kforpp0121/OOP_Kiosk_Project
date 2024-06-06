@@ -16,14 +16,11 @@ public class MenuFirst extends JPanel {
 	private JPanel southpanel2;
 	private String csvFilePath = "LibraryKiosk/lib_test.csv";
 
-	private void createUI() {
-        setLayout(new BorderLayout());   // 기본 panel 설정
-        }
 	
 	public MenuFirst(JFrame frame) {
 		
 		setSize(450, 700);
-		createUI();
+		setLayout(new BorderLayout());   // 기본 panel 설정
 		
 		Font backFont = new Font("Dialog", Font.BOLD, 25);
 		
