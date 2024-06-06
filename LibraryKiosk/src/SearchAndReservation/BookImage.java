@@ -20,7 +20,7 @@ public class BookImage extends JPanel {
         } else {
             // 기본 이미지 설정 (기본 이미지를 사용할 경우)
             try {
-                image = ImageIO.read(getClass().getResource("SearchAndReservation/apple.jpeg"));
+                image = ImageIO.read(new File("bookcover\\apple.jpeg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

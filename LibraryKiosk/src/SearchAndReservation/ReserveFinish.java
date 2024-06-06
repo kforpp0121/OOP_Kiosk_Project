@@ -5,46 +5,50 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
-public class ReserveFinish extends JFrame {
-    private JPanel panel;         // 전체 panel
-    private JFrame previousFrame; // 이전 화면을 저장
+public class ReserveFinish extends JPanel {
+    private JFrame frame;             // 전체 frame
+    private JPanel panel;             // 전체 panel
     private JProgressBar progressBar; // 타임바
+    private Font font;                // 나눔 고딕 폰트
+    private Book book;            // 도서 정보
 
-    public ReserveFinish(JFrame previousFrame) {
-        this.previousFrame = previousFrame;
-        createUI();
-        startTimer(); // 타이머 시작
+    public ReserveFinish(Book book, JFrame frame) {
+        this.book = book;      // 도서 정보
+        this.frame = frame;    // 전체 frame
+        setUIFont();           // 전체 font
+        createUI();            // UI 생성
+        startTimer();          // 타이머 시작
     }
     private void createUI() {
-        setTitle("Reserve Finish");
-        setSize(400, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);    // 화면 중앙에 컴포넌트 배치
-
+        setLayout(new BorderLayout());   // 기본 panel 설정
 
         // 전체 panel
         panel = new JPanel(new BorderLayout());
         panel.setBackground(Color.WHITE);
 
-        EndLabel();  // 완료 label
+        EndLabel();         // 완료 label
 
         TimeBar(30);   // 30초 타이머
 
-        BackPanel(); // 뒤로 가기
+        BackPanel();        // 뒤로 가기
 
-        add(panel);
+        add(panel, BorderLayout.CENTER); // 기본 panel에 전체 panel 추가
         setVisible(true);
     }
 
     // 완료 문구
     private void EndLabel() {
         JPanel end = new JPanel(new GridLayout(2, 1));
+        end.setBackground(Color.WHITE);
+
         JLabel end1 = new JLabel("<html><center>예약이<br>완료되었습니다</center></html>" , SwingConstants.CENTER);
         JLabel end2 = new JLabel("<html><center>이용해주셔서<br>감사합니다</center></html>" , SwingConstants.CENTER);
 
-        Font end1Font = new Font("Dialog", Font.BOLD, 35); // 글꼴, 굵은체, 크기 20
-        Font end2Font = new Font("Dialog", Font.PLAIN, 25); // 글꼴, 굵은체, 크기 20
+        Font end1Font = font.deriveFont(Font.BOLD, 50); // 나눔고딕, 굵은체, 크기 50
+        Font end2Font = font.deriveFont(Font.PLAIN, 40); // 나눔고딕, 크기 40
 
         end1.setFont(end1Font);
         end2.setFont(end2Font);
@@ -79,6 +83,8 @@ public class ReserveFinish extends JFrame {
         });
         timer.start();
     }
+
+    // 홈으로
     private void goHome() {
         // 홈 화면으로 이동하는 코드를 여기에 추가
     }
@@ -86,11 +92,11 @@ public class ReserveFinish extends JFrame {
     // 뒤로 가기
     private void BackPanel() {
         JButton back = new JButton("뒤로 가기");  // 뒤로가기 버튼
-        back.setBorder(new EmptyBorder(10, 0, 10, 0));
-        Font backFont = new Font("Dialog", Font.BOLD, 20); // 글꼴, 굵은체, 크기 20
+        back.setBorder(new EmptyBorder(20, 0, 20, 0));
+        Font backFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
         back.setFont(backFont);
-        back.setBackground(Color.ORANGE);  // 버튼의 배경색
-        back.setForeground(Color.BLACK);   // 버튼의 글자색
+        back.setBackground(new Color(0xEE7930));  // 버튼의 배경색
+        back.setForeground(Color.WHITE);   // 버튼의 글자색
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -102,7 +108,25 @@ public class ReserveFinish extends JFrame {
         panel.add(back, BorderLayout.SOUTH); // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        previousFrame.setVisible(true); // 이전 화면을 보이도록 설정
-        dispose(); // 현재 화면 닫기
+        book.setReserved(false);
+        setVisible(false);
+        Reservation reservation = new Reservation(book, frame);
+        reservation.setVisible(true);
+        frame.add(reservation);
+    }
+
+    // 폰트 적용
+    private void setUIFont() {
+        // 나눔 고딕 폰트 파일 경로
+        String fontPath = "font/NanumGothic.ttf";
+
+        // 폰트 파일로부터 폰트 객체 생성
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
     }
 }
