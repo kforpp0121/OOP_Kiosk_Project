@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
 public class UpdateBookDialog extends JDialog {
@@ -13,13 +15,20 @@ public class UpdateBookDialog extends JDialog {
     JLabel titleLabel, authorLabel, ISBNLabel;
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
-    public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book) {
+    public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book) throws IOException, FontFormatException {
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
-        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
-        Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
-        Font formFont = new Font("맑은 고딕", Font.PLAIN, 16);
+        // 폰트 불러오기
+        File fontFile = new File("LibraryKiosk/font/NanumGothic.ttf");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(12);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+
+        // 폰트 설정
+        Font btnFont = customFont.deriveFont(Font.BOLD, 18);
+        Font labelFont = customFont.deriveFont(Font.BOLD, 16);
+        Font formFont = customFont.deriveFont(Font.PLAIN, 16);
 
         setTitle("도서 수정");
         JPanel panel = new JPanel();
@@ -96,11 +105,21 @@ public class UpdateBookDialog extends JDialog {
                     || author.getText().isEmpty()
                     || ISBN.getText().length()!=13
                     || !ISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")){
-                JOptionPane.showMessageDialog(null, "입력한 도서 정보가 잘못되었습니다.", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                JOptionPane optionPane = new JOptionPane("입력한 도서 정보가 잘못되었습니다.", JOptionPane.ERROR_MESSAGE);
+                JDialog dialog = optionPane.createDialog("입력 오류");
+                dialog.setLocation(950, 300);
+                dialog.setVisible(true);
                 return;
             }
             // 완료 버튼 -> confirmTaskDialog 띄움
-            ConfirmTaskDialog confirmTaskDialog = new ConfirmTaskDialog("수정");
+            ConfirmTaskDialog confirmTaskDialog = null;
+            try {
+                confirmTaskDialog = new ConfirmTaskDialog("수정");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (FontFormatException ex) {
+                throw new RuntimeException(ex);
+            }
             confirmTaskDialog.setVisible(true);
 
             // 대기 스레드 실행

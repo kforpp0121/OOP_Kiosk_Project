@@ -7,18 +7,27 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 
 public class SelectTaskDialog extends JDialog {
     Vector<Vector<String>> bookList;
     DefaultTableModel model;
     int row;
-    public SelectTaskDialog(Vector<Vector<String>> bookList, BookInfo book, DefaultTableModel model, int row) {
+    public SelectTaskDialog(Vector<Vector<String>> bookList, BookInfo book, DefaultTableModel model, int row) throws IOException, FontFormatException {
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
-        Font btnFont = new Font("맑은 고딕", Font.BOLD, 18);
-        Font labelFont = new Font("맑은 고딕", Font.BOLD, 16);
+        // 폰트 불러오기
+        File fontFile = new File("LibraryKiosk/font/NanumGothic.ttf");
+        Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(12);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+
+        // 폰트 설정
+        Font btnFont = customFont.deriveFont(Font.BOLD, 18);
+        Font labelFont = customFont.deriveFont(Font.BOLD, 16);
 
         this.bookList = bookList;
         this.model = model;
@@ -45,7 +54,14 @@ public class SelectTaskDialog extends JDialog {
         // 수정 버튼 -> dialog 띄움
         updateButton.addActionListener(e -> {
             dispose();
-            UpdateBookDialog updateBookDialog = new UpdateBookDialog(bookList, book);
+            UpdateBookDialog updateBookDialog = null;
+            try {
+                updateBookDialog = new UpdateBookDialog(bookList, book);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (FontFormatException ex) {
+                throw new RuntimeException(ex);
+            }
             updateBookDialog.setVisible(true);
         });
 
@@ -73,7 +89,14 @@ public class SelectTaskDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             // 확인 다이얼로그 띄우기
-            ConfirmTaskDialog confirmTaskDialog = new ConfirmTaskDialog("삭제");
+            ConfirmTaskDialog confirmTaskDialog = null;
+            try {
+                confirmTaskDialog = new ConfirmTaskDialog("삭제");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (FontFormatException ex) {
+                throw new RuntimeException(ex);
+            }
             confirmTaskDialog.setVisible(true);
 
             // 대기 스레드 실행
