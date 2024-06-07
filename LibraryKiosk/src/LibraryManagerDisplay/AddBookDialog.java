@@ -61,14 +61,6 @@ public class AddBookDialog extends JDialog{
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
-        rvPanel=new JPanel();
-        rvLabel = new JLabel("대여 여부");
-        rvLabel.setFont(labelFont);
-        rvLabel.setPreferredSize(new Dimension(50, 20));
-        rv = new JTextField(20);
-        rv.setFont(formFont);
-        rvPanel.add(rvLabel);
-        rvPanel.add(rv);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -85,7 +77,6 @@ public class AddBookDialog extends JDialog{
             title.setText("");
             author.setText("");
             ISBN.setText("");
-            rv.setText("");
             setVisible(false);});
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
@@ -176,7 +167,6 @@ public class AddBookDialog extends JDialog{
                     title.setText("");
                     author.setText("");
                     ISBN.setText("");
-                    rv.setText("");
                     dispose();
 
                     JOptionPane optionPane = new JOptionPane("도서 입력이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
