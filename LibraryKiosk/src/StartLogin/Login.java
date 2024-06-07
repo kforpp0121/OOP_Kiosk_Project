@@ -54,8 +54,7 @@ public class Login extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showStartScreen(); // 이전의 시작 화면을 보여줌
-                frame.dispose();
+                goBack();
             }
         });
         backPanel.add(backButton);
@@ -144,5 +143,12 @@ public class Login extends JPanel {
 
     public void showStartScreen() {
     	frame.setVisible(true);
+    }
+
+    private void goBack() {
+        setVisible(false);
+        Start start = new Start(frame);
+        start.setVisible(true);
+        frame.add(start);
     }
 }
