@@ -1,19 +1,20 @@
 package StartLogin;
 
-import SearchAndReservation.Reservation;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import SearchAndReservation.Search;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Start extends JPanel {
     private JFrame frame;              // 전체 frame
-    private StartMain main;            // StartMain 인스턴스 참조
     private JPanel panel;              // 전체 panel
     private Font font;
 
@@ -22,7 +23,7 @@ public class Start extends JPanel {
 
     public Start(JFrame frame) {
         this.frame = frame;    // 전체 frame
-        this.main = main; // main 객체 초기화
+        setUIFont();
         createUI();
     }
 
@@ -56,43 +57,43 @@ public class Start extends JPanel {
     private void MainPanel() {
         JPanel panelMain = new JPanel(null);  // null 레이아웃 사용
         panelMain.setBackground(Color.WHITE);
+        Font startFont = font.deriveFont(Font.BOLD, 30);
 
         // 기존 라벨
         JLabel Label1 = new JLabel("기존");
-        Label1.setBounds(90, 200, 400, 50);
-        Label1.setFont(new Font("Dialog", Font.BOLD, 30));
+        Label1.setBounds(80, 200, 400, 50);
+        Label1.setFont(startFont);
         panelMain.add(Label1);
 
         // 처음 라벨
         JLabel Label2 = new JLabel("처음");
-        Label2.setBounds(300, 200, 400, 50);
-        Label2.setFont(new Font("Dialog", Font.BOLD, 30));
+        Label2.setBounds(295, 200, 400, 50);
+        Label2.setFont(startFont);
         panelMain.add(Label2);
 
         // 화살표 이미지 추가
-        ImageIcon arrow = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
+        ImageIcon arrow = new ImageIcon("arrow.jpg");
         JLabel label = new JLabel();
         label.setIcon(arrow);
-        label.setBounds(60, 250, 200, 150);
+        label.setBounds(50, 270, 200, 150);
         panelMain.add(label);
 
         // 화살표 이미지 추가
-        ImageIcon arrow2 = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
+        ImageIcon arrow2 = new ImageIcon("arrow.jpg");
         JLabel label2 = new JLabel();
         label2.setIcon(arrow2);
-        label2.setBounds(270, 250, 200, 150);
+        label2.setBounds(265, 270, 200, 150);
         panelMain.add(label2);
 
         // 로그인 버튼
         JButton LoginButton = new JButton("로그인");
-        LoginButton.setBounds(20, 400, 200, 150);
+        LoginButton.setBounds(10, 430, 200, 150);
         LoginButton.setBackground(green);
-        LoginButton.setFont(new Font("Dialog", Font.BOLD, 20));
+        LoginButton.setFont(startFont);
         LoginButton.setForeground(Color.WHITE);
 
         LoginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // 로그인창 띄우기
                 setVisible(false);
                 Login login = new Login(frame);
                 login.setVisible(true);
@@ -104,34 +105,42 @@ public class Start extends JPanel {
         // 회원가입 버튼
         JButton SignupButton = new JButton("회원가입");
         SignupButton.setBackground(orangeColor);
-        SignupButton.setBounds(230, 400, 200, 150);
-        SignupButton.setFont(new Font("Dialog", Font.BOLD, 20));
+        SignupButton.setBounds(225, 430, 200, 150);
+        SignupButton.setFont(startFont);
         SignupButton.setForeground(Color.WHITE);
 
         SignupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	SwingUtilities.invokeLater(new Runnable() {
-            		public void run() {
-            			JFrame frame = new JFrame();
-            			frame.setTitle("회원가입");              // 창 제목
-            			frame.setSize(450, 700);  // 키오스크 화면 크기
-            			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫을 때 실행 종료
-                        frame.setLocation(300, 10);      // (300, 10) 위치에 배치
-
-                        Start start = new Start(frame);
-                        SignUp signUp = new SignUp(frame);
-                        frame.add(signUp);
-                        signUp.setVisible(true);
-
-                        // GUI를 보이도록 설정
-                        frame.setVisible(true);
-            		}
-            	});
+            	setVisible(false);
+                SignUp signUp = new SignUp(frame);
+                signUp.setVisible(true);
+                frame.add(signUp);
             }
         });
         panelMain.add(SignupButton);
 
         panelMain.setBounds(0, 60, 450, 640); // 위치와 크기 설정
         panel.add(panelMain);
+    }
+    
+    private void goBack() {
+        setVisible(false);
+        Start start = new Start(frame);
+        start.setVisible(true);
+        frame.add(start);
+    }
+    
+    private void setUIFont() {
+        // 나눔 고딕 폰트 파일 경로
+        String fontPath = "NanumGothic.ttf";
+
+        // 폰트 파일로부터 폰트 객체 생성
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
     }
 }
