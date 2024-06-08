@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+import menu.MenuFirst;
 public class Login extends JPanel {
     private JFrame frame;              // 전체 frame
     private JPanel panel;              // 전체 panel
@@ -101,7 +101,10 @@ public class Login extends JPanel {
                 String password = new String(passwordField.getPassword());
 
                 if (validLogin(username, password)) {
-                    JOptionPane.showMessageDialog(frame, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
+                	setVisible(false);
+                    MenuFirst menuFirst = new MenuFirst(frame);
+                    menuFirst.setVisible(true);
+                    frame.add(menuFirst);
                     
                 } else {
                     JOptionPane.showMessageDialog(frame, "아이디 또는 비밀번호가 일치하지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
