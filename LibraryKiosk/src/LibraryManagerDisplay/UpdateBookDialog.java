@@ -75,6 +75,7 @@ public class UpdateBookDialog extends JDialog {
         imageButton.setFont(btnFont);
         fileLabel = new JLabel();
         fileLabel.setFont(formFont);
+        fileLabel.setText(book.getCoverImagePath());
         imageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

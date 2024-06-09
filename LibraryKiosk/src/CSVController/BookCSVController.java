@@ -10,7 +10,7 @@ public class BookCSVController {
     private String filePath;
 
     public BookCSVController() {
-        this.filePath = "LibraryKiosk/lib_test.csv";
+        this.filePath = "LibraryKiosk/csv/library.csv";
     }
 
     public Vector<Vector<String>> readCSV() {

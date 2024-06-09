@@ -2,7 +2,6 @@ package menu;
 
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
-import StartLogin.Start;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -59,24 +58,6 @@ public class MenuFirst extends JPanel {
 		backward2B.setBackground(Color.decode("#EE7930"));
 		backward2B.setForeground(Color.WHITE);
 		backward2B.setFont(backFont);
-
-		backward1B.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Start start = new Start(frame);
-				start.setVisible(true);
-				frame.add(start);
-			}
-		});
-
-		backward2B.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Start start = new Start(frame);
-				start.setVisible(true);
-				frame.add(start);
-			}
-		});
 		
 		//메뉴 button 설정
 		JButton button1 = new JButton("대출");

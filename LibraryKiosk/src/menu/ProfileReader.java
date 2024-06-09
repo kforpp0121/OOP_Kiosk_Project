@@ -31,7 +31,7 @@ public class ProfileReader {
 
     private Vector<Map<String, String>> getUserInfoById(String id) {
         Vector<Map<String, String>> userInfo = null;
-        File csv = new File("mem_test.csv");
+        File csv = new File("LibraryKiosk/src/menu/mem_test.csv");
         BufferedReader br = null;
 
         try {
