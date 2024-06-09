@@ -2,6 +2,7 @@ package menu;
 
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
+import StartLogin.Start;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -52,12 +53,29 @@ public class MenuFirst extends JPanel {
 		backward1B.setBackground(Color.decode("#EE7930"));
 		backward1B.setForeground(Color.WHITE);
 		backward1B.setFont(backFont);
+		backward1B.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Start start = new Start(frame);
+				start.setVisible(true);
+				frame.add(start);
+			}
+		});
 		
 		JButton backward2B = new JButton("시작 화면으로");
 		backward2B.setBorder(new EmptyBorder(20, 150, 20, 150));
 		backward2B.setBackground(Color.decode("#EE7930"));
 		backward2B.setForeground(Color.WHITE);
 		backward2B.setFont(backFont);
+
+		backward2B.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Start start = new Start(frame);
+				start.setVisible(true);
+				frame.add(start);
+			}
+		});
 		
 		//메뉴 button 설정
 		JButton button1 = new JButton("대출");
