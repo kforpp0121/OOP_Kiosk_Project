@@ -63,7 +63,7 @@ public class SearchBar extends JPanel{
                 filteredBooks = books.stream()
                         .filter(book -> book != null && book.size() > 1 &&
                                 book.get(0) != null && book.get(1) != null &&
-                                (book.get(0).contains(keyword) || book.get(1).contains(keyword)))
+                                (book.get(0).toLowerCase().contains(keyword.toLowerCase()) || book.get(1).toLowerCase().contains(keyword.toLowerCase())))
                         .collect(Collectors.toCollection(Vector::new));
 
                 if (filteredBooks.isEmpty()) { // 검색 결과가 없을 때 -> 오류 메시지 출력
