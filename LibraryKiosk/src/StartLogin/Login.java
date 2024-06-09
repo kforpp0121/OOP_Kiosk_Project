@@ -101,8 +101,9 @@ public class Login extends JPanel {
                 String password = new String(passwordField.getPassword());
 
                 if (validLogin(username, password)) {
+                	UserInfo userInfo = UserInfo.getUserInfo(username, password);
+                	MenuFirst menuFirst = new MenuFirst(frame, userInfo);
                 	setVisible(false);
-                    MenuFirst menuFirst = new MenuFirst(frame);
                     menuFirst.setVisible(true);
                     frame.add(menuFirst);
                     
@@ -130,7 +131,7 @@ public class Login extends JPanel {
     }
 
     private boolean validLogin(String username, String password) {
-        String csvFilePath = "LibraryKiosk/src/StartLogin/userdata.csv";
+        String csvFilePath = "userdata.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
@@ -158,7 +159,7 @@ public class Login extends JPanel {
     
     public void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
+        String fontPath = "NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {
