@@ -199,7 +199,7 @@ public class SignUp extends JPanel {
             }
 
             try {
-                if (isOkId(username, "userdata.csv")) {
+                if (isOkId(username, "LibraryKiosk/src/StartLogin/userdata.csv")) {
                     JOptionPane.showMessageDialog(frame, "중복된 아이디입니다.", "오류", JOptionPane.ERROR_MESSAGE);
                     return;
                 }

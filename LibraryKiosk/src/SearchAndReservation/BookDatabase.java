@@ -18,7 +18,7 @@ public class BookDatabase {
             Vector<String[]> records = CSVReader.readCSV(csvFilePath);
             for (String[] line : records) {
                 // 제목, 저자, ISBN, 예약, 예약 상태, 이미지 경로 여섯 가지 정보 추출
-                if (line.length < 5) continue; // 잘못된 형식의 라인 건너뜀
+                if (line.length < 6) continue; // 잘못된 형식의 라인 건너뜀
                 String title = line[0];          // 제목
                 String author = line[1];         // 저자
                 String isbn = line[2];           // ISBN
