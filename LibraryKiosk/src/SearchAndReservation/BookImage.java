@@ -13,14 +13,14 @@ public class BookImage extends JPanel {
     public BookImage(String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
-                image = ImageIO.read(new File("LibraryKiosk/bookcover/apple.jpeg"));
+                image = ImageIO.read(new File(imagePath));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         } else {
             // 기본 이미지 설정 (기본 이미지를 사용할 경우)
             try {
-                image = ImageIO.read(new File("LibraryKiosk/bookcover/apple.jpeg"));
+                image = ImageIO.read(new File("LibraryKiosk/bookcover/symbol_Silver.jpeg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
