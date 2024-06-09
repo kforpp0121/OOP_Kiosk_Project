@@ -17,7 +17,7 @@ public class Reservation extends JPanel{
     private int height = 250;     // 결과 유닛 높이
     private int width = 100;      // 결과 유닛 너비
     private Font font;            // 나눔 고딕 폰트
-    private String csvFilePath = "LibraryKiosk\\lib_test.csv";  // 도서 목록
+    private String csvFilePath = "LibraryKiosk/lib_test.csv";  // 도서 목록
 
     public Reservation(Book book, JFrame frame) {
         this.book = book;      // 도서 정보

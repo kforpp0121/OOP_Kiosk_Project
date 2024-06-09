@@ -24,7 +24,7 @@ public class BookDatabase {
                 String isbn = line[2];           // ISBN
                 String reservation = line[3];    // 예약 가능 여부
                 boolean reserved = Boolean.parseBoolean(line[4]);    // 예약 상태
-                String coverImagePath = "LibraryKiosk/bookcover/symbol_Silver.png";
+                String coverImagePath = line[5];
                 books.add(new Book(title, author, isbn, reservation, reserved, coverImagePath));
             }
             for (Book book : books) {

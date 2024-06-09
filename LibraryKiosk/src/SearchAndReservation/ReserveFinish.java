@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import menu.MenuFirst;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -86,12 +88,17 @@ public class ReserveFinish extends JPanel {
 
     // 홈으로
     private void goHome() {
-        // 홈 화면으로 이동하는 코드를 여기에 추가
+        // 홈 화면으로 이동하는 코드
+        book.setReserved(false);
+        setVisible(false);
+        MenuFirst menuFirst = new MenuFirst(frame);
+        menuFirst.setVisible(true);
+        frame.add(menuFirst);
     }
 
-    // 뒤로 가기
+    // 메뉴로
     private void BackPanel() {
-        JButton back = new JButton("뒤로 가기");  // 뒤로가기 버튼
+        JButton back = new JButton("메뉴로 돌아가기");  // 메뉴로 이동
         back.setBorder(new EmptyBorder(20, 0, 20, 0));
         Font backFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
         back.setFont(backFont);
@@ -101,18 +108,11 @@ public class ReserveFinish extends JPanel {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                goBack();
+                goHome();
             }
         });
 
         panel.add(back, BorderLayout.SOUTH); // 전체 panel의 하단에 뒤로가기 버튼 추가
-    }
-    private void goBack() {
-        book.setReserved(false);
-        setVisible(false);
-        Reservation reservation = new Reservation(book, frame);
-        reservation.setVisible(true);
-        frame.add(reservation);
     }
 
     // 폰트 적용
