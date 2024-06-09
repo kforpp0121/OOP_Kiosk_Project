@@ -130,7 +130,7 @@ public class Login extends JPanel {
     }
 
     private boolean validLogin(String username, String password) {
-        String csvFilePath = "userdata.csv";
+        String csvFilePath = "LibraryKiosk/src/StartLogin/userdata.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
@@ -158,7 +158,7 @@ public class Login extends JPanel {
     
     public void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "NanumGothic.ttf";
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {

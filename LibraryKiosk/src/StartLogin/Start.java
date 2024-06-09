@@ -72,14 +72,14 @@ public class Start extends JPanel {
         panelMain.add(Label2);
 
         // 화살표 이미지 추가
-        ImageIcon arrow = new ImageIcon("arrow.jpg");
+        ImageIcon arrow = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
         JLabel label = new JLabel();
         label.setIcon(arrow);
         label.setBounds(50, 270, 200, 150);
         panelMain.add(label);
 
         // 화살표 이미지 추가
-        ImageIcon arrow2 = new ImageIcon("arrow.jpg");
+        ImageIcon arrow2 = new ImageIcon("LibraryKiosk/src/StartLogin/arrow.jpg");
         JLabel label2 = new JLabel();
         label2.setIcon(arrow2);
         label2.setBounds(265, 270, 200, 150);
@@ -132,7 +132,7 @@ public class Start extends JPanel {
     
     private void setUIFont() {
         // 나눔 고딕 폰트 파일 경로
-        String fontPath = "NanumGothic.ttf";
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
 
         // 폰트 파일로부터 폰트 객체 생성
         try {
