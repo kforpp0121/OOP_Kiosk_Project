@@ -3,6 +3,7 @@ package LibraryManagerDisplay;
 import CSVController.BookCSVController;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +13,9 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class AddBookDialog extends JDialog{
-    JPanel titlePanel, authorPanel, ISBNPanel, rvPanel;
-    JLabel titleLabel, authorLabel, ISBNLabel, rvLabel;
-    JTextField title, author, ISBN, rv;
+    JPanel titlePanel, authorPanel, ISBNPanel, imagePanel;
+    JLabel titleLabel, authorLabel, ISBNLabel,imageLabel, fileLabel;
+    JTextField title, author, ISBN;
     boolean isConfirmed = false;
     public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model) throws IOException, FontFormatException {
         Color green = new Color(0x00469C76);
@@ -61,6 +62,38 @@ public class AddBookDialog extends JDialog{
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
+        imagePanel=new JPanel();
+        imageLabel = new JLabel("도서 표지 추가");
+        imageLabel.setFont(labelFont);
+        imageLabel.setPreferredSize(new Dimension(120, 20));
+        JButton imageButton = new JButton("선택");
+        imageButton.setFont(btnFont);
+        fileLabel = new JLabel();
+        fileLabel.setFont(formFont);
+        imageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("이미지 파일 선택");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                // 이미지 파일 필터 설정
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+                fileChooser.setFileFilter(filter);
+
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    // 파일 이름을 레이블에 설정
+                    fileLabel.setText(selectedFile.getName());
+                }
+            }
+        });
+
+        imagePanel.add(imageLabel);
+        imagePanel.add(imageButton);
+        imagePanel.add(fileLabel);
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -77,6 +110,7 @@ public class AddBookDialog extends JDialog{
             title.setText("");
             author.setText("");
             ISBN.setText("");
+            fileLabel.setText("");
             setVisible(false);});
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
@@ -84,13 +118,14 @@ public class AddBookDialog extends JDialog{
         panel.add(titlePanel);
         panel.add(authorPanel);
         panel.add(ISBNPanel);
+        panel.add(imagePanel);
         panel.add(buttonPanel);
 
 
         add(panel);
 
         setLocation(900, 300);
-        setSize(400, 225);
+        setSize(400, 250);
     }
 
     public class addBookListener implements ActionListener {
@@ -154,19 +189,21 @@ public class AddBookDialog extends JDialog{
                             add(ISBN.getText());
                             add("가능");
                             add("0");
+                            add(fileLabel.getText());
                         }
                     };
                     bookList.add(newBook);
                     model.addRow(newBook);
 
                     BookCSVController bookCsvController = new BookCSVController();
-                    BookInfo book = new BookInfo(title.getText(), author.getText(), ISBN.getText(), "가능", "0");
+                    BookInfo book = new BookInfo(title.getText(), author.getText(), ISBN.getText(), "가능", "0", fileLabel.getText());
                     // 파일 write
                     bookCsvController.writeCSV(book);
                     // 파일 write 후에는 textfield 비워줌
                     title.setText("");
                     author.setText("");
                     ISBN.setText("");
+                    fileLabel.setText("");
                     dispose();
 
                     JOptionPane optionPane = new JOptionPane("도서 입력이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
