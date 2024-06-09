@@ -189,14 +189,17 @@ public class AddBookDialog extends JDialog{
                             add(ISBN.getText());
                             add("가능");
                             add("0");
-                            add(fileLabel.getText());
+                            if(fileLabel.getText().equals(""))
+                                add("symbol_Silver.png");
+                            else
+                                add(fileLabel.getText());
                         }
                     };
                     bookList.add(newBook);
                     model.addRow(newBook);
 
                     BookCSVController bookCsvController = new BookCSVController();
-                    BookInfo book = new BookInfo(title.getText(), author.getText(), ISBN.getText(), "가능", "0", fileLabel.getText());
+                    BookInfo book = new BookInfo(newBook.get(0), newBook.get(1), newBook.get(2), newBook.get(3), newBook.get(4), newBook.get(5));
                     // 파일 write
                     bookCsvController.writeCSV(book);
                     // 파일 write 후에는 textfield 비워줌
