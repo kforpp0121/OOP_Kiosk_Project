@@ -1,9 +1,13 @@
 package LibraryManagerDisplay;
 
+import CSVController.BookCSVController;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -74,6 +78,22 @@ public class BookTable extends JPanel{
 
         tablePanel.add(sp, BorderLayout.CENTER);
 
+        JPanel refreshPanel = new JPanel();
+        JButton refreshButton = new JButton("새로고침");
+        refreshButton.setBackground(new Color(0x00EE7930));
+        refreshButton.setForeground(Color.WHITE);
+        refreshButton.setFont(btnFont);
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BookCSVController bookCSVController = new BookCSVController();
+                Vector<Vector<String>> newBookList = bookCSVController.readCSV();
+                updateBookList(newBookList);
+            }
+        });
+
+        refreshPanel.setBackground(Color.WHITE);
+
         JPanel addBookPanel = new JPanel();
         addBookPanel.setBackground(Color.WHITE);
         JButton addBook = new JButton("도서 추가");
@@ -92,7 +112,14 @@ public class BookTable extends JPanel{
         });
         addBookPanel.add(addBook);
 
-        tablePanel.add(addBookPanel, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.add(refreshButton);
+        buttonPanel.add(addBookPanel);
+        buttonPanel.setBackground(Color.WHITE);
+
+        /*tablePanel.add(addBookPanel, BorderLayout.SOUTH);*/
+        tablePanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(tablePanel);
     }
@@ -136,5 +163,13 @@ public class BookTable extends JPanel{
         public void mouseEntered(MouseEvent e) {}
         @Override
         public void mouseExited(MouseEvent e) {}
+    }
+
+    public void updateBookList(Vector<Vector<String>> newBookList) {
+        this.bookList = newBookList;
+        model.setRowCount(0);
+        for(Vector<String> book : bookList){
+            model.addRow(book);
+        }
     }
 }
