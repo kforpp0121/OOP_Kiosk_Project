@@ -3,6 +3,7 @@ package LibraryManagerDisplay;
 import CSVController.BookCSVController;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +12,8 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class UpdateBookDialog extends JDialog {
-    JPanel titlePanel, authorPanel, ISBNPanel;
-    JLabel titleLabel, authorLabel, ISBNLabel;
+    JPanel titlePanel, authorPanel, ISBNPanel,imagePanel;
+    JLabel titleLabel, authorLabel, ISBNLabel,imageLabel, fileLabel;
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
     BookInfo book;
@@ -66,6 +67,38 @@ public class UpdateBookDialog extends JDialog {
         ISBNPanel.add(ISBNLabel);
         ISBNPanel.add(ISBN);
 
+        imagePanel=new JPanel();
+        imageLabel = new JLabel("도서 표지 변경");
+        imageLabel.setFont(labelFont);
+        imageLabel.setPreferredSize(new Dimension(120, 20));
+        JButton imageButton = new JButton("선택");
+        imageButton.setFont(btnFont);
+        fileLabel = new JLabel();
+        fileLabel.setFont(formFont);
+        imageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("이미지 파일 선택");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                // 이미지 파일 필터 설정
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+                fileChooser.setFileFilter(filter);
+
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    // 파일 이름을 레이블에 설정
+                    fileLabel.setText(selectedFile.getName());
+                }
+            }
+        });
+
+        imagePanel.add(imageLabel);
+        imagePanel.add(imageButton);
+        imagePanel.add(fileLabel);
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton yesButton = new JButton("입력 완료");
@@ -84,13 +117,14 @@ public class UpdateBookDialog extends JDialog {
         panel.add(titlePanel);
         panel.add(authorPanel);
         panel.add(ISBNPanel);
+        panel.add(imagePanel);
         panel.add(buttonPanel);
 
 
         add(panel);
 
         setLocation(900, 300);
-        setSize(400, 225);
+        setSize(400, 250);
     }
 
     public class UpdateBookListener implements ActionListener {
@@ -150,7 +184,7 @@ public class UpdateBookDialog extends JDialog {
 
                 // dialog에서 완료 버튼 눌렀을 때만 수행
                 if (confirmTaskDialog.isConfirmed()) {
-                    BookInfo newBook = new BookInfo(title.getText(), author.getText(), ISBN.getText(), book.getRv(), book.getBool());
+                    BookInfo newBook = new BookInfo(title.getText(), author.getText(), ISBN.getText(), book.getRv(), book.getBool(), fileLabel.getText());
                     // CSV 파일 수정
                     BookCSVController csvCtrl = new BookCSVController();
                     csvCtrl.updateCSV(books, currentBook, newBook);

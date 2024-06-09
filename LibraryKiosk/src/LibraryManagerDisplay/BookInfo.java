@@ -6,13 +6,15 @@ public class BookInfo {
     private String ISBN;
     private String rv;
     private String bool;
+    private String coverImagePath;
 
-    public BookInfo(String title, String author, String ISBN, String rv, String bool) {
+    public BookInfo(String title, String author, String ISBN, String rv, String bool, String coverImagePath) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.rv = rv;
         this.bool = bool;
+        this.coverImagePath = coverImagePath;
     }
 
     public String getTitle() {
@@ -53,5 +55,13 @@ public class BookInfo {
 
     public void setBool(String bool) {
         this.bool = bool;
+    }
+
+    public String getCoverImagePath() {
+        return coverImagePath;
+    }
+
+    public void setCoverImagePath(String coverImagePath) {
+        this.coverImagePath = coverImagePath;
     }
 }

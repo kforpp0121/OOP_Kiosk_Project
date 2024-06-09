@@ -57,7 +57,8 @@ public class BookCSVController {
             String ISBN = "\""+book.getISBN()+"\"";
             String rv = "\""+book.getRv()+"\"";
             String bool = "\""+book.getBool()+"\"";
-            aData = aData.join(",", title, author, ISBN, rv, bool);
+            String image = "\""+book.getCoverImagePath()+"\"";
+            aData = aData.join(",", title, author, ISBN, rv, bool, image);
             // 작성한 데이터를 파일에 넣는다
             bw.write(aData);
 
@@ -89,6 +90,7 @@ public class BookCSVController {
                 book.set(2, newBook.getISBN());
                 book.set(3, newBook.getRv());
                 book.set(4, newBook.getBool());
+                book.set(5, newBook.getCoverImagePath());
             }
         }
 
@@ -115,7 +117,7 @@ public class BookCSVController {
             *  첫 번째 줄에 column 정보 쓰기
             * 읽어올 때 스킵하기 때문에 써주지 않으면 수정했을 때 도서 데이터가 한줄씩 삭제됨
             */
-            bw.write("\"TITLE\",\"AUTHOR\",\"ISBN\",\"RV\",\"BOOL\""); //
+            bw.write("\"TITLE\",\"AUTHOR\",\"ISBN\",\"RV\",\"BOOL\",\"PICTURE\""); //
             bw.newLine();
             for (Vector<String> book : books) {
                 String aData = "";
@@ -124,7 +126,8 @@ public class BookCSVController {
                 String ISBN = "\""+book.get(2)+"\"";
                 String rv = "\""+book.get(3)+"\"";
                 String bool = "\""+book.get(4)+"\"";
-                aData = aData.join(",", title, author, ISBN, rv, bool);
+                String image = "\""+book.get(5)+"\"";
+                aData = aData.join(",", title, author, ISBN, rv, bool, image);
                 bw.write(aData);
                 bw.newLine();
             }
