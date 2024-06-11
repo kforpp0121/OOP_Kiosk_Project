@@ -43,13 +43,10 @@ public class Profile extends JPanel {
 		
         backwardB.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		remove(profilestateL);
-        		remove(basicP);
-        		remove(backwardB);
+        		setVisible(false);
         		MenuFirst menu = new MenuFirst(frame, userinfo);
-        		add(menu);
-        		revalidate();
-        		repaint();
+        		menu.setVisible(true);
+                frame.add(menu);
         	}
         });
         

@@ -145,25 +145,19 @@ public class MenuFirst extends JPanel {
         
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		remove(menustateL);
-        		remove(menupage2P);
-        		remove(southpanel2);
+        		setVisible(false);
         		BorrowState br = new BorrowState(frame, userinfo);
-        		add(br);
-        		revalidate();
-        		repaint();
+        		br.setVisible(true);
+				frame.add(br);
         	}
         });
         
         button6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		remove(menustateL);
-        		remove(menupage2P);
-        		remove(southpanel2);
+        		setVisible(false);
         	    Profile pf = new Profile(frame, userinfo);
-        		add(pf);
-        		revalidate();
-        		repaint();
+        		pf.setVisible(true);
+				frame.add(pf);
         	}
         });
         
