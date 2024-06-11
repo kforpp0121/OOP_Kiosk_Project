@@ -2,6 +2,9 @@ package menu;
 
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
+import StartLogin.Login;
+import StartLogin.Start;
+import StartLogin.UserInfo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,15 +13,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class MenuFirst extends JPanel {
 	private JPanel menupage1P;
 	private JPanel menupage2P;
 	private JPanel southpanel1;
 	private JPanel southpanel2;
-	private String csvFilePath = "LibraryKiosk/csv/library.csv";
+	private String csvFilePath = "csv/lib_test.csv";
 
-	
-	public MenuFirst(JFrame frame) {
+
+	public MenuFirst(JFrame frame, String userid) {
 		
 		setSize(450, 700);
 		setLayout(new BorderLayout());   // 기본 panel 설정
@@ -52,12 +56,29 @@ public class MenuFirst extends JPanel {
 		backward1B.setBackground(Color.decode("#EE7930"));
 		backward1B.setForeground(Color.WHITE);
 		backward1B.setFont(backFont);
+		backward1B.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Start start = new Start(frame);
+				start.setVisible(true);
+				frame.add(start);
+			}
+		});
 		
 		JButton backward2B = new JButton("시작 화면으로");
 		backward2B.setBorder(new EmptyBorder(20, 150, 20, 150));
 		backward2B.setBackground(Color.decode("#EE7930"));
 		backward2B.setForeground(Color.WHITE);
 		backward2B.setFont(backFont);
+
+		backward2B.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Start start = new Start(frame);
+				start.setVisible(true);
+				frame.add(start);
+			}
+		});
 		
 		//메뉴 button 설정
 		JButton button1 = new JButton("대출");
@@ -147,7 +168,7 @@ public class MenuFirst extends JPanel {
         		remove(menustateL);
         		remove(menupage2P);
         		remove(southpanel2);
-        		BorrowState br = new BorrowState(frame);
+        		BorrowState br = new BorrowState(frame, userid);
         		add(br);
         		revalidate();
         		repaint();
@@ -159,7 +180,7 @@ public class MenuFirst extends JPanel {
         		remove(menustateL);
         		remove(menupage2P);
         		remove(southpanel2);
-        	    Profile pf = new Profile(frame);
+        	    Profile pf = new Profile(frame, UserInfo.getUserInfo(userid));
         		add(pf);
         		revalidate();
         		repaint();
@@ -216,3 +237,4 @@ public class MenuFirst extends JPanel {
 	}
 	
 }
+
