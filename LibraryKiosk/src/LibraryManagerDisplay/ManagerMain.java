@@ -13,6 +13,6 @@ public class ManagerMain {
 
 
         // 관리자 화면 생성
-        new ManagerDisplay(bookList);
+        new ManagerDisplay();
     }
 }
