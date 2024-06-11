@@ -57,7 +57,7 @@ public class Profile extends JPanel {
         profL.setVerticalAlignment(SwingConstants.CENTER);
         profL.setFont(backFont);
         profL.setForeground(Color.WHITE);
-        profL.setPreferredSize(new Dimension(450, 150));
+        profL.setPreferredSize(new Dimension(450, 160));
         basicP.add(profL);
         
         JLabel borrow = new JLabel();
@@ -96,7 +96,7 @@ public class Profile extends JPanel {
         ProfileReader reader = new ProfileReader();
         
         if (userinfo.getPhoneNumber() != null && userinfo.getDob() != null) {
-        	profL.setText("<html><body><center>아이디: " + userinfo.getUsername() +
+        	profL.setText("<html><body><center>이름: " + userinfo.getName() + "<br>아이디: " + userinfo.getUsername() +
         			"<br>생년월일: " + userinfo.getDob() +
         			"<br>전화번호: " + userinfo.getPhoneNumber() + "</center></body></html>");
         } else {
