@@ -102,7 +102,7 @@ public class Login extends JPanel {
 
                 if (validLogin(username, password)) {
                 	UserInfo userInfo = UserInfo.getUserInfo(username, password);
-                	MenuFirst menuFirst = new MenuFirst(frame, userInfo);
+                	MenuFirst menuFirst = new MenuFirst(frame/*, userInfo*/);
                 	setVisible(false);
                     menuFirst.setVisible(true);
                     frame.add(menuFirst);
@@ -131,7 +131,7 @@ public class Login extends JPanel {
     }
 
     private boolean validLogin(String username, String password) {
-        String csvFilePath = "userdata.csv";
+        String csvFilePath = "LibraryKiosk/csv/userdata.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;

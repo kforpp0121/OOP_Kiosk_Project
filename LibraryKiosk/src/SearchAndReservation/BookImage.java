@@ -13,6 +13,7 @@ public class BookImage extends JPanel {
     public BookImage(String imagePath) {
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
+                imagePath = imagePath.replace("\"", "");
                 image = ImageIO.read(new File("LibraryKiosk/bookcover/" + imagePath));
             } catch (IOException ex) {
                 ex.printStackTrace();

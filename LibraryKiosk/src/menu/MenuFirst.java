@@ -15,7 +15,7 @@ public class MenuFirst extends JPanel {
 	private JPanel menupage2P;
 	private JPanel southpanel1;
 	private JPanel southpanel2;
-	private String csvFilePath = "LibraryKiosk/lib_test.csv";
+	private String csvFilePath = "LibraryKiosk/csv/library.csv";
 
 	
 	public MenuFirst(JFrame frame) {

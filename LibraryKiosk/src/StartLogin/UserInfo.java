@@ -62,7 +62,7 @@ class UserInfo {
     }
     
     public static UserInfo getUserInfo(String username, String password) {
-        String csvFilePath = "userdata.csv";
+        String csvFilePath = "LibraryKiosk/csv/userdata.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
@@ -70,9 +70,9 @@ class UserInfo {
                 String[] userData = line.split(",");
                 String savedUsername = userData[0];
                 String savedPassword = userData[1];
-                String name = userData[4];
                 String dob = userData[2];
                 String phoneNumber = userData[3];
+                String name = userData[4];
                 if (username.equals(savedUsername)&&password.equals(savedPassword)) {
                     return new UserInfo(username, name, dob, phoneNumber);
                 }
