@@ -1,5 +1,7 @@
 package menu;
 
+import StartLogin.UserInfo;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +18,7 @@ public class Profile extends JPanel {
         setLayout(new BorderLayout());   // 기본 panel 설정
         }
 	
-	public Profile(JFrame frame) {
+	public Profile(JFrame frame, UserInfo userinfo) {
 		
 		setSize(450, 700);
 		createUI();
@@ -44,7 +46,7 @@ public class Profile extends JPanel {
         		remove(profilestateL);
         		remove(basicP);
         		remove(backwardB);
-        		MenuFirst menu = new MenuFirst(frame);
+        		MenuFirst menu = new MenuFirst(frame, userinfo);
         		add(menu);
         		revalidate();
         		repaint();
@@ -95,17 +97,16 @@ public class Profile extends JPanel {
         
         
         ProfileReader reader = new ProfileReader();
-        String idToLookup = "noonsong";
-        String phonenum = reader.getNumById(idToLookup);
-        String birthdate = reader.getBirthdateById(idToLookup);
         
-        if (phonenum != null && birthdate != null) {
-        	profL.setText("<html><body><center>아이디: " + idToLookup +
-        			"<br>생년월일: " + birthdate +
-        			"<br>전화번호: " + phonenum + "</center></body></html>");
+        if (userinfo.getPhoneNumber() != null && userinfo.getDob() != null) {
+        	profL.setText("<html><body><center>아이디: " + userinfo.getUsername() +
+        			"<br>생년월일: " + userinfo.getDob() +
+        			"<br>전화번호: " + userinfo.getPhoneNumber() + "</center></body></html>");
         } else {
         	profL.setText("ERROR");
         }
+
+        String idToLookup = userinfo.getUsername();
         
         BorrowReader boReader = new BorrowReader();
         String borrowcount = String.valueOf(boReader.countID(idToLookup));

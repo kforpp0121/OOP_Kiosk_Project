@@ -2,6 +2,7 @@ package menu;
 
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
+import StartLogin.UserInfo;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,7 +19,7 @@ public class MenuFirst extends JPanel {
 	private String csvFilePath = "LibraryKiosk/csv/library.csv";
 
 	
-	public MenuFirst(JFrame frame) {
+	public MenuFirst(JFrame frame, UserInfo userinfo) {
 		
 		setSize(450, 700);
 		setLayout(new BorderLayout());   // 기본 panel 설정
@@ -147,7 +148,7 @@ public class MenuFirst extends JPanel {
         		remove(menustateL);
         		remove(menupage2P);
         		remove(southpanel2);
-        		BorrowState br = new BorrowState(frame);
+        		BorrowState br = new BorrowState(frame, userinfo);
         		add(br);
         		revalidate();
         		repaint();
@@ -159,7 +160,7 @@ public class MenuFirst extends JPanel {
         		remove(menustateL);
         		remove(menupage2P);
         		remove(southpanel2);
-        	    Profile pf = new Profile(frame);
+        	    Profile pf = new Profile(frame, userinfo);
         		add(pf);
         		revalidate();
         		repaint();
