@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-class UserInfo {
+public class UserInfo {
     private String username;
     private String name;
     private String dob;

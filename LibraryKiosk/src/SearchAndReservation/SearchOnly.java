@@ -1,5 +1,6 @@
 package SearchAndReservation;
 
+import StartLogin.Login;
 import menu.MenuFirst;
 
 import javax.swing.*;
@@ -139,7 +140,7 @@ public class SearchOnly extends JPanel {
     }
     private void goBack() {
         setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame);
+        MenuFirst menuFirst = new MenuFirst(frame, Login.userInfo);
         menuFirst.setVisible(true);
         frame.add(menuFirst);
     }

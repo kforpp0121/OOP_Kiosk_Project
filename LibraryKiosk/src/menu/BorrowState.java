@@ -1,5 +1,7 @@
 package menu;
 
+import StartLogin.UserInfo;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -16,7 +18,7 @@ public class BorrowState extends JPanel {
         setLayout(new BorderLayout());
         }
 	
-	public BorrowState (JFrame frame) {
+	public BorrowState (JFrame frame, UserInfo userinfo) {
 		
 		setSize(450, 700);
 		createUI();
@@ -76,7 +78,7 @@ public class BorrowState extends JPanel {
         		remove(borrowstateL);
         		remove(basicP);
         		remove(backward1B);
-        		MenuFirst menu = new MenuFirst(frame);
+        		MenuFirst menu = new MenuFirst(frame, userinfo);
         		add(menu);
         		revalidate();
         		repaint();

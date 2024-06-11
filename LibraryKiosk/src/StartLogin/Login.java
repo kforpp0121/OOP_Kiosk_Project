@@ -17,6 +17,8 @@ public class Login extends JPanel {
     private Color orangeColor = new Color(238, 121, 3);
     private Color green = new Color(70, 156, 118);
 
+    public static UserInfo userInfo;
+
     public Login(JFrame frame) {
         this.frame = frame;    // 전체 frame
         setUIFont(); 
@@ -101,8 +103,8 @@ public class Login extends JPanel {
                 String password = new String(passwordField.getPassword());
 
                 if (validLogin(username, password)) {
-                	UserInfo userInfo = UserInfo.getUserInfo(username, password);
-                	MenuFirst menuFirst = new MenuFirst(frame/*, userInfo*/);
+                	userInfo = UserInfo.getUserInfo(username, password);
+                	MenuFirst menuFirst = new MenuFirst(frame, userInfo);
                 	setVisible(false);
                     menuFirst.setVisible(true);
                     frame.add(menuFirst);
