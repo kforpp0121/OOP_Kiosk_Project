@@ -75,13 +75,10 @@ public class BorrowState extends JPanel {
 		
 		backward1B.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		remove(borrowstateL);
-        		remove(basicP);
-        		remove(backward1B);
+        		setVisible(false);
         		MenuFirst menu = new MenuFirst(frame, userinfo);
-        		add(menu);
-        		revalidate();
-        		repaint();
+        		menu.setVisible(true);
+        		frame.add(menu);
         	}
         });
 		
