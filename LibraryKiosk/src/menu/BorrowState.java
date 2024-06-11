@@ -115,7 +115,9 @@ public class BorrowState extends JPanel {
         
         BorrowReader brReader = new BorrowReader();
         BookDTReader dtReader = new BookDTReader();
-        String idToLookup = "noonsong";
+		String username = null;
+		username = userinfo.getUsername();
+        String idToLookup = username;
         List<Map<String, String>> getdata = brReader.getDataById(idToLookup);
         
         if (getdata != null) {
