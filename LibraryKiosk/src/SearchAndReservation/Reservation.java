@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import StartLogin.UserInfo;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
@@ -11,6 +13,7 @@ import java.io.IOException;
 
 public class Reservation extends JPanel{
     private JFrame frame;         // 전체 frame
+    private UserInfo userinfo;         // 사용자 정보
     private JPanel panel;         // 전체 panel
     private JPanel panelMain;     // main panel
     private Book book;            // 도서 정보
@@ -19,8 +22,9 @@ public class Reservation extends JPanel{
     private Font font;            // 나눔 고딕 폰트
     private String csvFilePath = "LibraryKiosk/lib_test.csv";  // 도서 목록
 
-    public Reservation(Book book, JFrame frame) {
+    public Reservation(Book book, JFrame frame, UserInfo userinfo) {
         this.book = book;      // 도서 정보
+        this.userinfo = userinfo;  // 사용자 정보
         this.frame = frame;    // 전체 frame
         setUIFont();           // 전체 font
         createUI();            // UI 생성
@@ -123,7 +127,7 @@ public class Reservation extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 book.setReserved(true);
                 setVisible(false);
-                ReserveFinish reserveFinish = new ReserveFinish(book, frame);
+                ReserveFinish reserveFinish = new ReserveFinish(book, frame, userinfo);
                 reserveFinish.setVisible(true);
                 frame.add(reserveFinish);
             }
@@ -153,7 +157,7 @@ public class Reservation extends JPanel{
     private void goBack() {
         book.setReserved(false);   // 예약 취소
         setVisible(false);
-        Search search = new Search(csvFilePath, frame);
+        Search search = new Search(csvFilePath, frame, userinfo);
         search.setVisible(true);
         frame.add(search);
     }

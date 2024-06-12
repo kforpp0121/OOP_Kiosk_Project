@@ -134,15 +134,17 @@ public class MenuFirst extends JPanel {
 			}
 		});
 
+		// 예약
 		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Search search = new Search(csvFilePath, frame);
+				Search search = new Search(csvFilePath, frame, userinfo);
 				search.setVisible(true);
 				frame.add(search);
 			}
 		});
-        
+
+		// 대출 현황
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		setVisible(false);
@@ -151,7 +153,8 @@ public class MenuFirst extends JPanel {
 				frame.add(br);
         	}
         });
-        
+
+		// 내 정보
         button6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		setVisible(false);

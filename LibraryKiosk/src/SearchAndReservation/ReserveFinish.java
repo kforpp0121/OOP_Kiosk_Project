@@ -1,6 +1,7 @@
 package SearchAndReservation;
 
 import StartLogin.Login;
+import StartLogin.UserInfo;
 import menu.MenuFirst;
 
 import javax.swing.*;
@@ -13,13 +14,15 @@ import java.io.IOException;
 
 public class ReserveFinish extends JPanel {
     private JFrame frame;             // 전체 frame
+    private UserInfo userinfo;         // 사용자 정보
     private JPanel panel;             // 전체 panel
     private JProgressBar progressBar; // 타임바
     private Font font;                // 나눔 고딕 폰트
     private Book book;            // 도서 정보
 
-    public ReserveFinish(Book book, JFrame frame) {
+    public ReserveFinish(Book book, JFrame frame, UserInfo userinfo) {
         this.book = book;      // 도서 정보
+        this.userinfo = userinfo;  // 사용자 정보
         this.frame = frame;    // 전체 frame
         setUIFont();           // 전체 font
         createUI();            // UI 생성
@@ -92,7 +95,7 @@ public class ReserveFinish extends JPanel {
         // 홈 화면으로 이동하는 코드
         book.setReserved(false);
         setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame, Login.userInfo);
+        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
         menuFirst.setVisible(true);
         frame.add(menuFirst);
     }
