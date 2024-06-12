@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
 import CSVController.CSVReader;
@@ -23,7 +25,7 @@ public class BookDatabase {
                 String author = line[1];         // 저자
                 String isbn = line[2];           // ISBN
                 String reservation = line[3];    // 예약 가능 여부
-                boolean reserved = Boolean.parseBoolean(line[4]);    // 예약 상태
+                boolean reserved = line[4].equals("\"0\"")?false:true;    // 예약 상태, "0"이면 false, "1"이면 true
                 String coverImagePath = line[5];
                 books.add(new Book(title, author, isbn, reservation, reserved, coverImagePath));
             }
@@ -47,6 +49,56 @@ public class BookDatabase {
             }
         }
         return result;
+    }
+
+    public void updateCSV(Book selectedBook, String csvFilePath) {
+        /*도서 예약 상태를 true로 변경해줌, false로 변경하는 기능은 없음(아마 setReserved(!isReserved)로 구현 가능할듯?)*/
+        for (Book book : books) { // books 벡터를 순회하며 선택된 책 정보와 일치하는 책 정보를 찾아 수정
+            if (book.getTitle().equals(selectedBook.getTitle()) &&
+                    book.getAuthor().equals(selectedBook.getAuthor()) &&
+                    book.getIsbn().equals(selectedBook.getIsbn())) {
+                book.setReserved(true); // 예약 상태를 true로 변경
+            }
+        }
+
+        // 수정된 정보를 파일에 다시 쓰기
+        writeUpdatedCSV(csvFilePath);
+    }
+
+    public void writeUpdatedCSV(String csvFilePath) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(csvFilePath, false));
+            /*
+             *  첫 번째 줄에 column 정보 쓰기
+             * 읽어올 때 스킵하기 때문에 써주지 않으면 수정했을 때 도서 데이터가 한줄씩 삭제됨
+             */
+            bw.write("\"TITLE\",\"AUTHOR\",\"ISBN\",\"RV\",\"BOOL\",\"PICTURE\"");
+            bw.newLine();
+            for (Book book : books) {
+                String aData = "";
+                String title = book.getTitle();
+                String author = book.getAuthor();
+                String ISBN = book.getIsbn();
+                String rv = book.getReservation();
+                String bool = (book.isReserved()?"\"1\"":"\"0\""); // 예약 상태가 true이면 "1", false이면 "0"
+                String image = book.getCoverImagePath();
+                aData = aData.join(",", title, author, ISBN, rv, bool, image);
+                bw.write(aData);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.flush();
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

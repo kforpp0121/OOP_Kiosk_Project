@@ -12,7 +12,7 @@ public class Book {
         this.author = author;
         this.isbn = isbn;
         this.reservation = reservation;
-        this.reserved = false;  // 초기 상태. 예약 되지 않음
+        this.reserved = reserved; // false가 아닌 csv 파일에서 읽어온 대로 설정
         this.coverImagePath = coverImagePath;
     }
 
@@ -50,6 +50,15 @@ public class Book {
         return "제목 : " + title + '\n' +
                 "저자 : " + author + '\n' +
                 "예약 : " + reservation + '\n' +
-                "이미지 : " + coverImagePath;
+                "예약 상태 : " + reserved + '\n' +
+                "이미지 : " + coverImagePath + "\n";
+    }
+
+    public String getReservation() { // 추가
+        return reservation;
+    }
+
+    public boolean isReserved() { // 추가
+        return reserved;
     }
 }

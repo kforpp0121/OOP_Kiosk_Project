@@ -192,7 +192,7 @@ public class Search extends JPanel {
             infoPanel.setBackground(new Color(0xD9D9D9));  // 16진수 색상 코드 사용
             JLabel titleLabel = new JLabel(" 제목 : " + book.getTitle());
             JLabel authorLabel = new JLabel(" 저자 : " + book.getAuthor());
-            JLabel reservationLabel = new JLabel(" 예약 : " + (book.isAvailable() ? "가능" : "불가능"));
+            JLabel reservationLabel = new JLabel(" 예약 : " + (book.isReserved() ? "불가능" : "가능")); // isAvailable 대신 isReserved 사용
 
             Font infoFont = font.deriveFont(Font.PLAIN, 15); // 나눔고딕, 크기 15
             titleLabel.setFont(infoFont);
@@ -221,7 +221,7 @@ public class Search extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (book.isAvailable()) {
                         setVisible(false);
-                        Reservation reservation = new Reservation(book, frame, userinfo);
+                        Reservation reservation = new Reservation(book, frame, userinfo, bookDatabase); // bookDatabase 추가
                         reservation.setVisible(true);
                         frame.add(reservation);
                     } else {
