@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import SearchAndReservation.Search;
+import menu.MenuFirst;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -94,10 +95,13 @@ public class Start extends JPanel {
 
         LoginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                Login login = new Login(frame);
-                login.setVisible(true);
-                frame.add(login);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    Login login = new Login(frame);
+                    login.setVisible(true);
+                    frame.add(login);
+                    frame.revalidate();
+                });
             }
         });
         panelMain.add(LoginButton);
@@ -111,10 +115,13 @@ public class Start extends JPanel {
 
         SignupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	setVisible(false);
-                SignUp signUp = new SignUp(frame);
-                signUp.setVisible(true);
-                frame.add(signUp);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    SignUp signUp = new SignUp(frame);
+                    signUp.setVisible(true);
+                    frame.add(signUp);
+                    frame.revalidate();
+                });
             }
         });
         panelMain.add(SignupButton);
@@ -124,10 +131,13 @@ public class Start extends JPanel {
     }
     
     private void goBack() {
-        setVisible(false);
-        Start start = new Start(frame);
-        start.setVisible(true);
-        frame.add(start);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            Start start = new Start(frame);
+            start.setVisible(true);
+            frame.add(start);
+            frame.revalidate();
+        });
     }
     
     private void setUIFont() {

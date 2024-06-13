@@ -1,6 +1,7 @@
 package BorrowReturn;
 
 import SearchAndReservation.*;
+import StartLogin.Start;
 import StartLogin.UserInfo;
 import menu.MenuFirst;
 
@@ -161,10 +162,13 @@ public class Return extends JPanel{
                     return;
                 }
 
-                setVisible(false);
-                ReturnFinish returnFinish = new ReturnFinish(frame, userinfo);
-                returnFinish.setVisible(true);
-                frame.add(returnFinish);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    ReturnFinish returnFinish = new ReturnFinish(frame, userinfo);
+                    returnFinish.setVisible(true);
+                    frame.add(returnFinish);
+                    frame.revalidate();
+                });
                 new BR_InformationCSVController().deleteCSV(selectedBookISBN, userinfo.getUsername());
             }
         });
@@ -191,10 +195,13 @@ public class Return extends JPanel{
         panel.add(back, BorderLayout.SOUTH); // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
-        menuFirst.setVisible(true);
-        frame.add(menuFirst);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            MenuFirst menuFirst = new MenuFirst(frame, userinfo);
+            menuFirst.setVisible(true);
+            frame.add(menuFirst);
+            frame.revalidate();
+        });
     }
 
     // 폰트 적용

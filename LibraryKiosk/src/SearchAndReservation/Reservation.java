@@ -1,6 +1,7 @@
 package SearchAndReservation;
 
 import StartLogin.UserInfo;
+import menu.MenuFirst;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -129,10 +130,13 @@ public class Reservation extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // book.setReserved(true); // -> bookDatabase.updateCSV에서 변경하는거로 수정함
-                setVisible(false);
-                ReserveFinish reserveFinish = new ReserveFinish(book, frame, userinfo);
-                reserveFinish.setVisible(true);
-                frame.add(reserveFinish);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    ReserveFinish reserveFinish = new ReserveFinish(book, frame, userinfo);
+                    reserveFinish.setVisible(true);
+                    frame.add(reserveFinish);
+                    frame.revalidate();
+                });
                 bookDatabase.updateCSV(book, csvFilePath); // 도서 목록 업데이트
                 new RVController().writeCSV(book.getIsbn() ,userinfo.getUsername(), LocalDate.now().toString()); // 예약 목록 업데이트
             }
@@ -160,11 +164,13 @@ public class Reservation extends JPanel{
         panel.add(back, BorderLayout.SOUTH); // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        book.setReserved(false);   // 예약 취소
-        setVisible(false);
-        Search search = new Search(csvFilePath, frame, userinfo);
-        search.setVisible(true);
-        frame.add(search);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            Search search = new Search(csvFilePath, frame, userinfo);
+            search.setVisible(true);
+            frame.add(search);
+            frame.revalidate();
+        });
     }
 
 

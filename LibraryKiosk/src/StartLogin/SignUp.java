@@ -271,10 +271,13 @@ public class SignUp extends JPanel {
     }
     
     private void goBack() {
-        setVisible(false);
-        Start start = new Start(frame);
-        start.setVisible(true);
-        frame.add(start);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            Start start = new Start(frame);
+            start.setVisible(true);
+            frame.add(start);
+            frame.revalidate();
+        });
     }
     
     private void setUIFont() {

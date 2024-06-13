@@ -142,7 +142,7 @@ public class Search extends JPanel {
         panel.add(back, BorderLayout.SOUTH);           // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        setVisible(false);
+        frame.getContentPane().removeAll();
         MenuFirst menuFirst = new MenuFirst(frame, userinfo);
         menuFirst.setVisible(true);
         frame.add(menuFirst);
@@ -220,7 +220,7 @@ public class Search extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (book.isAvailable()) {
-                        setVisible(false);
+                        frame.getContentPane().removeAll();
                         Reservation reservation = new Reservation(book, frame, userinfo, bookDatabase); // bookDatabase 추가
                         reservation.setVisible(true);
                         frame.add(reservation);

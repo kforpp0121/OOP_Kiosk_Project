@@ -44,10 +44,13 @@ public class Profile extends JPanel {
 
         backwardB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                MenuFirst menu = new MenuFirst(frame, userinfo);
-                menu.setVisible(true);
-                frame.add(menu);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane().removeAll();
+                    MenuFirst menu = new MenuFirst(frame, userinfo);
+                    menu.setVisible(true);
+                    frame.add(menu);
+                    frame.revalidate();
+                });
             }
         });
 

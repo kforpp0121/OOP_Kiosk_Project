@@ -105,9 +105,12 @@ public class Login extends JPanel {
                 if (validLogin(username, password)) {
                 	userInfo = UserInfo.getUserInfo(username, password);
                 	MenuFirst menuFirst = new MenuFirst(frame, userInfo);
-                	setVisible(false);
-                    menuFirst.setVisible(true);
-                    frame.add(menuFirst);
+                    SwingUtilities.invokeLater(() -> {
+                        frame.getContentPane().removeAll();
+                        menuFirst.setVisible(true);
+                        frame.add(menuFirst);
+                        frame.revalidate();
+                    });
                     
                 } else {
                     JOptionPane.showMessageDialog(frame, "아이디 또는 비밀번호가 일치하지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
@@ -153,10 +156,13 @@ public class Login extends JPanel {
     }
 
     private void goBack() {
-        setVisible(false);
-        Start start = new Start(frame);
-        start.setVisible(true);
-        frame.add(start);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            Start start = new Start(frame);
+            start.setVisible(true);
+            frame.add(start);
+            frame.revalidate();
+        });
     }
     
     public void setUIFont() {

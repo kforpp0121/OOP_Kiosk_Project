@@ -159,10 +159,13 @@ public class Borrow extends JPanel{
                     JOptionPane.showMessageDialog(frame, "이미 대출한 도서입니다.", "오류", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                setVisible(false);
-                BorrowFinish borrowFinish = new BorrowFinish(frame, userinfo);
-                borrowFinish.setVisible(true);
-                frame.add(borrowFinish);
+                SwingUtilities.invokeLater(() -> {
+                    frame.getContentPane();removeAll();
+                    BorrowFinish borrowFinish = new BorrowFinish(frame, userinfo);
+                    borrowFinish.setVisible(true);
+                    frame.add(borrowFinish);
+                    frame.revalidate();
+                });
                 new BR_InformationCSVController().writeCSV(selectedBookISBN, userinfo.getUsername(), LocalDate.now());
             }
         });
@@ -189,10 +192,13 @@ public class Borrow extends JPanel{
         panel.add(back, BorderLayout.SOUTH); // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
-        menuFirst.setVisible(true);
-        frame.add(menuFirst);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane();removeAll();
+            MenuFirst menuFirst = new MenuFirst(frame, userinfo);
+            menuFirst.setVisible(true);
+            frame.add(menuFirst);
+            frame.revalidate();
+        });
     }
 
     // 폰트 적용

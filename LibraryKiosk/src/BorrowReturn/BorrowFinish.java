@@ -103,10 +103,13 @@ public class BorrowFinish extends JPanel {
     // 홈으로
     private void goHome() {
         // 홈 화면으로 이동하는 코드
-        setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
-        menuFirst.setVisible(true);
-        frame.add(menuFirst);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane();removeAll();
+            MenuFirst menuFirst = new MenuFirst(frame, userinfo);
+            menuFirst.setVisible(true);
+            frame.add(menuFirst);
+            frame.revalidate();
+        });
     }
 
     // 메뉴로

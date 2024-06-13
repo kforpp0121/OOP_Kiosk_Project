@@ -139,60 +139,78 @@ public class MenuFirst extends JPanel {
 		// 대출
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Borrow borrow = new Borrow(frame, userinfo);
-				borrow.setVisible(true);
-				frame.add(borrow);
+				// UI 작업을 최소화하여 스윙 이벤트 디스패치 스레드를 차단하지 않도록 함
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					Borrow borrow = new Borrow(frame, userinfo);
+					frame.add(borrow);
+					frame.revalidate(); // 변경 사항을 적용하기 위해 프레임을 다시 그림
+				});
 			}
 		});
 
 		// 반납
 		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Return returnBook = new Return(frame, userinfo);
-				returnBook.setVisible(true);
-				frame.add(returnBook);
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					Return returnBook = new Return(frame, userinfo);
+					returnBook.setVisible(true);
+					frame.add(returnBook);
+					frame.revalidate();
+				});
 			}
 		});
 
 		// 검색
 		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				SearchOnly searchOnly = new SearchOnly(csvFilePath, frame);
-				searchOnly.setVisible(true);
-				frame.add(searchOnly);
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					SearchOnly searchOnly = new SearchOnly(csvFilePath, frame);
+					searchOnly.setVisible(true);
+					frame.add(searchOnly);
+					frame.revalidate();
+				});
 			}
 		});
 
 		// 예약
 		button4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				Search search = new Search(csvFilePath, frame, userinfo);
-				search.setVisible(true);
-				frame.add(search);
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					Search search = new Search(csvFilePath, frame, userinfo);
+					search.setVisible(true);
+					frame.add(search);
+					frame.revalidate();
+				});
 			}
 		});
 
 		// 대출 현황
         button5.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        		BorrowState br = new BorrowState(frame, userinfo);
-        		br.setVisible(true);
-				frame.add(br);
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					BorrowState br = new BorrowState(frame, userinfo);
+					br.setVisible(true);
+					frame.add(br);
+					frame.revalidate();
+				});
         	}
         });
 
 		// 내 정보
         button6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setVisible(false);
-        	    Profile pf = new Profile(frame, userinfo);
-        		pf.setVisible(true);
-				frame.add(pf);
+				SwingUtilities.invokeLater(() -> {
+					frame.getContentPane().removeAll();
+					Profile pf = new Profile(frame, userinfo);
+					pf.setVisible(true);
+					frame.add(pf);
+					frame.revalidate();
+				});
         	}
         });
         
@@ -262,10 +280,13 @@ public class MenuFirst extends JPanel {
 
 	private class BacktoStart implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			Start start = new Start(frame);
-			start.setVisible(true);
-			frame.add(start);
+			SwingUtilities.invokeLater(() -> {
+				frame.getContentPane().removeAll();
+				Start start = new Start(frame);
+				start.setVisible(true);
+				frame.add(start);
+				frame.revalidate();
+			});
 		}
 	}
 
