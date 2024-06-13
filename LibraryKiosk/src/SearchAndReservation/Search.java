@@ -142,10 +142,14 @@ public class Search extends JPanel {
         panel.add(back, BorderLayout.SOUTH);           // 전체 panel의 하단에 뒤로가기 버튼 추가
     }
     private void goBack() {
-        frame.getContentPane().removeAll();
-        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
-        menuFirst.setVisible(true);
-        frame.add(menuFirst);
+        SwingUtilities.invokeLater(() -> {
+            frame.getContentPane().removeAll();
+            MenuFirst menuFirst = new MenuFirst(frame, userinfo);
+            menuFirst.setVisible(true);
+            frame.add(menuFirst);
+            frame.revalidate();
+        });
+
     }
 
     // 도서 검색
