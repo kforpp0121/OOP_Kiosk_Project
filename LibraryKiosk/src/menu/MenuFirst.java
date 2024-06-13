@@ -31,7 +31,7 @@ public class MenuFirst extends JPanel {
 		this.frame = frame;
 		setUIFont();
 		
-		setSize(450, 700);
+		setSize(450, 800);
 		setLayout(new BorderLayout());   // 기본 panel 설정
 
 		Font backFont = font.deriveFont(Font.BOLD, 25);
@@ -120,7 +120,7 @@ public class MenuFirst extends JPanel {
         button6.setHorizontalAlignment(SwingConstants.CENTER);
         button6.setVerticalAlignment(SwingConstants.CENTER);
         
-        Dimension buttonSize = new Dimension(120, 400);
+        Dimension buttonSize = new Dimension(120, 550);
         button1.setPreferredSize(buttonSize);
         button2.setPreferredSize(buttonSize);
         button3.setPreferredSize(buttonSize);
