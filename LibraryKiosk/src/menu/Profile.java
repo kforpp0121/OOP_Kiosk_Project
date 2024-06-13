@@ -2,18 +2,18 @@ package menu;
 
 import StartLogin.UserInfo;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class Profile extends JPanel {
-	
+
+	private Font font;
 	private void createUI() {
         setLayout(new BorderLayout());   // 기본 panel 설정
         }
@@ -22,8 +22,9 @@ public class Profile extends JPanel {
 		
 		setSize(450, 700);
 		createUI();
+        setUIFont();
 		
-		Font backFont = new Font("Dialog", Font.BOLD, 25);
+		Font backFont = font.deriveFont(Font.BOLD, 25);
 		
 		JLabel profilestateL = new JLabel("내 정보");
 		profilestateL.setOpaque(true);
@@ -131,5 +132,19 @@ public class Profile extends JPanel {
 		add(backwardB, BorderLayout.SOUTH);
         
 	}
+
+    private void setUIFont() {
+        // 나눔 고딕 폰트 파일 경로
+        String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
+
+        // 폰트 파일로부터 폰트 객체 생성
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
