@@ -109,8 +109,8 @@ public class LibrarySystemUI extends JFrame {
     }
 
     private void borrowBook() {
-        String isbn = isbnField.getText().
-                String userId = userIdField.getText();
+        String isbn = isbnField.getText();
+        String userId = userIdField.getText();
 
         // 입력값 검증
         if (isbn.isEmpty() || userId.isEmpty()) {
