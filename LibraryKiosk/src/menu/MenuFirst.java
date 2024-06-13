@@ -1,5 +1,7 @@
 package menu;
 
+import BorrowReturn.Borrow;
+import BorrowReturn.Return;
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
 import StartLogin.Start;
@@ -133,6 +135,26 @@ public class MenuFirst extends JPanel {
         menupage2P.add(button4);
         menupage2P.add(button5);
         menupage2P.add(button6);
+
+		// 대출
+		button1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Borrow borrow = new Borrow(frame, userinfo);
+				borrow.setVisible(true);
+				frame.add(borrow);
+			}
+		});
+
+		// 반납
+		button2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Return returnBook = new Return(frame, userinfo);
+				returnBook.setVisible(true);
+				frame.add(returnBook);
+			}
+		});
 
 		// 검색
 		button3.addActionListener(new ActionListener() {
