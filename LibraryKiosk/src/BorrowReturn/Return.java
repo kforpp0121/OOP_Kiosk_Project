@@ -24,13 +24,11 @@ public class Return extends JPanel{
     private JTextField ISBN;
     private Font font;            // 나눔 고딕 폰트
     Vector<Vector<String>> bookData;
-    Vector<Vector<String>> brInformationData;
 
     public Return(JFrame frame, UserInfo userinfo) {
         this.frame = frame;
         this.userinfo = userinfo;
         bookData = new BookCSVReader().readCSV();
-        brInformationData = new BR_InformationCSVController().readCSV();
         setUIFont();           // 전체 font
         createUI();            // UI 생성
     }
@@ -134,6 +132,7 @@ public class Return extends JPanel{
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Vector<Vector<String>> brInformationData = new BR_InformationCSVController().readCSV();
                 if(ISBN.getText().equals("")){
                     JOptionPane.showMessageDialog(frame, "ISBN 번호를 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
                     return;

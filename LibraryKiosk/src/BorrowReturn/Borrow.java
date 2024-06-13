@@ -24,13 +24,11 @@ public class Borrow extends JPanel{
 
     private Font font;            // 나눔 고딕 폰트
     Vector<Vector<String>> bookData;
-    Vector<Vector<String>> brInformationData;
 
     public Borrow(JFrame frame, UserInfo userinfo) {
         this.frame = frame;
         this.userinfo = userinfo;
         bookData = new BookCSVReader().readCSV();
-        brInformationData = new BR_InformationCSVController().readCSV();
         setUIFont();           // 전체 font
         createUI();            // UI 생성
     }
@@ -132,6 +130,7 @@ public class Borrow extends JPanel{
         borrowButton.setForeground(Color.WHITE);   // 버튼의 글자색
 
         borrowButton.addActionListener(new ActionListener() {
+            Vector<Vector<String>> brInformationData = new BR_InformationCSVController().readCSV();
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ISBN.getText().equals("")){
