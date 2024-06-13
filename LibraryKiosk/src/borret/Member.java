@@ -1,23 +1,24 @@
 package borret;
 
-// Member.java
 public class Member {
-    String name;
-    String id;
-    String password;
-    String birth;
-    String phoneNumber;
+    private String id;
+    private String name;
 
-    public Member(String name, String id, String password, String birth, String phoneNumber) {
-        this.name = name;
+    public Member(String id, String name) {
         this.id = id;
-        this.password = password;
-        this.birth = birth;
-        this.phoneNumber = phoneNumber;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return String.join(",", name, id, password, birth, phoneNumber);
+        return String.join(",", id, name);
     }
 }

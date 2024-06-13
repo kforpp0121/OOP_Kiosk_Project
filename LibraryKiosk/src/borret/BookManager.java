@@ -1,49 +1,48 @@
-package borret;// BookManager.java
-import CSVController.BookLoader;
+package borret;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 
 public class BookManager {
-    private Map<String, Book> books = new HashMap<>();
-    private BookLoader bookLoader;
+    private Vector<Book> books;
+    private AAA bookLoader;
 
-    public BookManager(BookLoader bookLoader) {
+    public BookManager(AAA bookLoader) {
         this.bookLoader = bookLoader;
-        this.books = bookLoader.loadBooks();
+        this.books = bookLoader.getBooks();
     }
 
     public void saveBooks() {
-        bookLoader.saveBooks(books);
+        // bookLoader.saveBooks(books); // 필요에 따라 구현
     }
 
     public void borrowBook(String isbn, String userId) {
-        if (!books.containsKey(isbn)) {
-            System.out.println("å�� ã�� �� �����ϴ�.");
+        Book book = bookLoader.getBookByISBN(isbn);
+        if (book == null) {
+            JOptionPane.showMessageDialog(null, "책을 찾을 수 없습니다.");
             return;
         }
-        Book book = books.get(isbn);
-        if (!book.isAvailable) {
-            System.out.println("å�� ���� ���Դϴ�.");
+        if (!book.isAvailable()) {
+            JOptionPane.showMessageDialog(null, "이미 대출되었습니다.");
             return;
         }
-        book.isAvailable = false;
+        book.setAvailable(false);
         saveBooks();
-        System.out.println(userId + "���� " + book.title + " å�� �����߽��ϴ�.");
+        JOptionPane.showMessageDialog(null, userId + "님이 " + book.getTitle() + " 책을 대출했습니다.");
     }
 
     public void returnBook(String isbn, String userId) {
-        if (!books.containsKey(isbn)) {
-            System.out.println("å�� ã�� �� �����ϴ�.");
+        Book book = bookLoader.getBookByISBN(isbn);
+        if (book == null) {
+            JOptionPane.showMessageDialog(null, "책을 찾을 수 없습니다.");
             return;
         }
-        Book book = books.get(isbn);
-        if (book.isAvailable) {
-            System.out.println("�� å�� ������� �ʾҽ��ϴ�.");
+        if (book.isAvailable()) {
+            JOptionPane.showMessageDialog(null, "대출되지 않은 책입니다.");
             return;
         }
-        book.isAvailable = true;
+        book.setAvailable(true);
         saveBooks();
-        System.out.println(userId + "���� " + book.title + " å�� �ݳ��߽��ϴ�.");
+        JOptionPane.showMessageDialog(null, userId + "님이 " + book.getTitle() + " 책을 반납했습니다.");
     }
 }
