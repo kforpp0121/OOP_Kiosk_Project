@@ -94,8 +94,6 @@ public class Profile extends JPanel {
         basicP.add(overdue);
 
 
-        ProfileReader reader = new ProfileReader();
-
         if (userinfo.getPhoneNumber() != null && userinfo.getDob() != null) {
             profL.setText("<html><body><center>이름: " + userinfo.getName() + "<br>아이디: " + userinfo.getUsername() +
                     "<br>생년월일: " + userinfo.getDob() +
