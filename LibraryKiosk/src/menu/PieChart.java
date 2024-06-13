@@ -12,8 +12,8 @@ public class PieChart extends JPanel {
     public PieChart(int loanedBooks, int notLoanedBooks) {
         this.loanedBooks = loanedBooks;
         this.notLoanedBooks = notLoanedBooks;
-        this.loanedColor = new Color(100, 50, 0);
-        this.notLoanedColor = new Color(0, 100, 100);
+        this.loanedColor = new Color(0xEE7930);
+        this.notLoanedColor = new Color(0x469C76);
     }
 
     protected void paintComponent(Graphics g) {

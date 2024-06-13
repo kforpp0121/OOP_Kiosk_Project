@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 public class Profile extends JPanel {
 
     private Font font;
+    private PieChart PieChart;
     private void createUI() {
         setLayout(new BorderLayout());   // 기본 panel 설정
     }
