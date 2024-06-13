@@ -251,9 +251,8 @@ public class SignUp extends JPanel {
             goBack();
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(signupButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        
+        panel.add(signupButton, BorderLayout.SOUTH);
         MainPanel.setBackground(Color.WHITE);
         panel.add(MainPanel);
     }
