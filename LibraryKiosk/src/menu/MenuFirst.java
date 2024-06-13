@@ -2,6 +2,7 @@ package menu;
 
 import SearchAndReservation.SearchOnly;
 import SearchAndReservation.Search;
+import StartLogin.Start;
 import StartLogin.UserInfo;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuFirst extends JPanel {
 	private JPanel menupage1P;
@@ -17,14 +20,19 @@ public class MenuFirst extends JPanel {
 	private JPanel southpanel1;
 	private JPanel southpanel2;
 	private String csvFilePath = "LibraryKiosk/csv/library.csv";
+	private Font font;
+	private JFrame frame;
 
 	
 	public MenuFirst(JFrame frame, UserInfo userinfo) {
+
+		this.frame = frame;
+		setUIFont();
 		
 		setSize(450, 700);
 		setLayout(new BorderLayout());   // 기본 panel 설정
-		
-		Font backFont = new Font("Dialog", Font.BOLD, 25);
+
+		Font backFont = font.deriveFont(Font.BOLD, 25);
 		
 		JLabel menustateL = new JLabel("메뉴");
 		menustateL.setOpaque(true);
@@ -53,12 +61,14 @@ public class MenuFirst extends JPanel {
 		backward1B.setBackground(Color.decode("#EE7930"));
 		backward1B.setForeground(Color.WHITE);
 		backward1B.setFont(backFont);
+		backward1B.addActionListener(new BacktoStart());
 		
 		JButton backward2B = new JButton("시작 화면으로");
 		backward2B.setBorder(new EmptyBorder(20, 150, 20, 150));
 		backward2B.setBackground(Color.decode("#EE7930"));
 		backward2B.setForeground(Color.WHITE);
 		backward2B.setFont(backFont);
+		backward2B.addActionListener(new BacktoStart());
 		
 		//메뉴 button 설정
 		JButton button1 = new JButton("대출");
@@ -78,7 +88,7 @@ public class MenuFirst extends JPanel {
 		button6.setBackground(buttonC);
 		
 		//메뉴 button 글자 크기 
-		Font buttonFont = new Font("Dialog", Font.BOLD, 30);
+		Font buttonFont = font.deriveFont(Font.BOLD, 30);
         button1.setFont(buttonFont);
         button2.setFont(buttonFont);
         button3.setFont(buttonFont);
@@ -211,6 +221,30 @@ public class MenuFirst extends JPanel {
         add(menustateL, BorderLayout.NORTH);
         add(menupage1P, BorderLayout.CENTER);
         add(southpanel1, BorderLayout.SOUTH);
+
 	}
-	
+
+	private void setUIFont() {
+		// 나눔 고딕 폰트 파일 경로
+		String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
+
+		// 폰트 파일로부터 폰트 객체 생성
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+		} catch (IOException | FontFormatException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private class BacktoStart implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			Start start = new Start(frame);
+			start.setVisible(true);
+			frame.add(start);
+		}
+	}
+
 }

@@ -10,8 +10,8 @@ public class BookDTReader {
         Vector<Map<String, String>> allBooks = getUserBooks();
         
         for (Map<String, String> bookInfo : allBooks) {
-            if (bookInfo.get("ISBN").equals(isbn)) {
-                title = bookInfo.get("TITLE");
+            if (bookInfo.get("\"ISBN\"").equals(isbn)) {
+                title = bookInfo.get("\"TITLE\"");
                 break;
             }
         }
@@ -21,7 +21,7 @@ public class BookDTReader {
     
     private Vector<Map<String, String>> getUserBooks() {
         Vector<Map<String, String>> allBooks = new Vector<>();
-        File csv = new File("LibraryKiosk/csv/lib_test.csv");
+        File csv = new File("LibraryKiosk/csv/library.csv");
         BufferedReader br = null;
 
         try {
@@ -33,7 +33,7 @@ public class BookDTReader {
                 String[] values = line.split(",");
                 Map<String, String> bookInfo = new HashMap<>();
                 for (int i = 0; i < headers.length; i++) {
-                    bookInfo.put(headers[i], values[i]);
+                    bookInfo.put(headers[i], values[i].replaceAll("\"", ""));
                 }
                 allBooks.add(bookInfo);
             }

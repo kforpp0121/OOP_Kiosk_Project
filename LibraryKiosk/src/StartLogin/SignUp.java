@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -21,6 +23,7 @@ public class SignUp extends JPanel {
     private Font font;
 
     private Color orangeColor = new Color(238, 121, 3);
+    private Color green = new Color(70, 156, 118);
 
     public SignUp(JFrame frame) {
         this.frame = frame;    // 전체 frame
@@ -43,15 +46,24 @@ public class SignUp extends JPanel {
     }
 
     private void StartLabel() {
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(new Color(0xD9D9D9));
      // 회원가입 라벨
-        JLabel title = new JLabel("회원가입");
-        title.setFont(font.deriveFont(Font.PLAIN, 30));
-        title.setHorizontalAlignment(JLabel.CENTER);
-        titlePanel.add(title, BorderLayout.CENTER);
-        titlePanel.setBackground(Color.WHITE);
-        panel.add(titlePanel, BorderLayout.NORTH);
+        
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton backButton = new JButton("뒤로가기");
+        backButton.setBackground(orangeColor);
+        backButton.setForeground(Color.WHITE);
+        backButton.setPreferredSize(new Dimension(450, 70));
+        backButton.setFont(font.deriveFont(Font.BOLD, 30));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goBack();
+            }
+        });
+        backPanel.add(backButton);
+        backPanel.setBackground(Color.WHITE);
+        panel.add(backPanel, BorderLayout.NORTH);
+        
     }
 
     private void MainPanel() {
@@ -60,9 +72,20 @@ public class SignUp extends JPanel {
     	empty.setBackground(Color.WHITE);  	
     	
     	
-    	JPanel MainPanel = new JPanel(new GridLayout(13, 1));
+    	JPanel MainPanel = new JPanel(new GridLayout(14, 1));
+    	
+    	JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBackground(new Color(0xD9D9D9));
+    	
+    	JLabel title = new JLabel("회원가입");
+        title.setFont(font.deriveFont(Font.BOLD, 30));
+        title.setHorizontalAlignment(JLabel.CENTER);
+        titlePanel.add(title, BorderLayout.CENTER);
+        titlePanel.setBackground(Color.WHITE);
+        MainPanel.add(titlePanel);
         
         MainPanel.add(empty);
+        
         
         JLabel usernameLabel = new JLabel("아이디:");
         usernameLabel.setFont(signupFont);
@@ -175,10 +198,12 @@ public class SignUp extends JPanel {
         MainPanel.add(phoneNumberFieldPanel);
 
         JButton signupButton = new JButton("회원 가입");
-        signupButton.setFont(signupFont);
+        signupButton.setFont(font.deriveFont(Font.BOLD, 30));
         signupButton.setForeground(Color.WHITE);
         signupButton.setPreferredSize(new Dimension(450, 70));
-        signupButton.setBackground(orangeColor);
+        signupButton.setBackground(green);
+        
+        JButton IDCheck = new JButton("중복 확인");
 
         signupButton.addActionListener(e -> {
             String username = usernameField.getText();
@@ -199,7 +224,7 @@ public class SignUp extends JPanel {
             }
 
             try {
-                if (isOkId(username, "LibraryKiosk/src/StartLogin/userdata.csv")) {
+                if (isOkId(username, "LibraryKiosk/csv/userdata.csv")) {
                     JOptionPane.showMessageDialog(frame, "중복된 아이디입니다.", "오류", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -218,17 +243,16 @@ public class SignUp extends JPanel {
             userData.add(dob);
             userData.add(phoneNumber);
             userData.add(name);
-
-            CSVWriter.writeUserData(userData);
+            
+            CSVWriter.writeUserData(userData, "LibraryKiosk/csv");
 
             JOptionPane.showMessageDialog(frame, "회원 가입이 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
             
             goBack();
         });
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(signupButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        
+        panel.add(signupButton, BorderLayout.SOUTH);
         MainPanel.setBackground(Color.WHITE);
         panel.add(MainPanel);
     }
