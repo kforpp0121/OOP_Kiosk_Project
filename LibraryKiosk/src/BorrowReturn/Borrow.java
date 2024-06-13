@@ -193,7 +193,7 @@ public class Borrow extends JPanel{
     }
     private void goBack() {
         SwingUtilities.invokeLater(() -> {
-            frame.getContentPane();removeAll();
+            frame.getContentPane().removeAll();
             MenuFirst menuFirst = new MenuFirst(frame, userinfo);
             menuFirst.setVisible(true);
             frame.add(menuFirst);
