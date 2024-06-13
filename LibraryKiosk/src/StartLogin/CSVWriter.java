@@ -8,7 +8,7 @@ import java.util.Vector;
 public class CSVWriter {
 
     public static void writeUserData(Vector<String> userData) {
-        String csvFilePath = "userdata.csv";
+        String csvFilePath = "LibraryKiosk/csv/userdata.csv";
 
         try (FileWriter writer = new FileWriter(csvFilePath, true)) {
             StringBuilder sb = new StringBuilder();

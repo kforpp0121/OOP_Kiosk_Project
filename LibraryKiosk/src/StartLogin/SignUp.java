@@ -244,7 +244,7 @@ public class SignUp extends JPanel {
             userData.add(phoneNumber);
             userData.add(name);
             
-            CSVWriter.writeUserData(userData, "LibraryKiosk/csv");
+            CSVWriter.writeUserData(userData);
 
             JOptionPane.showMessageDialog(frame, "회원 가입이 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
             
