@@ -8,12 +8,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class BorrowState extends JPanel {
-	
+
+	private Font font;
 	private void createUI() {
         setLayout(new BorderLayout());
         }
@@ -22,8 +25,9 @@ public class BorrowState extends JPanel {
 		
 		setSize(450, 700);
 		createUI();
+		setUIFont();
 		
-		Font backFont = new Font("Dialog", Font.BOLD, 25);
+		Font backFont = font.deriveFont(Font.BOLD, 25);
 		
 		JLabel borrowstateL = new JLabel("대출 현황");
 		borrowstateL.setOpaque(true);
@@ -112,9 +116,7 @@ public class BorrowState extends JPanel {
         
         BorrowReader brReader = new BorrowReader();
         BookDTReader dtReader = new BookDTReader();
-		String username = null;
-		username = userinfo.getUsername();
-        String idToLookup = username;
+        String idToLookup = userinfo.getUsername();
         List<Map<String, String>> getdata = brReader.getDataById(idToLookup);
         
         if (getdata != null) {
@@ -218,6 +220,20 @@ public class BorrowState extends JPanel {
 		add(borrowstateL, BorderLayout.NORTH);
 		add(basicP, BorderLayout.CENTER);
 		add(backward1B, BorderLayout.SOUTH);
+	}
+
+	private void setUIFont() {
+		// 나눔 고딕 폰트 파일 경로
+		String fontPath = "LibraryKiosk/font/NanumGothic.ttf";
+
+		// 폰트 파일로부터 폰트 객체 생성
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)).deriveFont(Font.PLAIN, 12);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(fontPath)));
+		} catch (IOException | FontFormatException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

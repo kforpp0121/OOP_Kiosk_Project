@@ -22,7 +22,7 @@ public class ReserveReader {
     
     public int countID(String id) {
         int count = 0;
-        File csv = new File("LibraryKiosk/csv/rv_test.csv");
+        File csv = new File("LibraryKiosk/csv/rv_information.csv");
         BufferedReader br = null;
 
         try {
@@ -52,7 +52,7 @@ public class ReserveReader {
     
     private Map<String, String> getUserInfoById(String id) {
         Map<String, String> userInfo = null;
-        File csv = new File("LibraryKiosk/csv/rv_test.csv");
+        File csv = new File("LibraryKiosk/csv/rv_information.csv");
         BufferedReader br = null;
 
         try {

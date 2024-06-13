@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import StartLogin.UserInfo;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
@@ -11,17 +13,21 @@ import java.io.IOException;
 
 public class Reservation extends JPanel{
     private JFrame frame;         // 전체 frame
+    private UserInfo userinfo;         // 사용자 정보
     private JPanel panel;         // 전체 panel
     private JPanel panelMain;     // main panel
     private Book book;            // 도서 정보
     private int height = 250;     // 결과 유닛 높이
     private int width = 100;      // 결과 유닛 너비
     private Font font;            // 나눔 고딕 폰트
-    private String csvFilePath = "LibraryKiosk/lib_test.csv";  // 도서 목록
+    private String csvFilePath = "LibraryKiosk/csv/library.csv";  // 도서 목록, 경로 및 파일 수정
+    BookDatabase bookDatabase;
 
-    public Reservation(Book book, JFrame frame) {
+    public Reservation(Book book, JFrame frame, UserInfo userinfo, BookDatabase bookDatabase) {
         this.book = book;      // 도서 정보
+        this.userinfo = userinfo;  // 사용자 정보
         this.frame = frame;    // 전체 frame
+        this.bookDatabase = bookDatabase; // 도서 목록
         setUIFont();           // 전체 font
         createUI();            // UI 생성
     }
@@ -121,11 +127,12 @@ public class Reservation extends JPanel{
         reserveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                book.setReserved(true);
+                // book.setReserved(true); // -> bookDatabase.updateCSV에서 변경하는거로 수정함
                 setVisible(false);
-                ReserveFinish reserveFinish = new ReserveFinish(book, frame);
+                ReserveFinish reserveFinish = new ReserveFinish(book, frame, userinfo);
                 reserveFinish.setVisible(true);
                 frame.add(reserveFinish);
+                bookDatabase.updateCSV(book, csvFilePath); // 도서 목록 업데이트
             }
         });
         reservePanel.add(reserveButton, BorderLayout.CENTER);
@@ -153,7 +160,7 @@ public class Reservation extends JPanel{
     private void goBack() {
         book.setReserved(false);   // 예약 취소
         setVisible(false);
-        Search search = new Search(csvFilePath, frame);
+        Search search = new Search(csvFilePath, frame, userinfo);
         search.setVisible(true);
         frame.add(search);
     }

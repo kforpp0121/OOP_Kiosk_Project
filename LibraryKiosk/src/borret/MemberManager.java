@@ -1,19 +1,17 @@
-package borret;// MemberManager.java
-import CSVController.MemberLoader;
+package borret;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Vector;
 
 public class MemberManager {
-    private Map<String, Member> members = new HashMap<>();
-    private MemberLoader memberLoader;
+    private Vector<Member> members;
+    private BBB memberLoader;
 
-    public MemberManager(MemberLoader memberLoader) {
+    public MemberManager(BBB memberLoader) {
         this.memberLoader = memberLoader;
-        this.members = memberLoader.loadMembers();
+        this.members = memberLoader.getMembers();
     }
 
-    public void saveMembers() {
-        memberLoader.saveMembers(members);
+    public Member getMemberById(String id) {
+        return memberLoader.getMemberById(id);
     }
 }

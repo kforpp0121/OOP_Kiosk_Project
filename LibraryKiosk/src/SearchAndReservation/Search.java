@@ -1,6 +1,7 @@
 package SearchAndReservation;
 
 import StartLogin.Login;
+import StartLogin.UserInfo;
 import menu.MenuFirst;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class Search extends JPanel {
     private JFrame frame;              // 전체 frame
+    private UserInfo userinfo;         // 사용자 정보
     private JPanel panel;              // 전체 panel
     private JTextField searchField;    // 검색창
     private JPanel resultPanel;        // 결과창
@@ -24,9 +26,10 @@ public class Search extends JPanel {
     private int width = 100;           // 결과 유닛 너비
     private Font font;                 // 나눔 고딕 폰트
 
-    public Search(String csvFilePath, JFrame frame) {
+    public Search(String csvFilePath, JFrame frame, UserInfo userinfo) {
         bookDatabase = new BookDatabase(csvFilePath);  // 도서 csv 파일의 경로를 통해 데이터베이스를 받는다.
         this.frame = frame;    // 전체 frame
+        this.userinfo = userinfo;  // 사용자 정보
         setUIFont();           // 전체 font
         createUI();            // UI 생성
     }
@@ -140,7 +143,7 @@ public class Search extends JPanel {
     }
     private void goBack() {
         setVisible(false);
-        MenuFirst menuFirst = new MenuFirst(frame, Login.userInfo);
+        MenuFirst menuFirst = new MenuFirst(frame, userinfo);
         menuFirst.setVisible(true);
         frame.add(menuFirst);
     }
@@ -189,7 +192,7 @@ public class Search extends JPanel {
             infoPanel.setBackground(new Color(0xD9D9D9));  // 16진수 색상 코드 사용
             JLabel titleLabel = new JLabel(" 제목 : " + book.getTitle());
             JLabel authorLabel = new JLabel(" 저자 : " + book.getAuthor());
-            JLabel reservationLabel = new JLabel(" 예약 : " + (book.isAvailable() ? "가능" : "불가능"));
+            JLabel reservationLabel = new JLabel(" 예약 : " + (book.isReserved() ? "불가능" : "가능")); // isAvailable 대신 isReserved 사용
 
             Font infoFont = font.deriveFont(Font.PLAIN, 15); // 나눔고딕, 크기 15
             titleLabel.setFont(infoFont);
@@ -218,7 +221,7 @@ public class Search extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (book.isAvailable()) {
                         setVisible(false);
-                        Reservation reservation = new Reservation(book, frame);
+                        Reservation reservation = new Reservation(book, frame, userinfo, bookDatabase); // bookDatabase 추가
                         reservation.setVisible(true);
                         frame.add(reservation);
                     } else {

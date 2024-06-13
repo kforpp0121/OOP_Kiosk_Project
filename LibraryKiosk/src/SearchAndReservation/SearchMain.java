@@ -1,5 +1,7 @@
 package SearchAndReservation;
 
+import StartLogin.UserInfo;
+
 import javax.swing.*;
 
 
@@ -21,12 +23,12 @@ public class SearchMain {
                 frame.setLocation(300, 10);      // (300, 10) 위치에 배치
 
                 // 도서 대출 키오스크 GUI 생성
-                Search search = new Search(csvFilePath, frame);
+                /*Search search = new Search(csvFilePath, frame, userinfo);
                 frame.add(search);
                 search.setVisible(true);
 
                 // GUI를 보이도록 설정
-                frame.setVisible(true);
+                frame.setVisible(true);*/
             }
         });
     }
