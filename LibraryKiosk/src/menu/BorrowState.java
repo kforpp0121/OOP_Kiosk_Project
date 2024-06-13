@@ -23,7 +23,7 @@ public class BorrowState extends JPanel {
 	
 	public BorrowState (JFrame frame, UserInfo userinfo) {
 		
-		setSize(450, 700);
+		setSize(450, 800);
 		createUI();
 		setUIFont();
 		
