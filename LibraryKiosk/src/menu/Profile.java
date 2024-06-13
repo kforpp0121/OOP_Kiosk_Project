@@ -20,7 +20,7 @@ public class Profile extends JPanel {
 
     public Profile(JFrame frame, UserInfo userinfo) {
 
-        setSize(450, 700);
+        setSize(450, 800);
         createUI();
         setUIFont();
 
@@ -58,7 +58,7 @@ public class Profile extends JPanel {
         profL.setVerticalAlignment(SwingConstants.CENTER);
         profL.setFont(backFont);
         profL.setForeground(Color.WHITE);
-        profL.setPreferredSize(new Dimension(450, 160));
+        profL.setPreferredSize(new Dimension(450, 170));
         basicP.add(profL);
 
         JLabel borrow = new JLabel();
