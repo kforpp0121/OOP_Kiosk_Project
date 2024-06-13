@@ -1,5 +1,6 @@
 package LibraryManagerDisplay;
 
+import BorrowReturn.BR_InformationCSVController;
 import CSVController.BookCSVController;
 
 import javax.swing.*;
@@ -127,6 +128,7 @@ public class BookTable extends JPanel{
     public class DoubleClickedListener implements MouseListener { // 더블클릭 이벤트 리스너
         @Override
         public void mouseClicked(MouseEvent e) {
+            Vector<Vector<String>> brInformation = new BR_InformationCSVController().readCSV();
             if(e.getSource()==bookTable) { // 테이블에서 더블클릭 시
                 if (e.getClickCount() == 2) {
                     int row = bookTable.getSelectedRow(); // 선택된 행의 인덱스를 가져옴
@@ -139,6 +141,17 @@ public class BookTable extends JPanel{
                     String rv = (String) model.getValueAt(row, 3);
                     String bool = (String) model.getValueAt(row, 4);
                     String image = (String) model.getValueAt(row, 5);
+
+                    boolean isDuplicate = brInformation.stream()
+                            .anyMatch(data -> data.get(0).equals(ISBN)); // brInformation에서 동일한 ISBN을 가진 항목이 있는지 확인
+
+                    if (isDuplicate) {
+                        JOptionPane optionPane = new JOptionPane("현재 대출 중인 도서의 정보는\n변경할 수 없습니다.", JOptionPane.ERROR_MESSAGE);
+                        JDialog dialog = optionPane.createDialog("오류");
+                        dialog.setLocation(950, 300);
+                        dialog.setVisible(true);
+                        return;
+                    }
 
                     BookInfo selectedBook = new BookInfo(title, author, ISBN, rv, bool,image); // 선택된 책 정보를 BookInfo 객체로 생성
 
