@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Reservation extends JPanel{
     private JFrame frame;         // 전체 frame
@@ -133,6 +134,7 @@ public class Reservation extends JPanel{
                 reserveFinish.setVisible(true);
                 frame.add(reserveFinish);
                 bookDatabase.updateCSV(book, csvFilePath); // 도서 목록 업데이트
+                new RVController().writeCSV(book.getIsbn() ,userinfo.getUsername(), LocalDate.now().toString()); // 예약 목록 업데이트
             }
         });
         reservePanel.add(reserveButton, BorderLayout.CENTER);
