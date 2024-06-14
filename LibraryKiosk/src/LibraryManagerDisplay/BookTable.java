@@ -145,13 +145,15 @@ public class BookTable extends JPanel{
                     boolean isDuplicate = brInformation.stream()
                             .anyMatch(data -> data.get(0).equals(ISBN)); // brInformation에서 동일한 ISBN을 가진 항목이 있는지 확인
 
-                    if (isDuplicate) {
-                        JOptionPane optionPane = new JOptionPane("현재 대출 중인 도서의 정보는\n변경할 수 없습니다.", JOptionPane.ERROR_MESSAGE);
+                    if (isDuplicate || rv.equals("불가능")){
+                        JOptionPane optionPane = new JOptionPane("현재 대출/예약 중인 도서의 정보는\n변경할 수 없습니다.", JOptionPane.ERROR_MESSAGE);
                         JDialog dialog = optionPane.createDialog("오류");
                         dialog.setLocation(950, 300);
                         dialog.setVisible(true);
                         return;
                     }
+
+
 
                     BookInfo selectedBook = new BookInfo(title, author, ISBN, rv, bool,image); // 선택된 책 정보를 BookInfo 객체로 생성
 
