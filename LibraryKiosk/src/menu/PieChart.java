@@ -12,7 +12,6 @@ public class PieChart extends JFrame {
     public PieChart(JPanel parent) {
         setTitle("대출량 비교");
         setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setUIFont();
 
