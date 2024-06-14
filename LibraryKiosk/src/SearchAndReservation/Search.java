@@ -224,10 +224,13 @@ public class Search extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (book.isAvailable()) {
-                        frame.getContentPane().removeAll();
-                        Reservation reservation = new Reservation(book, frame, userinfo, bookDatabase); // bookDatabase 추가
-                        reservation.setVisible(true);
-                        frame.add(reservation);
+                        SwingUtilities.invokeLater(() -> {
+                            frame.getContentPane().removeAll();
+                            Reservation reservation = new Reservation(book, frame, userinfo, bookDatabase); // bookDatabase 추가
+                            reservation.setVisible(true);
+                            frame.add(reservation);
+                            frame.revalidate();
+                        });
                     } else {
                         JOptionPane.showMessageDialog(
                                 Search.this,
