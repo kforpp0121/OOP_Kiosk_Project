@@ -4,6 +4,7 @@ import BorrowReturn.BR_InformationCSVController;
 import CSVController.BookCSVController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -39,7 +40,7 @@ public class BookTable extends JPanel{
         this.bookList = bookList; // bookList를 받아옴
         JPanel tablePanel = new JPanel(new BorderLayout());
 
-        Vector<String> columnName =  new Vector<>(Arrays.asList("제목", "작가", "ISBN","예약 가능 여부", "예약 현황","표지")); // 테이블의 열 이름
+        Vector<String> columnName =  new Vector<>(Arrays.asList("제목", "작가", "ISBN","대출 현항", "예약 현황","표지")); // 테이블의 열 이름
 
         model = new DefaultTableModel(columnName, 0) { // 테이블 내용 수정 불가하도록 설정
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -51,8 +52,28 @@ public class BookTable extends JPanel{
         bookTable.setFont(tableFont);
 
         for(Vector<String> book : bookList){ // bookList의 내용을 테이블에 추가
-            model.addRow(book);
+            Vector<String> bookInfo =  new Vector<String>();
+            bookInfo.add(book.get(0));
+            bookInfo.add(book.get(1));
+            bookInfo.add(book.get(2));
+            long brCount;
+            Vector<Vector<String>> brList = new BR_InformationCSVController().readCSV();
+            brCount = brList.stream()
+                    .filter(data -> data.get(0).equals(book.get(2)))
+                    .count();
+            bookInfo.add(Long.toString(brCount) + "권 대출 중");
+            bookInfo.add(book.get(4));
+            bookInfo.add(book.get(5));
+            model.addRow(bookInfo);
         }
+
+        // 열 가운데 정렬
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        bookTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        bookTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        bookTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        bookTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 
         bookTable.addMouseListener(new DoubleClickedListener()); // 더블클릭 이벤트 추가
 
@@ -68,9 +89,9 @@ public class BookTable extends JPanel{
         bookTable.getColumn("제목").setPreferredWidth(150); // 열 너비 설정
         bookTable.getColumn("작가").setPreferredWidth(50);
         bookTable.getColumn("ISBN").setPreferredWidth(100);
-        bookTable.getColumn("예약 가능 여부").setPreferredWidth(100);
-        bookTable.getColumn("예약 현황").setPreferredWidth(50);
-        bookTable.getColumn("표지").setPreferredWidth(50);
+        bookTable.getColumn("대출 현항").setPreferredWidth(60);
+        bookTable.getColumn("예약 현황").setPreferredWidth(60);
+        bookTable.getColumn("표지").setPreferredWidth(80);
 
         bookTable.setRowHeight(30); // 행 높이 설정
 
@@ -145,7 +166,7 @@ public class BookTable extends JPanel{
                     boolean isDuplicate = brInformation.stream()
                             .anyMatch(data -> data.get(0).equals(ISBN)); // brInformation에서 동일한 ISBN을 가진 항목이 있는지 확인
 
-                    if (isDuplicate || rv.equals("불가능")){
+                    if (isDuplicate || bool.equals("1")){
                         JOptionPane optionPane = new JOptionPane("현재 대출/예약 중인 도서의 정보는\n변경할 수 없습니다.", JOptionPane.ERROR_MESSAGE);
                         JDialog dialog = optionPane.createDialog("오류");
                         dialog.setLocation(950, 300);
@@ -184,7 +205,19 @@ public class BookTable extends JPanel{
         this.bookList = newBookList;
         model.setRowCount(0);
         for(Vector<String> book : bookList){
-            model.addRow(book);
+            Vector<String> bookInfo =  new Vector<String>();
+            bookInfo.add(book.get(0));
+            bookInfo.add(book.get(1));
+            bookInfo.add(book.get(2));
+            long brCount;
+            Vector<Vector<String>> brList = new BR_InformationCSVController().readCSV();
+            brCount = brList.stream()
+                    .filter(data -> data.get(0).equals(book.get(2)))
+                    .count();
+            bookInfo.add(Long.toString(brCount) + "권 대출 중");
+            bookInfo.add(book.get(4));
+            bookInfo.add(book.get(5));
+            model.addRow(bookInfo);
         }
     }
 }
