@@ -145,6 +145,14 @@ public class AddBookDialog extends JDialog{
                 dialog.setVisible(true);
                 return;
             }
+            // 만약 도서 리스트에 ISBN이 중복되는 도서가 있다면
+            if(bookList.stream().anyMatch(data -> data.get(2).equals(ISBN.getText()))){
+                JOptionPane optionPane = new JOptionPane("이미 도서 목록에 있는 도서입니다.", JOptionPane.ERROR_MESSAGE);
+                JDialog dialog = optionPane.createDialog("입력 오류");
+                dialog.setLocation(950, 300);
+                dialog.setVisible(true);
+                return;
+            }
             // 완료 버튼 -> confirmDialog 띄움
             ConfirmTaskDialog confirmTaskDialog = null;
             try {
