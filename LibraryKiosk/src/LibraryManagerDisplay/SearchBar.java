@@ -58,7 +58,7 @@ public class SearchBar extends JPanel{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String keyword = text.getText();
+            String keyword = text.getText().trim();
             if (!keyword.isEmpty()) { // 검색어가 비어있지 않을 때
                 filteredBooks = books.stream()
                         .filter(book -> book != null && book.size() > 1 &&

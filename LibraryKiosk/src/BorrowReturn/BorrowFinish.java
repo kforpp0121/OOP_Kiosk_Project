@@ -29,6 +29,7 @@ public class BorrowFinish extends JPanel {
     private JPanel panel;             // 전체 panel
     private JProgressBar progressBar; // 타임바
     private Font font;                // 나눔 고딕 폰트
+    private Timer timer; // 타이머를 클래스의 멤버 변수로 선언
 
     public BorrowFinish(JFrame frame, UserInfo userinfo) {
         this.userinfo = userinfo;  // 사용자 정보
@@ -85,7 +86,7 @@ public class BorrowFinish extends JPanel {
         panel.add(progressBar, BorderLayout.NORTH);
     }
     private void startTimer() {
-        Timer timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int value = progressBar.getValue();
@@ -102,9 +103,13 @@ public class BorrowFinish extends JPanel {
 
     // 홈으로
     private void goHome() {
+        // 타이머를 멈추는 코드 추가
+        if (timer != null) {
+            timer.stop();
+        }
         // 홈 화면으로 이동하는 코드
         SwingUtilities.invokeLater(() -> {
-            frame.getContentPane();removeAll();
+            frame.getContentPane().removeAll();
             MenuFirst menuFirst = new MenuFirst(frame, userinfo);
             menuFirst.setVisible(true);
             frame.add(menuFirst);
