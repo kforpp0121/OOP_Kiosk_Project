@@ -12,7 +12,9 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class SearchBar extends JPanel{
-    public SearchBar(Vector<Vector<String>> bookList) throws IOException, FontFormatException {
+    JFrame frame;
+    public SearchBar(Vector<Vector<String>> bookList, JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
 
         Color green = new Color(0x00469C76);
 
@@ -69,12 +71,12 @@ public class SearchBar extends JPanel{
                 if (filteredBooks.isEmpty()) { // 검색 결과가 없을 때 -> 오류 메시지 출력
                     JOptionPane optionPane = new JOptionPane("찾으시는 책이 목록에 없습니다.", JOptionPane.ERROR_MESSAGE);
                     JDialog dialog = optionPane.createDialog("검색 결과 오류");
-                    dialog.setLocation(950, 300);
+                    dialog.setLocationRelativeTo(frame);
                     dialog.setVisible(true);
                 } else { // 검색 결과가 있을 때 -> 검색 결과 다이얼로그 띄움
                     SearchResultDialog searchResultDialog = null;
                     try {
-                        searchResultDialog = new SearchResultDialog(filteredBooks);
+                        searchResultDialog = new SearchResultDialog(filteredBooks, frame);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     } catch (FontFormatException ex) {
@@ -85,7 +87,7 @@ public class SearchBar extends JPanel{
             } else { // 검색어가 비어있을 때 -> 오류 메시지 출력
                 JOptionPane optionPane = new JOptionPane("찾으려는 책 제목이나 작가명을 입력해주세요.", JOptionPane.ERROR_MESSAGE);
                 JDialog dialog = optionPane.createDialog("도서 입력 오류");
-                dialog.setLocation(950, 300);
+                dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
             }
         }

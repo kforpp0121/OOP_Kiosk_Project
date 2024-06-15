@@ -16,8 +16,11 @@ public class AddBookDialog extends JDialog{
     JPanel titlePanel, authorPanel, ISBNPanel, imagePanel;
     JLabel titleLabel, authorLabel, ISBNLabel,imageLabel, fileLabel;
     JTextField title, author, ISBN;
+    JFrame frame;
     boolean isConfirmed = false;
-    public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model) throws IOException, FontFormatException {
+    public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model, JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
+
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
@@ -77,11 +80,13 @@ public class AddBookDialog extends JDialog{
                 fileChooser.setDialogTitle("이미지 파일 선택");
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
+
                 // 이미지 파일 필터 설정
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
                 fileChooser.setFileFilter(filter);
 
-                int result = fileChooser.showOpenDialog(null);
+
+                int result = fileChooser.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     // 파일 이름을 레이블에 설정
@@ -124,8 +129,8 @@ public class AddBookDialog extends JDialog{
 
         add(panel);
 
-        setLocation(900, 300);
         setSize(400, 250);
+        setLocationRelativeTo(frame);
     }
 
     public class addBookListener implements ActionListener {
@@ -141,7 +146,7 @@ public class AddBookDialog extends JDialog{
             if(title.getText().isEmpty()||author.getText().isEmpty()||ISBN.getText().length()!=13 || !ISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")){
                 JOptionPane optionPane = new JOptionPane("입력한 도서 정보가 잘못되었습니다.", JOptionPane.ERROR_MESSAGE);
                 JDialog dialog = optionPane.createDialog("입력 오류");
-                dialog.setLocation(950, 300);
+                dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
                 return;
             }
@@ -149,14 +154,14 @@ public class AddBookDialog extends JDialog{
             if(bookList.stream().anyMatch(data -> data.get(2).equals(ISBN.getText()))){
                 JOptionPane optionPane = new JOptionPane("이미 도서 목록에 있는 도서입니다.", JOptionPane.ERROR_MESSAGE);
                 JDialog dialog = optionPane.createDialog("입력 오류");
-                dialog.setLocation(950, 300);
+                dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
                 return;
             }
             // 완료 버튼 -> confirmDialog 띄움
             ConfirmTaskDialog confirmTaskDialog = null;
             try {
-                confirmTaskDialog = new ConfirmTaskDialog("입력");
+                confirmTaskDialog = new ConfirmTaskDialog("입력", frame);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -195,7 +200,7 @@ public class AddBookDialog extends JDialog{
                             add(title.getText());
                             add(author.getText());
                             add(ISBN.getText());
-                            add("가능");
+                            add("0권 대출 중");
                             add("0");
                             if(fileLabel.getText().equals(""))
                                 add("symbol_Silver.png");
@@ -219,7 +224,7 @@ public class AddBookDialog extends JDialog{
 
                     JOptionPane optionPane = new JOptionPane("도서 입력이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
                     JDialog dialog = optionPane.createDialog("도서 입력 완료");
-                    dialog.setLocation(950, 300);
+                    dialog.setLocationRelativeTo(frame);
                     dialog.setVisible(true);
                 }
             }

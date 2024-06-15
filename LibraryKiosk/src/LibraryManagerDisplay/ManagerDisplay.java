@@ -20,8 +20,8 @@ public class ManagerDisplay {
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
 
-        JPanel searchBarPanel = new SearchBar(bookList); // 검색창
-        JPanel bookTablePanel = new BookTable(bookList); // 도서 목록 테이블
+        JPanel searchBarPanel = new SearchBar(bookList,frame); // 검색창
+        JPanel bookTablePanel = new BookTable(bookList,frame); // 도서 목록 테이블
 
         panel.add(searchBarPanel, BorderLayout.NORTH);
         panel.add(bookTablePanel, BorderLayout.CENTER);

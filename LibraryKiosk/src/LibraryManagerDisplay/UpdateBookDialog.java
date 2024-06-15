@@ -16,8 +16,10 @@ public class UpdateBookDialog extends JDialog {
     JLabel titleLabel, authorLabel, ISBNLabel,imageLabel, fileLabel;
     JTextField title, author, ISBN;
     boolean isConfirmed = false;
+    JFrame frame;
     BookInfo book;
-    public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book) throws IOException, FontFormatException {
+    public UpdateBookDialog(Vector<Vector<String>> bookList, BookInfo book, JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
         this.book = book;
 
         Color green = new Color(0x00469C76);
@@ -124,8 +126,8 @@ public class UpdateBookDialog extends JDialog {
 
         add(panel);
 
-        setLocation(900, 300);
         setSize(400, 250);
+        setLocationRelativeTo(frame);
     }
 
     public class UpdateBookListener implements ActionListener {
@@ -145,14 +147,14 @@ public class UpdateBookDialog extends JDialog {
                     || !ISBN.getText().matches("[+-]?\\d*(\\.\\d+)?")){
                 JOptionPane optionPane = new JOptionPane("입력한 도서 정보가 잘못되었습니다.", JOptionPane.ERROR_MESSAGE);
                 JDialog dialog = optionPane.createDialog("입력 오류");
-                dialog.setLocation(950, 300);
+                dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
                 return;
             }
             // 완료 버튼 -> confirmTaskDialog 띄움
             ConfirmTaskDialog confirmTaskDialog = null;
             try {
-                confirmTaskDialog = new ConfirmTaskDialog("수정");
+                confirmTaskDialog = new ConfirmTaskDialog("수정", frame);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -194,7 +196,7 @@ public class UpdateBookDialog extends JDialog {
                     // 수정 완료
                     JOptionPane optionPane = new JOptionPane("도서 수정이 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
                     JDialog dialog = optionPane.createDialog("도서 수정 완료");
-                    dialog.setLocation(950, 300);
+                    dialog.setLocationRelativeTo(frame);
                     dialog.setVisible(true);                }
             }
         }

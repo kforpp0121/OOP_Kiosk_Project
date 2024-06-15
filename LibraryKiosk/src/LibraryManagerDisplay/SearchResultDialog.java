@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class SearchResultDialog extends JDialog {
-    public SearchResultDialog(Vector<Vector<String>> bookList) throws IOException, FontFormatException {
+    JFrame frame;
+    public SearchResultDialog(Vector<Vector<String>> bookList,JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
         setTitle("검색 결과");
 
         // 폰트 불러오기
@@ -27,14 +29,14 @@ public class SearchResultDialog extends JDialog {
         textPanel.add(textLabel);
         textPanel.setBackground(Color.WHITE);
 
-        JPanel bookTablePanel = new BookTable(bookList);
+        JPanel bookTablePanel = new BookTable(bookList, frame);
 
         panel.add(textPanel, BorderLayout.NORTH);
         panel.add(bookTablePanel, BorderLayout.CENTER);
 
         add(panel);
 
-        setLocation(700, 50);
         setSize(800,700);
+        setLocationRelativeTo(frame);
     }
 }

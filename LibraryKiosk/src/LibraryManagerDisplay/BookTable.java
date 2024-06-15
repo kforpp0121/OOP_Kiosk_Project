@@ -21,7 +21,9 @@ public class BookTable extends JPanel{
     DefaultTableModel model;
     JTable bookTable;
     Vector<Vector<String>> bookList;
-    public BookTable(Vector<Vector<String>> bookList) throws IOException, FontFormatException {
+    JFrame frame;
+    public BookTable(Vector<Vector<String>> bookList, JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
         Color green = new Color(0x00469C76);
 
         // 폰트 불러오기
@@ -102,6 +104,7 @@ public class BookTable extends JPanel{
 
         JPanel refreshPanel = new JPanel();
         JButton refreshButton = new JButton("새로고침");
+        refreshButton.setPreferredSize(new Dimension(140, 30));
         refreshButton.setBackground(new Color(0x00EE7930));
         refreshButton.setForeground(Color.WHITE);
         refreshButton.setFont(btnFont);
@@ -125,7 +128,7 @@ public class BookTable extends JPanel{
         addBook.setFont(btnFont);
         addBook.addActionListener(e->{
             try {
-                new AddBookDialog(bookList, model).setVisible(true);
+                new AddBookDialog(bookList, model, frame).setVisible(true);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -169,7 +172,7 @@ public class BookTable extends JPanel{
                     if (isDuplicate || bool.equals("1")){
                         JOptionPane optionPane = new JOptionPane("현재 대출/예약 중인 도서의 정보는\n변경할 수 없습니다.", JOptionPane.ERROR_MESSAGE);
                         JDialog dialog = optionPane.createDialog("오류");
-                        dialog.setLocation(950, 300);
+                        dialog.setLocationRelativeTo(frame);
                         dialog.setVisible(true);
                         return;
                     }
@@ -180,7 +183,7 @@ public class BookTable extends JPanel{
 
                     SelectTaskDialog selectTaskDialog = null; // 선택된 책 정보를 가지고 SelectTaskDialog 생성
                     try {
-                        selectTaskDialog = new SelectTaskDialog(bookList, selectedBook, model, row);
+                        selectTaskDialog = new SelectTaskDialog(bookList, selectedBook, model, row, frame);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     } catch (FontFormatException ex) {
@@ -202,22 +205,27 @@ public class BookTable extends JPanel{
     }
 
     public void updateBookList(Vector<Vector<String>> newBookList) {
-        this.bookList = newBookList;
+        Vector<Vector<String>> filteredBooks = new Vector<Vector<String>>();
+        //this.bookList = newBookList;
         model.setRowCount(0);
-        for(Vector<String> book : bookList){
-            Vector<String> bookInfo =  new Vector<String>();
-            bookInfo.add(book.get(0));
-            bookInfo.add(book.get(1));
-            bookInfo.add(book.get(2));
-            long brCount;
-            Vector<Vector<String>> brList = new BR_InformationCSVController().readCSV();
-            brCount = brList.stream()
-                    .filter(data -> data.get(0).equals(book.get(2)))
-                    .count();
-            bookInfo.add(Long.toString(brCount) + "권 대출 중");
-            bookInfo.add(book.get(4));
-            bookInfo.add(book.get(5));
-            model.addRow(bookInfo);
+        for(Vector<String> book : newBookList){
+            if (bookList.contains(book)) {
+                filteredBooks.add(book); // bookList에 있는 책 정보만 filteredBooks에 추가
+                Vector<String> bookInfo = new Vector<String>();
+                bookInfo.add(book.get(0));
+                bookInfo.add(book.get(1));
+                bookInfo.add(book.get(2));
+                long brCount;
+                Vector<Vector<String>> brList = new BR_InformationCSVController().readCSV();
+                brCount = brList.stream()
+                        .filter(data -> data.get(0).equals(book.get(2)))
+                        .count();
+                bookInfo.add(Long.toString(brCount) + "권 대출 중");
+                bookInfo.add(book.get(4));
+                bookInfo.add(book.get(5));
+                model.addRow(bookInfo);
+            }
         }
+        bookList = filteredBooks;
     }
 }

@@ -15,7 +15,10 @@ public class SelectTaskDialog extends JDialog {
     Vector<Vector<String>> bookList;
     DefaultTableModel model;
     int row;
-    public SelectTaskDialog(Vector<Vector<String>> bookList, BookInfo book, DefaultTableModel model, int row) throws IOException, FontFormatException {
+    JFrame frame;
+    public SelectTaskDialog(Vector<Vector<String>> bookList, BookInfo book, DefaultTableModel model, int row,JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
+
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
 
@@ -56,7 +59,7 @@ public class SelectTaskDialog extends JDialog {
             dispose();
             UpdateBookDialog updateBookDialog = null;
             try {
-                updateBookDialog = new UpdateBookDialog(bookList, book);
+                updateBookDialog = new UpdateBookDialog(bookList, book, frame);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -75,8 +78,8 @@ public class SelectTaskDialog extends JDialog {
         add(confirmPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        setLocation(950, 300);
         setSize(300, 150);
+        setLocationRelativeTo(frame);
     }
 
     public class DeleteListener implements ActionListener { // 삭제 버튼 리스너
@@ -91,7 +94,7 @@ public class SelectTaskDialog extends JDialog {
             // 확인 다이얼로그 띄우기
             ConfirmTaskDialog confirmTaskDialog = null;
             try {
-                confirmTaskDialog = new ConfirmTaskDialog("삭제");
+                confirmTaskDialog = new ConfirmTaskDialog("삭제", frame);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -132,7 +135,7 @@ public class SelectTaskDialog extends JDialog {
                     // 완료 다이얼로그 띄우기
                     JOptionPane optionPane = new JOptionPane("도서 삭제가 완료되었습니다.", JOptionPane.INFORMATION_MESSAGE);
                     JDialog dialog = optionPane.createDialog("도서 삭제 완료");
-                    dialog.setLocation(950, 300);
+                    dialog.setLocationRelativeTo(frame);
                     dialog.setVisible(true);
                 }
             }

@@ -9,7 +9,10 @@ import java.io.IOException;
 
 public class ConfirmTaskDialog extends JDialog {
     private boolean isConfirmed;
-    public ConfirmTaskDialog(String task) throws IOException, FontFormatException {
+    JFrame frame;
+    public ConfirmTaskDialog(String task, JFrame frame) throws IOException, FontFormatException {
+        this.frame = frame;
+
         setTitle("작업 확인");
         setConfirmed(false);
 
@@ -56,8 +59,8 @@ public class ConfirmTaskDialog extends JDialog {
         add(confirmPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        setLocation(950, 300);
         setSize(300, 150);
+        setLocationRelativeTo(frame);
     }
 
     public boolean isConfirmed() {
