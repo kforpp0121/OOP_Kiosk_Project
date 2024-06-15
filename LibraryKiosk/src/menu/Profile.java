@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 public class Profile extends JPanel {
 
     private Font font;
+    private PieChart PieChart;
     private void createUI() {
         setLayout(new BorderLayout());   // 기본 panel 설정
     }
@@ -95,6 +96,21 @@ public class Profile extends JPanel {
         basicP.add(reserve);
         basicP.add(date);
         basicP.add(overdue);
+
+        // 대출 원형 그래프
+        JButton piechart = new JButton("대출량 비교");      // 버튼
+        Font chartFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
+        piechart.setFont(chartFont);
+        piechart.setBackground(new Color(0xD9D9D9));      // 버튼의 배경색
+        piechart.setPreferredSize(new Dimension(300, 40));  // 버튼 크기
+
+        piechart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PieChart(basicP);
+            }
+        });
+        basicP.add(piechart);
 
 
         if (userinfo.getPhoneNumber() != null && userinfo.getDob() != null) {
