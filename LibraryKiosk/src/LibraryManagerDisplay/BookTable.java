@@ -128,7 +128,7 @@ public class BookTable extends JPanel{
         addBook.setFont(btnFont);
         addBook.addActionListener(e->{
             try {
-                new AddBookDialog(bookList, model, frame).setVisible(true);
+                new AddBookDialog(bookList, model, frame, this).setVisible(true);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (FontFormatException ex) {
@@ -205,6 +205,7 @@ public class BookTable extends JPanel{
     }
 
     public void updateBookList(Vector<Vector<String>> newBookList) {
+
         Vector<Vector<String>> filteredBooks = new Vector<Vector<String>>();
         //this.bookList = newBookList;
         model.setRowCount(0);
@@ -227,5 +228,9 @@ public class BookTable extends JPanel{
             }
         }
         bookList = filteredBooks;
+    }
+
+    public void receiveBookList(Vector<Vector<String>> newBookList) {
+        this.bookList = newBookList;
     }
 }

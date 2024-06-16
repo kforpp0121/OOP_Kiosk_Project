@@ -20,9 +20,11 @@ public class AddBookDialog extends JDialog{
     JLabel titleLabel, authorLabel, ISBNLabel,imageLabel, fileLabel;
     JTextField title, author, ISBN;
     JFrame frame;
+    BookTable bookTable;
     boolean isConfirmed = false;
-    public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model, JFrame frame) throws IOException, FontFormatException {
+    public AddBookDialog(Vector<Vector<String>> bookList, DefaultTableModel model, JFrame frame, BookTable bookTable) throws IOException, FontFormatException {
         this.frame = frame;
+        this.bookTable = bookTable;
 
         Color green = new Color(0x00469C76);
         Color orange = new Color(0x00EE7930);
@@ -236,6 +238,9 @@ public class AddBookDialog extends JDialog{
                                 add(fileLabel.getText());
                         }
                     });
+
+                    // BookTable의 bookList를 업데이트
+                    bookTable.receiveBookList(bookList);
 
                     BookCSVController bookCsvController = new BookCSVController();
                     BookInfo book = new BookInfo(newBook.get(0), newBook.get(1), newBook.get(2), newBook.get(3), newBook.get(4), newBook.get(5));
