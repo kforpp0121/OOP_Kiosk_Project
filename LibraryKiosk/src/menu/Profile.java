@@ -101,8 +101,9 @@ public class Profile extends JPanel {
         JButton piechart = new JButton("대출량 비교");      // 버튼
         Font chartFont = font.deriveFont(Font.BOLD, 25); // 나눔고딕, 굵은체, 크기 25
         piechart.setFont(chartFont);
-        piechart.setBackground(new Color(0xD9D9D9));      // 버튼의 배경색
-        piechart.setPreferredSize(new Dimension(300, 40));  // 버튼 크기
+        piechart.setBackground(new Color(0x469C76)); // 버튼의 배경색
+        piechart.setForeground(Color.WHITE); // 버튼 글씨색
+        piechart.setBorder(size);  // 버튼 크기
 
         piechart.addActionListener(new ActionListener() {
             @Override
