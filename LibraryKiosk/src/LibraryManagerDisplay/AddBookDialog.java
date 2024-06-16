@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Vector;
 
 public class AddBookDialog extends JDialog{
@@ -86,11 +89,22 @@ public class AddBookDialog extends JDialog{
                 fileChooser.setFileFilter(filter);
 
 
+
+
                 int result = fileChooser.showOpenDialog(frame);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     // 파일 이름을 레이블에 설정
                     fileLabel.setText(selectedFile.getName());
+
+                    // 선택한 이미지 파일을 bookcover 폴더로 복사
+                    try {
+                        Path sourcePath = selectedFile.toPath();
+                        Path targetPath = Paths.get("LibraryKiosk/bookcover/" + selectedFile.getName());
+                        Files.copy(sourcePath, targetPath);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
