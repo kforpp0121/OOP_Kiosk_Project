@@ -162,7 +162,7 @@ public class BookTable extends JPanel{
                     String title = (String) model.getValueAt(row, 0);
                     String author = (String) model.getValueAt(row, 1);
                     String ISBN = (String) model.getValueAt(row, 2);
-                    String rv = (String) model.getValueAt(row, 3);
+                    String rv = bookList.get(row).get(3);
                     String bool = (String) model.getValueAt(row, 4);
                     String image = (String) model.getValueAt(row, 5);
 

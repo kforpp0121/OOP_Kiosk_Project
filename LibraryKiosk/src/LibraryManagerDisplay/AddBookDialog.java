@@ -214,7 +214,7 @@ public class AddBookDialog extends JDialog{
                             add(title.getText());
                             add(author.getText());
                             add(ISBN.getText());
-                            add("0권 대출 중");
+                            add("가능");
                             add("0");
                             if(fileLabel.getText().equals(""))
                                 add("symbol_Silver.png");
@@ -223,7 +223,19 @@ public class AddBookDialog extends JDialog{
                         }
                     };
                     bookList.add(newBook);
-                    model.addRow(newBook);
+                    model.addRow(new Vector<String>(){
+                        {
+                            add(title.getText());
+                            add(author.getText());
+                            add(ISBN.getText());
+                            add("0권 대출 중");
+                            add("0");
+                            if(fileLabel.getText().equals(""))
+                                add("symbol_Silver.png");
+                            else
+                                add(fileLabel.getText());
+                        }
+                    });
 
                     BookCSVController bookCsvController = new BookCSVController();
                     BookInfo book = new BookInfo(newBook.get(0), newBook.get(1), newBook.get(2), newBook.get(3), newBook.get(4), newBook.get(5));
