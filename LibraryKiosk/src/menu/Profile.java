@@ -56,7 +56,7 @@ public class Profile extends JPanel {
         });
 
         JLabel profL = new JLabel();
-        profL.setBackground(Color.decode("#469C76"));
+        profL.setBackground(Color.decode("#737373"));
         profL.setOpaque(true);
         profL.setHorizontalAlignment(SwingConstants.CENTER);
         profL.setVerticalAlignment(SwingConstants.CENTER);
